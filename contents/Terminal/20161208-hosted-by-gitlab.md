@@ -5,7 +5,7 @@ modified: 2019-11-17 12:51
 author: Sim
 tags: KeyCDN, Gitlab, Github, Netlify, speed, CloudFlare, Firebase, CDN
 status: published
-summary: KeyCDN → Gitlab → Github + CloudFlare → Gitlab + Netlify → Github + Cloudflare → Firebase → Cloudflare+Firebase → Cloudflare+Gitlab → Github + Cloudflare → Firebase → My VPS + CloudFlare → My VPS → Firebase
+summary: KeyCDN → Gitlab → Github + CloudFlare → Gitlab + Netlify → Github + Cloudflare → Firebase → Cloudflare+Firebase → Cloudflare+Gitlab → Github + Cloudflare → Firebase → My VPS + CloudFlare → My VPS → Github Pages
 ---
 
 ## Summary
@@ -191,9 +191,8 @@ This site is now served by two servers without Cloudflare as a frontend.
 (As I found out that Cloudflare CDN generally slows down the site speed).  
 Here's [the relevant results](/terminal/2019/06/10/performance-test-on-a-page-cloudflare-vs-bare-nginx/).
 
-## 2019-11-17 ~ Now: Firebase Hosting
+## 2019-11-17 ~ Now: Github Pages
 
 Back to CDN again. When it comes to Nuxt, nothing can beat CDN.  
 Meanwhile I could do backend things on my own server.  
-Cheers.  
-As for checking? Automate.
+Cheers.

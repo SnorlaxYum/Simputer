@@ -162,7 +162,7 @@ export default {
   /*
   ** Headers of the page
   */
-  generate: {routes: gen, fallback: true},
+  generate: {routes: gen, fallback: true, dir: 'docs'},
   head: {
     title: process.env.npm_package_name || '',
     meta: [

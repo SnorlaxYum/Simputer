@@ -5,7 +5,7 @@ author: Sim
 tags: 
 - nuxt
 - Vue
-- Firebase
+- Github Pages
 status: published
 summary: Just started my first frontend developer job as an intern worker. And to learn vue better, I rewrote my blog using nuxt.
 ---
@@ -41,50 +41,19 @@ This error is caused because data differs on server vs client.[^3]
 
 When I inspected, I found that the error will disappear if the page don't have any components. Eventually, I solved this by adding `<client-only>` out of the post things.  
 
-## Playing with Firebase CLI and Deploy To Firebase
+## Deploy to Github Pages
 
-1. Install Firebase CLI and login
-
-```
-$ sudo npm install -g firebase-tools
-$ firebase login
-```
-
-2. Initiate the project directory with Firebase settings 
-
-```
-$ firebase init
-```
-
-Select `Hosting`, connect to a Firebase project, set default public root directory to `dist` (it's where `nuxt generate` put the static site by default.)
-
-3. Edit `nuxt.config.js`
+In `nuxt.config.js`:  
 
 ```
 ...
-  "scripts": {
-    ...
-    "generate:firebase": "yarn clean && yarn generate",
-    "clean": "rm -rf dist/*",
-    "start:firebase": "firebase serve",
-    "deploy": "firebase deploy"
-  },
+export default {
+  ...
+  generate: {... dir: 'docs'},
 ...
 ```
 
-4. Generate and preview the site.  
-
-```
-$ yarn generate:firebase && yarn start:firebase
-```
-
-The static version could be different from SSR version, I found some problems I didn't find when using `yarn dev` when I previewed using Firebase CLI.  
-
-5. Deploy to Firebase.
-
-```
-$ yarn deploy
-```
+Then `yarn generate`, and then push to the repository, toggle settings to open github pages at `/docs`.  
 
 ## Why I don't use Firebase Functions or my own server
 
@@ -96,7 +65,7 @@ I took some screenshots:
 2. [My Server](https://static.snorl.ax/nuxt-speed/my-server.webp)
 3. [Firebase Hosting](https://static.snorl.ax/nuxt-speed/fb-hosting.webp)
 
-I'd rather use my own server when it comes to SSR. But nothing compares to Fastly CDN used by Firebase Hosting.
+I'd rather use my own server when it comes to SSR. But nothing compares to Fastly CDN.
 
 [^1]: [The source code of the blog](https://github.com/SnorlaxYum/Simputer)
 [^2]: [API: The generate Property - NuxtJS](https://nuxtjs.org/api/configuration-generate)
