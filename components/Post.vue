@@ -42,7 +42,7 @@ export default {
       const href = target.getAttribute('href')
 
       // use router to push it if it's on this site
-      if (href && href[0] === '/' || href[0] === '#') {
+      if (href && !(href.indexOf("png")+1) && !(href.indexOf("webp")+1) && href[0] === '/' || href[0] === '#') {
         event.preventDefault()
         this.$router.push(href)
       } else {

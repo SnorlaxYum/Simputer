@@ -1,11 +1,11 @@
 ---
 title: Site Migration History
 date: 2016-12-08 01:40
-modified: 2019-06-10 12:51
+modified: 2019-11-17 12:51
 author: Sim
 tags: KeyCDN, Gitlab, Github, Netlify, speed, CloudFlare, Firebase, CDN
 status: published
-summary: KeyCDN → Gitlab → Github + CloudFlare → Gitlab + Netlify → Github + Cloudflare → Firebase → Cloudflare+Firebase → Cloudflare+Gitlab → Github + Cloudflare → Firebase → My VPS + CloudFlare → My VPS
+summary: KeyCDN → Gitlab → Github + CloudFlare → Gitlab + Netlify → Github + Cloudflare → Firebase → Cloudflare+Firebase → Cloudflare+Gitlab → Github + Cloudflare → Firebase → My VPS + CloudFlare → My VPS → Firebase
 ---
 
 ## Summary
@@ -28,12 +28,12 @@ My current choice is excluded from the list, 'cause VPS itself does much more th
 
 Well the site had been hosted on KeyCDN for about weeks before I couldn't bear the waiting time for even a minor file.   
 See the result below:  
-<a href="{static}/img/keycdn1.png" title="Wait that long?"><img src="{static}/img/keycdn1-150x150.png" height="150" width="150"></a><a href="{static}/img/keycdn2.png" title="Wait that long?"><img src="{static}/img/keycdn2-150x150.png" height="150" width="150"></a><a href="{static}/img/keycdn3.png" title="Wait that long?"><img src="{static}/img/keycdn3-150x150.png" height="150" width="150"></a>  
+<a href="/images/posts/keycdn1.png" title="Wait that long?"><img src="/images/posts/keycdn1-150x150.png" height="150" width="150"></a><a href="/images/posts/keycdn2.png" title="Wait that long?"><img src="/images/posts/keycdn2-150x150.png" height="150" width="150"></a><a href="/images/posts/keycdn3.png" title="Wait that long?"><img src="/images/posts/keycdn3-150x150.png" height="150" width="150"></a>  
 
 That lagging time is not worth the money, I decided to try on Gitlab cause there's no need to spend much on other CDNs, whose SSL support is SNI and SAN support is rather expensive.  
 
 After a while of cloning and pushing and assign SSL, I ran the tests below:  
-<a href="{static}/img/gitlab1.png" title="Much better now!"><img src="{static}/img/gitlab1-150x150.png" height="150" width="150"></a><a href="{static}/img/gitlab2.png" title="Much better now!"><img src="{static}/img/gitlab2-150x150.png" height="150" width="150"></a><a href="{static}/img/gitlab3.png" title="Despite the lagging Chinese spot, it's only 0.1 sec lower on avg time. And it defeats KeyCDN almost every spot, meaning KeyCDN sucks."><img src="{static}/img/gitlab3-150x150.png" height="150" width="150"></a>  
+<a href="/images/posts/gitlab1.png" title="Much better now!"><img src="/images/posts/gitlab1-150x150.png" height="150" width="150"></a><a href="/images/posts/gitlab2.png" title="Much better now!"><img src="/images/posts/gitlab2-150x150.png" height="150" width="150"></a><a href="/images/posts/gitlab3.png" title="Despite the lagging Chinese spot, it's only 0.1 sec lower on avg time. And it defeats KeyCDN almost every spot, meaning KeyCDN sucks."><img src="/images/posts/gitlab3-150x150.png" height="150" width="150"></a>  
 
 It's really a waste of money when it comes to KeyCDN, while Gitlab is an amazing choice, though the SSL things need manually updating on Gitlab.   
 
@@ -43,7 +43,7 @@ I've just been using Gitlab for a while and begin to love it! All I need to do i
 
 To make things better, I just used CloudFlare's CDN for it, the speed has improved dramatically, which is well worth the loss of the old browser users, meaning I am finally back to CloudFlare CDN!  
 
-<a href="{static}/img/cloudflare1.png" title="CloudFlare is AMAZING!"><img src="{static}/img/cloudflare1-150x150.png" height="150" width="150"></a><a href="{static}/img/cloudflare2.png" title="CloudFlare is AMAZING!"><img src="{static}/img/cloudflare2-150x150.png" height="150" width="150"></a><a href="{static}/img/cloudflare3.png" title="CloudFlare is AMAZING!"><img src="{static}/img/cloudflare3-150x150.png" height="150" width="150"></a>  
+<a href="/images/posts/cloudflare1.png" title="CloudFlare is AMAZING!"><img src="/images/posts/cloudflare1-150x150.png" height="150" width="150"></a><a href="/images/posts/cloudflare2.png" title="CloudFlare is AMAZING!"><img src="/images/posts/cloudflare2-150x150.png" height="150" width="150"></a><a href="/images/posts/cloudflare3.png" title="CloudFlare is AMAZING!"><img src="/images/posts/cloudflare3-150x150.png" height="150" width="150"></a>  
 
 ## 2016-12-30: Moved To Github
 
@@ -59,7 +59,9 @@ To migrate from a server to another, I have to restore my backup. Then today I t
 
 ## 2018-01-14: Moved To Firebase
 
-Moved to Google Firebase. It's not as fast as Github pages + Cloudflare, but the SSL time beats the CF. I can have enough privacy with my files.
+Moved to Google Firebase.  
+It's not as fast as Github pages + Cloudflare, but the SSL time beats the CF.  
+I can have enough privacy with my files.
 
 ## 2018-01-15 ~ 2019-05-06: My Time With Github Pages
 
@@ -176,8 +178,22 @@ __2019-05-27:__ Reused CloudFlare on isso for security purpose.
 
 ## 2019-06-06 ~ 2019-06-10: Back To VPS + CloudFlare
 
-Firebase ssl needs checking in every month, which is awful. Also, learning FLask recently, I want to tango with Nginx and CloudFlare. The contents will load fast if cached on CF's server. Otherwise meh...... But Cf is a security company. I use it for security purpose.
+Firebase ssl needs checking in every month, which is awful.  
+Also, learning FLask recently, I want to tango with Nginx and CloudFlare.  
+The contents will load fast if cached on CF's server.  
+Otherwise meh......  
+But Cf is a security company.  
+I use it for security purpose.
 
-## 2019-06-10 ~ Now: My VPS
+## 2019-06-10 ~ 2019-11-17: My VPS
 
-This site is now served by two servers without Cloudflare as a frontend. (As I found out that Cloudflare CDN generally slows down the site speed). Here's [the relevant results](/terminal/2019/06/10/performance-test-on-a-page-cloudflare-vs-bare-nginx/).
+This site is now served by two servers without Cloudflare as a frontend.  
+(As I found out that Cloudflare CDN generally slows down the site speed).  
+Here's [the relevant results](/terminal/2019/06/10/performance-test-on-a-page-cloudflare-vs-bare-nginx/).
+
+## 2019-11-17 ~ Now: Firebase Hosting
+
+Back to CDN again. When it comes to Nuxt, nothing can beat CDN.  
+Meanwhile I could do backend things on my own server.  
+Cheers.  
+As for checking? Automate.
