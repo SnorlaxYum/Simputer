@@ -1,0 +1,36 @@
+<template lang="pug">
+div
+  post-nav(v-for='data of posts'
+           :key='data[0]'
+           :category='data[1].attributes.category'
+           :title='data[1].attributes.title'
+           :date='data[1].attributes.date'
+           :modified='data[1].attributes.modified'
+           :slug='data[0]'
+           :content='data[1].attributes.summary ? false : data[1].html'
+           :summary='data[1].attributes.summary ? data[1].attributes.summary : false'
+           :isso='data[1].isso')
+</template>
+<script>
+import GetIssoCount from "~/features/GetIssoCount"
+import PostNav from "~/components/PostNav";
+export default {
+  asyncData({ params, error, store }) {
+    let data = store.state.blog.category[params.cat];
+    if (data) {
+      return data;
+    } else {
+      return error({ message: "Section not found", statusCode: 404 });
+    }
+  },
+  mixins: [GetIssoCount],
+  components: {
+    PostNav
+  },
+  head() {
+    return {
+      title: this.title
+    };
+  }
+};
+</script>

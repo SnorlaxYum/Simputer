@@ -1,0 +1,42 @@
+{
+  "name": "snorlax-blog",
+  "version": "1.0.0",
+  "description": "Welcome To My blog!",
+  "author": "Sim",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "generate:firebase": "yarn clean && yarn generate",
+    "clean": "rm -rf dist/*",
+    "start:firebase": "firebase serve",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "test": "jest",
+    "deploy": "firebase deploy"
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.3.6",
+    "bulma": "^0.7.5",
+    "cookie-universal-nuxt": "^2.0.18",
+    "frontmatter-markdown-loader": "^2.2.0",
+    "markdown-it-anchor": "^5.2.5",
+    "markdown-it-emoji": "^1.4.0",
+    "markdown-it-footnote": "^3.0.2",
+    "markdown-it-highlightjs": "^3.0.0",
+    "moment": "^2.24.0",
+    "node-sass": "^4.12.0",
+    "nuxt": "^2.0.0",
+    "pug": "2.0.3",
+    "pug-plain-loader": "^1.0.0",
+    "sass-loader": "^8.0.0",
+    "turndown": "^5.0.3",
+    "uslug": "^1.0.4"
+  },
+  "devDependencies": {
+    "@vue/test-utils": "^1.0.0-beta.27",
+    "babel-jest": "^24.1.0",
+    "jest": "^24.1.0",
+    "vue-jest": "^4.0.0-0"
+  }
+}

@@ -1,0 +1,630 @@
+$font-color: #515151
+$nav-box-dark: #515151
+$nav-box-light: #fff
+$nav-box-light-tran: rgba(0, 0, 0, 0.4)
+$nav-box-dark-tran: rgba(255, 255, 255, 0.4)
+
+/* responsive break
+$middle-wide: 1800px
+$middle-small-wide: 1300px
+$middle-smaller-wide: 1000px
+$middle-smallest-wide: 750px
+
+$content-bg: rgba(250, 250, 250, 0.5)
+$content-footer-bg: rgba(50, 50, 50, 0.6)
+
+$content-outgrow: 0 0 0.4em $font-color
+
+/* cyrillic-ext
+@font-face
+  font-family: 'Play'
+  font-style: normal
+  font-weight: 400
+  font-display: swap
+  src: local("Play Regular"), local("Play-Regular"), url(https://fonts.gstatic.com/s/play/v11/6aez4K2oVqwIvtg2H68T.woff2) format("woff2")
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F
+
+/* cyrillic
+@font-face
+  font-family: 'Play'
+  font-style: normal
+  font-weight: 400
+  font-display: swap
+  src: local("Play Regular"), local("Play-Regular"), url(https://fonts.gstatic.com/s/play/v11/6aez4K2oVqwIvtE2H68T.woff2) format("woff2")
+  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116
+
+/* greek
+@font-face
+  font-family: 'Play'
+  font-style: normal
+  font-weight: 400
+  font-display: swap
+  src: local("Play Regular"), local("Play-Regular"), url(https://fonts.gstatic.com/s/play/v11/6aez4K2oVqwIvtY2H68T.woff2) format("woff2")
+  unicode-range: U+0370-03FF
+
+/* vietnamese
+@font-face
+  font-family: 'Play'
+  font-style: normal
+  font-weight: 400
+  font-display: swap
+  src: local("Play Regular"), local("Play-Regular"), url(https://fonts.gstatic.com/s/play/v11/6aez4K2oVqwIvto2H68T.woff2) format("woff2")
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB
+
+/* latin-ext
+@font-face
+  font-family: 'Play'
+  font-style: normal
+  font-weight: 400
+  font-display: swap
+  src: local("Play Regular"), local("Play-Regular"), url(https://fonts.gstatic.com/s/play/v11/6aez4K2oVqwIvts2H68T.woff2) format("woff2")
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF
+
+/* latin
+@font-face
+  font-family: 'Play'
+  font-style: normal
+  font-weight: 400
+  font-display: swap
+  src: local("Play Regular"), local("Play-Regular"), url(https://fonts.gstatic.com/s/play/v11/6aez4K2oVqwIvtU2Hw.woff2) format("woff2")
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD
+
+/* cyrillic-ext
+@font-face
+  font-family: 'Play'
+  font-style: normal
+  font-weight: 700
+  font-display: swap
+  src: local("Play Bold"), local("Play-Bold"), url(https://fonts.gstatic.com/s/play/v11/6ae84K2oVqwItm4TCp0y2knT.woff2) format("woff2")
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F
+
+/* cyrillic
+@font-face
+  font-family: 'Play'
+  font-style: normal
+  font-weight: 700
+  font-display: swap
+  src: local("Play Bold"), local("Play-Bold"), url(https://fonts.gstatic.com/s/play/v11/6ae84K2oVqwItm4TCpQy2knT.woff2) format("woff2")
+  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116
+
+/* greek
+@font-face
+  font-family: 'Play'
+  font-style: normal
+  font-weight: 700
+  font-display: swap
+  src: local("Play Bold"), local("Play-Bold"), url(https://fonts.gstatic.com/s/play/v11/6ae84K2oVqwItm4TCpMy2knT.woff2) format("woff2")
+  unicode-range: U+0370-03FF
+
+/* vietnamese
+@font-face
+  font-family: 'Play'
+  font-style: normal
+  font-weight: 700
+  font-display: swap
+  src: local("Play Bold"), local("Play-Bold"), url(https://fonts.gstatic.com/s/play/v11/6ae84K2oVqwItm4TCp8y2knT.woff2) format("woff2")
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB
+
+/* latin-ext
+@font-face
+  font-family: 'Play'
+  font-style: normal
+  font-weight: 700
+  font-display: swap
+  src: local("Play Bold"), local("Play-Bold"), url(https://fonts.gstatic.com/s/play/v11/6ae84K2oVqwItm4TCp4y2knT.woff2) format("woff2")
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF
+
+/* latin
+@font-face
+  font-family: 'Play'
+  font-style: normal
+  font-weight: 700
+  font-display: swap
+  src: local("Play Bold"), local("Play-Bold"), url(https://fonts.gstatic.com/s/play/v11/6ae84K2oVqwItm4TCpAy2g.woff2) format("woff2")
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD
+
+body
+  font-family: 'Play', sans-serif
+  color: $font-color
+  background: url('/images/bg.png') repeat
+  font-size: 18px
+  margin: 0
+  @media screen and ( max-width: $middle-smaller-wide )
+    font-size: 16px
+  @media screen and ( min-width: $middle-wide )
+    font-size: 1vw
+
+input
+  background-color: transparent
+
+a:hover
+  text-decoration: underline
+      
+nav
+  position: sticky
+  top: 0
+  margin: 0 auto
+  height: 95px
+  line-height: 95px
+  background: $content-bg
+  display: flex
+  align-items: center
+  box-shadow: $content-outgrow
+  z-index: 2
+  @media screen and ( min-width: $middle-wide )
+    height: 5vw
+    line-height: 5vw
+  @media screen and ( max-width: $middle-smallest-wide )
+    position: inherit
+    flex-direction: column
+    height: 100%
+    padding: 1em
+  .logo
+    background: url("/images/icon.svg") no-repeat
+    height: 65px
+    width: 275px
+    background-size: auto 100%
+    margin: 0 0.5em
+    @media screen and ( min-width: $middle-wide )
+      height: 3.5vw
+      width: 15vw
+      margin: 0 1vw
+
+// workaround for navbar overlap with anchors
+// h1[id]:before, h2[id]:before, h3[id]:before, h4[id]:before, h5[id]:before, h6[id]:before, *[id*=isso]:before
+//   display: block 
+//   content: " "
+//   margin-top: -95px 
+//   height: 95px
+//   visibility: hidden
+//   @media screen and ( min-width: $middle-wide )
+//     height: 6vw
+//     margin-top: -6vw
+//   @media screen and ( max-width: $middle-smallest-wide )
+//     height: 0
+//     margin-top: 0
+
+.site-container
+  margin: 0 auto
+  z-index: 1
+
+.content-container
+  display: flex
+  flex-direction: column
+  article
+    overflow: auto
+    background: $content-bg
+    box-shadow: $content-outgrow
+    padding-top: 3%
+    margin: 2%
+    border-radius: 1em
+    line-height: 1.8
+    font-size: 0.95em
+    @media screen and ( max-width: $middle-small-wide )
+      padding-top: 5%
+      margin: 4%
+    @media screen and ( max-width: $middle-smallest-wide )
+      padding-top: 7%
+      margin: 6%
+    sup
+      font-size: 0.6em
+    code
+      background: rgba(0,0,0,0.6)
+      color: rgb(230,230,230)
+      padding: 0.1em
+    .hljs-comment, .hljs-quote
+      color: #d4d0ab
+    .hljs-variable, .hljs-template-variable, .hljs-tag, .hljs-name, .hljs-selector-id, .hljs-selector-class, .hljs-regexp, .hljs-deletion
+      color: #ffa07a
+    .hljs-number, .hljs-built_in, .hljs-builtin-name, .hljs-literal, .hljs-type, .hljs-params, .hljs-meta, .hljs-link
+      color: #f5ab35
+    .hljs-attribute
+      color: #ffd700
+    .hljs-string, .hljs-symbol, .hljs-bullet, .hljs-addition
+      color: #abe338
+    .hljs-title, .hljs-section
+      color: #00e0e0
+    .hljs-keyword, .hljs-selector-tag
+      color: #dcc6e0
+    .hljs
+      display: block
+      overflow-x: auto
+      background: #2b2b2b
+      color: #f8f8f2
+      padding: 0.5em
+    .hljs-emphasis
+      font-style: italic
+    .hljs-strong
+      font-weight: bold
+    @media screen and (-ms-high-contrast: active)
+      .hljs-addition, .hljs-attribute, .hljs-built_in, .hljs-builtin-name, .hljs-bullet, .hljs-comment, .hljs-link, .hljs-literal, .hljs-meta, .hljs-number, .hljs-params, .hljs-string, .hljs-symbol, .hljs-type, .hljs-quote
+        color: highlight
+
+      .hljs-keyword, .hljs-selector-tag
+        font-weight: bold
+    td
+      padding: 5px
+    a
+      color: $font-color
+      text-decoration: none
+    a:hover
+      border-bottom: 1px dotted
+    header
+      color: $nav-box-dark
+      padding: 0 3% 1%
+      font-size: 2em
+      font-weight: bold
+      @media screen and ( min-width: $middle-wide )
+        td
+          padding: 0.2em
+      @media screen and ( max-width: $middle-small-wide )
+        padding: 0 5% 3%
+      @media screen and ( max-width: $middle-smallest-wide )
+        padding: 0 7% 5%
+    h1
+      font-size: 2em
+    h2
+      font-size: 1.8em
+      border-bottom: 1px solid
+    h3
+      font-size: 1.6em
+    h4
+      font-size: 1.4em
+    h5
+      font-size: 1.3em
+    h6
+      font-size: 1.2em
+    footer
+      padding: 1.5% 3%
+      background: $content-footer-bg
+      color: $nav-box-light
+      height: 100%
+      font-size: 0.85em
+      @media screen and ( max-width: $middle-small-wide )
+        padding: 3% 5%
+      @media screen and ( max-width: $middle-smallest-wide )
+        padding: 5% 7%
+      a
+        color: $nav-box-light
+      span
+        margin-right: 1%
+      span.tag
+        margin: 0
+      span.seq-tag:before
+        content: ", "
+      span.tag-list:before
+        content: "Tags: "
+        font-weight: bold
+      time.published:before
+        content: "Published: "
+        font-weight: bold
+      time.modified:before
+        content: "Modified: "
+        font-weight: bold
+    content 
+      padding: 0 3% 2% 
+      display: block
+      @media screen and ( max-width: $middle-small-wide )
+        padding: 0 5% 4%
+      @media screen and ( max-width: $middle-smallest-wide )
+        padding: 0 7% 6%
+      a
+        border-bottom: 1px solid
+      a:hover
+        color: rgb(230,230,230)
+        background-color: $font-color
+      sup a
+        border: 0
+      ol, ul
+        padding-left: 0
+      .youtube
+        width: 60%
+        height: 30vw
+        border-radius: 0.5em
+        @media screen and ( max-width: $middle-small-wide )
+          width: 70%
+        @media screen and ( max-width: $middle-smaller-wide )
+          width: 100%
+          height: 40vw
+      .footnotes::before
+        content: "References:"
+        font-weight: bold
+      .footnote-item p 
+        line-height: 1
+      ol.footnotes-list
+        list-style: none
+        counter-reset: li
+        li
+          position: relative
+          counter-increment: li
+        li:before
+          position: absolute
+          left: -1.55em
+          content: "[" counter(li) "]  "
+        li p
+          display: inline
+      .footnotes-sep
+        margin: 2em 0
+        border-top: 0.01em
+      #series
+        border: 1px dotted
+        padding: 1% 2%
+        @media screen and ( max-width: $middle-small-wide )
+          padding: 2% 4%
+        @media screen and ( max-width: $middle-smallest-wide )
+          padding: 3% 6%
+  article.post-nav
+    width: 20%
+    float: right
+    padding: 1%
+    font-size: 1em
+    position: sticky
+    top: 7em
+    margin-top: 0
+    @media screen and ( max-width: $middle-smaller-wide )
+      margin-top: 2%
+      width: auto
+      float: none
+      position: relative
+      top: 0
+    h1
+      padding-left: 6%
+      font-size: 1.2em
+      @media screen and ( max-width: $middle-smaller-wide )
+        padding-left: 3%
+    ul
+      list-style-type: circle
+      padding-left: 6%
+      @media screen and ( max-width: $middle-smaller-wide )
+        padding-left: 3%
+      a.nuxt-link-active
+        font-weight: bold
+        li
+          list-style-type: disc
+
+
+.footer
+  text-align: center
+  line-height: 2em
+  height: 2em
+  clear: both
+  padding: 1%
+  box-shadow: $content-outgrow
+  background: $content-bg
+
+.site-navigation
+  margin-left: auto
+  margin-right: 0.2em
+  color: $font-color
+  list-style-type: none
+  @media screen and ( max-width: $middle-smallest-wide )
+    margin-right: auto
+    margin-bottom: 0.2em
+    width: 50%
+    padding-left: 1em
+    text-align: center
+  @media screen and ( min-width: $middle-wide )
+    margin-right: 1vw
+  li
+    float: left
+    font-size: 1.2em
+    margin: 0 15px 0 0
+    @media screen and ( max-width: $middle-smallest-wide )
+      float: none
+      font-size: 16px
+      line-height: 33px
+      border-top: 1px dotted
+      border-bottom: 1px dotted
+    @media screen and ( min-width: $middle-wide )
+      margin: 0 1vw 0 0
+    a
+      color: $font-color
+      text-decoration: none
+    a:hover
+      text-decoration: underline
+    a.nuxt-link-active
+      font-weight: bold
+      text-decoration: none
+    a.nuxt-link-exact-active
+      text-decoration: underline
+  li + li
+    @media screen and ( max-width: $middle-smallest-wide )
+      border-bottom: 1px dotted
+      border-top: 0
+
+.nav-box-list
+  margin-bottom: 2%
+  display: block
+  overflow: auto
+  @media screen and ( max-width: $middle-small-wide )
+    margin-bottom: 4%
+  @media screen and ( max-width: $middle-smallest-wide )
+    margin-bottom: 6%
+
+.nav-box
+  width: 31.3%
+  box-shadow: 0.2em 0.2em 0.4em $font-color
+  position: relative
+  float: left
+  margin: 1%
+  background-size: 100% auto !important
+  border-radius: 5px
+  @media screen and ( max-width: $middle-smaller-wide )
+    width: 47.9%
+  div
+    // padding: 40% 0
+    position: absolute
+    top: 0
+    display: table
+    width: 100%
+    height: 100%
+    margin: auto
+    font-size: 2em
+    text-align: center
+    span
+      height: 100%
+      display: table-cell
+      vertical-align: middle
+
+.nav-box:after
+  display: block
+  content: ""
+  padding-bottom: 100%
+
+$nav-text-outgrow: 0.1em 0.1em 0.2em
+
+.dark
+  color: $nav-box-light
+  text-shadow: $nav-box-dark $nav-text-outgrow
+.dark:hover
+  background: $nav-box-light-tran
+.light
+  color: $nav-box-dark
+  text-shadow: $nav-box-light $nav-text-outgrow
+.light:hover
+  background: $nav-box-dark-tran
+  
+
+.terminal
+  background: url("/images/terminal.png")
+
+.browser
+  background: url("/images/browser.png")
+
+.about
+  background: url("/images/about.png")
+
+.email
+  background: url("/images/mail.png")
+
+.panic
+  background: url("/images/panic.png")
+
+.tags
+  background: url("/images/tags.png")
+
+.pokemon
+  background: url("/images/pokemon.png")
+
+.center-item
+  margin-left: auto
+  margin-right: auto
+
+.t-right
+  text-align: right
+
+
+.clickable
+  cursor: pointer
+
+// article page
+
+.fade-enter-active, .fade-leave-active
+  transition: opacity .5s
+.fade-enter, .fade-leave-to
+  opacity: 0
+
+.comment-root
+  display: flex
+  flex-direction: column
+  .comment
+    border-top: 0.01em solid
+    display: flex
+    @media screen and ( max-width: $middle-smallest-wide )
+      flex-direction: row
+  .avatar
+    width: 7%
+    float: left
+    display: block
+    margin: 1em 1em 1em 0
+    @media screen and ( max-width: $middle-smallest-wide )
+      width: 80px
+      margin: .5em
+      float: none
+    img, svg.anonymous, svg.author
+      width: 70%
+      float: left
+    svg
+      fill: $font-color
+    div.num
+      width: 20%
+      float: right
+      text-align: center
+      svg
+        width: 100%
+        height: 30%
+      svg.up
+        margin-bottom: -0.1em
+      svg.down
+        margin-top: 0.1em
+      svg:hover
+        fill: #fff
+        background-color: $font-color
+        cursor: pointer
+  .content
+    flex: 1
+    max-width: 93%
+    overflow: hidden
+    .text code
+      display: block
+      padding: 0.5em
+      overflow: auto
+    .information
+      margin: 0.6em 0
+      span:after
+        content: "•"
+        margin: 0 0.3em
+      span:last-child:after
+        content: ""
+      .author
+        font-weight: bold
+
+
+
+article#isso-thread
+  *
+    -webkit-box-sizing: border-box
+    -moz-box-sizing: border-box
+    box-sizing: border-box
+  .isso-comment-header a
+    text-decoration: none
+
+  padding: 3%
+  margin: 2%
+  @media screen and ( max-width: $middle-small-wide )
+    padding: 5%
+    margin: 4%
+  @media screen and ( max-width: $middle-smallest-wide )
+    padding: 7%
+    margin: 6%
+
+  >
+    h4
+      color: #555
+      font-weight: bold
+      margin-top: 0
+      margin-bottom: 1%
+  .com-section, .reply-section, .edit-section
+    display: flex
+    flex-direction: column
+  .reply-section, .edit-section
+    border-top: 0.01em solid
+  textarea.comment-content, input.commenter-name, input.commenter-email, input.commenter-website
+    width: 100%
+    background: transparent
+    border: 0.01em solid
+    margin-bottom: 1em
+    font-size: 0.95em
+    font-family: inherit
+    padding: 0.4em
+  div.submit-field
+    margin-bottom: 1em
+  button[type='submit']
+    background: transparent
+    border: 0.01em solid
+    font-size: 0.95em
+    font-family: inherit
+    padding: 0.4em
+    float: right
+  .error
+    color: red
