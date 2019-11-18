@@ -1,34 +1,17 @@
-# This workflow will build and push a node.js application to an Azure Web App on every push to the master branch.
-#
-# To configure this workflow:
-#
-# 1. Set up a secret in your repository named AZURE_WEBAPP_PUBLISH_PROFILE with the value of your Azure publish profile.
-#
-# 2. Change the values for the AZURE_WEBAPP_NAME, AZURE_WEBAPP_PACKAGE_PATH and NODE_VERSION environment variables  (below).
-#
-# For more information on GitHub Actions for Azure, refer to https://github.com/Azure/Actions
-# For more samples to get started with GitHub Action workflows to deploy to Azure, refer to https://github.com/Azure/actions-workflow-samples
-on:
-  push:
-    branches:
-      - master
-
-env:
-  NODE_VERSION: '10.x'                # set this to the node version to use
-
+name: Build and Deploy
+on: [push]
 jobs:
   build-and-deploy:
-    name: Build and Deploy to Github Pages
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - name: Use Node.js ${{ env.NODE_VERSION }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ env.NODE_VERSION }}
-    - name: npm install, generate
-      run: |
-        # Build and test the project, then
-        # deploy to Azure Web App.
-        npm install
-        npm run generate
+    - name: Checkout
+      uses: actions/checkout@master
+
+    - name: Build and Deploy
+      uses: JamesIves/github-pages-deploy-action@releases/v2
+      env:
+        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        BASE_BRANCH: master # The branch the action should deploy from.
+        BRANCH: master # The branch the action should deploy to.
+        FOLDER: docs # The folder the action should deploy.
+        BUILD_SCRIPT: npm install && npm run generate # The build script the action should run prior to deploying.
