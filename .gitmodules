@@ -1,0 +1,3 @@
+[submodule "media"]
+	path = media
+	url = github.com:SnorlaxYum/snorlaxyum.github.io.git
