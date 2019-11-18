@@ -7,6 +7,7 @@ tags:
 - Vue
 - Github Pages
 - python
+- git
 status: published
 summary: Just started my first frontend developer job as an intern worker. And to learn vue better, I rewrote my blog using nuxt.
 ---
@@ -78,8 +79,27 @@ I took some screenshots:
 
 I'd rather use my own server when it comes to SSR. But nothing compares to Fastly CDN.
 
+## When I forget to add submodule
+
+I moved my `media` directory to the project as well, since it's a git project I have to add it as a `git submodule add`, however I forgot to do so and did `git add .` instead, so on my earlier commit, the folder is shown as a text on Github.  
+
+Solution[^6]:  
+
+1. Unstage it
+
+```
+$ git rm --cached media
+```
+
+2. Add it in a correct way
+
+```
+$ git submodule add url_to_repo media
+```
+
 [^1]: [The source code of the blog](https://github.com/SnorlaxYum/Simputer)
 [^2]: [API: The generate Property - NuxtJS](https://nuxtjs.org/api/configuration-generate)
 [^3]: [Nuxt.js app doesn't load charts or maps when copying and pasting a link into a new browser tab, otherwise works](https://stackoverflow.com/questions/54010529/nuxt-js-app-doesnt-load-charts-or-maps-when-copying-and-pasting-a-link-into-a-n)
 [^4]: [hmsk/frontmatter-markdown-loader: 📝 Webpack Loader for: FrontMatter (.md) -> HTML + Attributes (+ React/Vue Component)](https://github.com/hmsk/frontmatter-markdown-loader)
 [^5]: [peaceiris/actions-gh-pages: GitHub Actions for GitHub Pages 🚀 Deploy static files and publish your site easily. Static-Site-Generators-friendly.](https://github.com/peaceiris/actions-gh-pages)
+[^6]: [Issue with adding common code as git submodule: "already exists in the index" - Stack Overflow](https://stackoverflow.com/a/12902857)
