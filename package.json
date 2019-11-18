@@ -7,13 +7,10 @@
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
-    "generate:firebase": "yarn clean && yarn generate",
     "clean": "rm -rf dist/*",
-    "start:firebase": "firebase serve",
     "start": "nuxt start",
     "generate": "nuxt generate",
-    "test": "jest",
-    "deploy": "firebase deploy"
+    "test": "jest"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",

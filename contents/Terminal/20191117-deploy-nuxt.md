@@ -26,7 +26,7 @@ In the future I might write my own commenting system along with API to learn mor
 
 I don't have to worry about this until I decides to deploy the blog as a static site[^2].  
 Normally the nested routes won't be generated if not set in the `generate` block of `nuxt.config.js`.  
-Also I should configure `fallback: true` option in the same block for Firebase Hosting to take care of.
+Also I should configure `fallback: true` option in the same block for Github Pages to take care of.
 
 ## Error: t is undefined
 
@@ -64,6 +64,7 @@ I took some screenshots:
 1. [Firebase Functions](https://static.snorl.ax/nuxt-speed/fb-functions.webp)
 2. [My Server](https://static.snorl.ax/nuxt-speed/my-server.webp)
 3. [Firebase Hosting](https://static.snorl.ax/nuxt-speed/fb-hosting.webp)
+4. [Github Pages](https://static.snorl.ax/nuxt-speed/github-pages.webp)
 
 I'd rather use my own server when it comes to SSR. But nothing compares to Fastly CDN.
 
