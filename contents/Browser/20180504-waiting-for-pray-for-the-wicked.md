@@ -10,7 +10,7 @@ summary: It will be available on June 22, 2018!
 ogimage: /images/og/pray-for-the-wicked-twitter.png
 ---
 
-![Album Cover](/images/posts/pray-for-the-wicked-200.jpg)  
+![Album Cover](https://static.snorl.ax/posts/pray-for-the-wicked-200.jpg)  
 Released videos......
 
 1. Say Amen  
