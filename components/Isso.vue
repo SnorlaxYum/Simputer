@@ -2,7 +2,7 @@
 article#isso-thread(:data-title="title")
   h4 Leave a comment
   isso-input-field(:parent='null' :error="submit_error" @submit="submit")
-  div.comment-root(v-if="comment")
+  div.comment-root(v-if="comment.length")
     isso-comment(v-for="com in comment"
                  :key="'isso-'+com.id"
                  @vote="vote" :id="com.id"
@@ -40,7 +40,7 @@ import IssoComment from "~/components/IssoComment";
 import IssoInputField from "~/components/IssoInputField";
 export default {
   data() {
-    return { comment: {}, submit_error: null };
+    return { comment: [], submit_error: null };
   },
   props: ["title", "slug"],
   components: {
@@ -52,7 +52,7 @@ export default {
       let data = await axios.get(`${this.$store.state.isso}?uri=${this.slug}`, {
         validateStatus: false
       });
-      this.comment = data.status == 200 ? data.data.replies : false;
+      this.comment = data.status == 200 ? data.data.replies : [];
     },
     vote(id, opinion) {
       let current = this.$el.querySelector(`#isso-${id} .likes`).innerHTML,
