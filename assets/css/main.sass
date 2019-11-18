@@ -2,7 +2,7 @@ $font-color: #515151
 $nav-box-dark: #515151
 $nav-box-light: #fff
 $nav-box-light-tran: rgba(0, 0, 0, 0.4)
-$nav-box-dark-tran: rgba(255, 255, 255, 0.4)
+// $nav-box-dark-tran: rgba(255, 255, 255, 0.4)
 
 /* responsive break
 $middle-wide: 1800px
@@ -278,7 +278,6 @@ nav
       padding: 1.5% 3%
       background: $content-footer-bg
       color: $nav-box-light
-      height: 100%
       font-size: 0.85em
       @media screen and ( max-width: $middle-small-wide )
         padding: 3% 5%
@@ -287,7 +286,7 @@ nav
       a
         color: $nav-box-light
       span
-        margin-right: 1%
+        margin-right: 1em
       span.tag
         margin: 0
       span.seq-tag:before
@@ -389,6 +388,7 @@ nav
   height: 2em
   clear: both
   padding: 1%
+  height: 100%
   box-shadow: $content-outgrow
   background: $content-bg
 
@@ -461,6 +461,9 @@ nav
     margin: auto
     font-size: 2em
     text-align: center
+    @media screen and ( max-width: $middle-smaller-wide )
+      font-size: 1.2em
+      line-height: 1.2
     span
       height: 100%
       display: table-cell
@@ -472,39 +475,43 @@ nav
   padding-bottom: 100%
 
 $nav-text-outgrow: 0.1em 0.1em 0.2em
+// $nav-box-dark-nor: rgba(255, 255, 255, 0.2)
+$nav-box-light-nor: rgba(0, 0, 0, 0.2)
 
 .dark
   color: $nav-box-light
   text-shadow: $nav-box-dark $nav-text-outgrow
+  background: $nav-box-light-nor
 .dark:hover
   background: $nav-box-light-tran
-.light
-  color: $nav-box-dark
-  text-shadow: $nav-box-light $nav-text-outgrow
-.light:hover
-  background: $nav-box-dark-tran
+// .light
+//   color: $nav-box-dark
+//   text-shadow: $nav-box-light $nav-text-outgrow
+//   background: $nav-box-dark-nor
+// .light:hover
+//   background: $nav-box-dark-tran
   
 
 .terminal
-  background: url("/images/terminal.png")
+  background: url("/images/terminal.svg")
 
 .browser
-  background: url("/images/browser.png")
+  background: url("/images/browser.svg")
 
 .about
-  background: url("/images/about.png")
+  background: url("/images/about.svg")
 
 .email
-  background: url("/images/mail.png")
+  background: url("/images/mail.svg")
 
 .panic
-  background: url("/images/panic.png")
+  background: url("/images/panic.svg")
 
 .tags
-  background: url("/images/tags.png")
+  background: url("/images/tags.svg")
 
 .pokemon
-  background: url("/images/pokemon.png")
+  background: url("/images/pokemon.svg")
 
 .center-item
   margin-left: auto
