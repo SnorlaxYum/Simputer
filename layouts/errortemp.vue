@@ -6,14 +6,14 @@
     foot
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue'
 import TopNavError from '~/components/TopNavError'
 import SiteContainer from '~/components/SiteContainer'
 import Contents from '~/components/Contents'
 import Foot from '~/components/Foot'
 import SiteInfo from '~/data/SiteInfo'
-
-export default {
+export default Vue.extend({
   components: {
     TopNavError,
     SiteContainer,
@@ -26,5 +26,5 @@ export default {
     }
   },
   mixins: [SiteInfo]
-}
+})
 </script>

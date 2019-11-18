@@ -6,11 +6,12 @@ nav
     li(v-for='nav in InNavList')
       a(:href="'/' + nav.slug") {{nav.title}}
 </template>
-<script>
-import NavList from "~/data/NavList";
 
-export default {
+<script lang="ts">
+import Vue from 'vue'
+import NavList from "~/data/NavList";
+export default Vue.extend({
   props: ["nav"],
   mixins: [NavList]
-};
+})
 </script>

@@ -1,13 +1,14 @@
 <template lang="pug">
-    footer.footer This site is proudly served by Nuxt.js. Simputer &copy; 2009 - {{ thisYear }}
+  footer.footer This site is proudly served by Nuxt.js. Simputer &copy; 2009 - {{ thisYear }}
 </template>
 
-<script>
-export default {
-    computed: {
-      thisYear() {
-        return new Date().getFullYear()
-      }
+<script lang="ts">
+import Vue from "vue";
+export default Vue.extend({
+  computed: {
+    thisYear() {
+      return new Date().getFullYear();
     }
-}
+  }
+});
 </script>

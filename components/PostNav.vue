@@ -15,11 +15,13 @@
       span
         nuxt-link(:to="link+'#isso-thread'" v-html="comment_count(isso)")
 </template>
-<script>
-import FormatDate from "~/features/FormatDate";
-import Slugify from "~/features/Slugify";
-import DateParseVue from '../features/DateParse.vue';
-export default {
+
+<script lang="ts">
+import Vue from 'vue'
+import FormatDate from "~/features/FormatDate"
+import Slugify from "~/features/Slugify"
+import DateParseVue from '../features/DateParse.vue'
+export default Vue.extend({
   props: [
     "title",
     "date",
@@ -41,7 +43,7 @@ export default {
         this.slugify_num(this.day),
         this.slug,
         ""
-      ].join("/");
+      ].join("/")
     }
   },
   methods: {
@@ -53,5 +55,5 @@ export default {
       }
     }
   }
-};
+})
 </script>

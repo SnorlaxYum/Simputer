@@ -1,5 +1,6 @@
-﻿<script>
-export default {
+﻿<script lang="ts">
+import Vue from 'vue'
+export default Vue.extend({
     computed: {
         pub_date() {
             return this.format_date_from_unix(this.date)
@@ -17,5 +18,5 @@ export default {
             return this.pub_date.getFullYear()
         },
     }
-}
+})
 </script>

@@ -11,10 +11,10 @@
                 span Receive Email Notifications
             button(type="submit" @click="submit(content, name, email, website, parent, notification)") Submit
 </template>
-
-<script>
+<script lang="ts">
+import Vue from 'vue'
 import TurndownService from 'turndown'
-export default {
+export default Vue.extend({
   data() {
     let oldcon = this.oldcontent
     if (oldcon) {
@@ -26,7 +26,7 @@ export default {
       email: this.cookie('isso-email') || null,
       website: this.cookie('isso-website') || null,
       notification: this.cookie('isso-notification') || null
-    };
+    }
   },
   props: ["parent", "error", "oldcontent"],
   methods: {
@@ -41,5 +41,5 @@ export default {
       return this.$cookies.get(name)
     }
   }
-};
+})
 </script>

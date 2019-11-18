@@ -12,26 +12,27 @@ div.nav-box-list
           span(:id='nav.id ? nav.id : nav.slug') {{ nav.title }}
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue'
+export default Vue.extend({
   props: ["InSite", "NavList"],
   methods: {
     showInfo(page) {
-      let elem = "";
+      let elem = ""
       if (page.id) {
-        elem = document.getElementById(page.id);
+        elem = document.getElementById(page.id)
       } else {
-        elem = document.getElementById(page.slug);
+        elem = document.getElementById(page.slug)
       }
-      elem.innerHTML = page.description;
+      elem.innerHTML = page.description
     },
     showName(page) {
       if (page.id) {
-        document.getElementById(page.id).innerHTML = page.title;
+        document.getElementById(page.id).innerHTML = page.title
       } else {
-        document.getElementById(page.slug).innerHTML = page.title;
+        document.getElementById(page.slug).innerHTML = page.title
       }
     }
   }
-};
+})
 </script>

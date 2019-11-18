@@ -8,11 +8,11 @@ div
     nav-boxes(:in-site="false" :nav-list="OutNavList")
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue'
 import NavBoxes from '~/components/NavBoxes'
 import NavList from '~/data/NavList'
-
-export default {
+export default Vue.extend({
   head() {
     return {title: 'Homepage'}
   },
@@ -20,5 +20,5 @@ export default {
     NavBoxes
   },
   mixins: [NavList]
-}
+})
 </script>

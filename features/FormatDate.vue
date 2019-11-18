@@ -1,5 +1,6 @@
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue'
+export default Vue.extend({
     methods: {
         format_date_from_unix(unix) {
             return new Date(unix)
@@ -22,5 +23,5 @@ export default {
             return month_list[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear()
         }
     }
-}
+})
 </script>

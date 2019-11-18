@@ -11,11 +11,13 @@
         span(:class="tags.indexOf(tag) == 0 ? 'tag' : 'tag seq-tag'" v-for='tag in tags' :key='tag')
           nuxt-link(:to="['', 'tags', slugify_string(tag), ''].join('/')") {{ tag }}
 </template>
-<script>
-import FormatDate from "~/features/FormatDate";
-import Slugify from "~/features/Slugify";
-import DateParseVue from '../features/DateParse.vue';
-export default {
+
+<script lang="ts">
+import Vue from 'vue'
+import FormatDate from "~/features/FormatDate"
+import Slugify from "~/features/Slugify"
+import DateParseVue from '../features/DateParse.vue'
+export default Vue.extend({
   props: [
     "title",
     "date",
@@ -69,10 +71,10 @@ export default {
     }
   },
   mounted() {
-    this.addListeners();
+    this.addListeners()
   },
   beforeDestroy() {
-    this.removeListeners();
+    this.removeListeners()
   }
-};
+})
 </script>

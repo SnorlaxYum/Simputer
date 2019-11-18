@@ -28,193 +28,194 @@ div.comment(:id="'isso-'+id")
       isso-input-field(:parent='null' :error="editError" @submit="edit" :oldcontent="text")
     slot
 </template>
-<script>
+<script lang="ts">
+import Vue from 'vue'
 import axios from 'axios'
 import IssoInputField from '~/components/IssoInputField'
 import moment from 'moment'
-export default {
-    props: ["id", "num", "avatar", "likes", "author", "website", "created", "text", "slug"],
-    data() {
-      return {
-        replyshow: false,
-        editshow: false, 
-        editError: null,
-        replyError: null
-      }
+export default Vue.extend({
+  props: ["id", "num", "avatar", "likes", "author", "website", "created", "text", "slug"],
+  data() {
+    return {
+      replyshow: false,
+      editshow: false, 
+      editError: null,
+      replyError: null
+    }
+  },
+  methods: {
+    vote(id, opinion) {
+      this.$emit("vote", id, opinion)
     },
-    methods: {
-      vote(id, opinion) {
-        this.$emit("vote", id, opinion)
-      },
-      setLinkTarget(text) {
-        let comment = new DOMParser().parseFromString(text, "text/html"),
-        links = comment.getElementsByTagName('a')
-        for (let link of links) {
-            link.setAttribute('target', '_blank')
-        }
-        const comment_html = new XMLSerializer().serializeToString(comment)
-        return comment_html
-      },
-      timeFromNow(time) {
-        return moment(new Date(new Date(0).setUTCSeconds(time))).fromNow()
-      },
-      cookie(name) {
-        return this.$cookies.get(name)
-      },
-      deleteCom(id) {
-        this.$emit("deletecom", id)
-      },
-      editCom(id) {
-        this.editshow = !this.editshow
-        let text = this.$el.getElementsByClassName('edit')[0].innerHTML
-        switch (text) {
-          case 'Edit':
-            this.$el.getElementsByClassName('edit')[0].innerHTML = 'Close'
-            break
-          case 'Close': 
-            this.$el.getElementsByClassName('edit')[0].innerHTML = 'Edit'
-            break
-        }
-        
-      },
-      reply2Com(id) {
-        this.replyshow = !this.replyshow
-        let text = this.$el.getElementsByClassName('reply')[0].innerHTML
-        switch (text) {
-          case 'Reply':
-            this.$el.getElementsByClassName('reply')[0].innerHTML = 'Close'
-            break
-          case 'Close': 
-            this.$el.getElementsByClassName('reply')[0].innerHTML = 'Reply'
-            break
-        }
-        
-      },
-      submit(content, name, email, website, parent, notification) {
-        let data = { title: this.title };
-        this.replyError = [];
-        if (name) {
-          data.author = name;
-        }
-        if (email) {
-          if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-            this.replyError.push("The email is not a valid email address. ");
-          } else {
-            data.email = email;
-            if (notification) {
-              data.notification = 1;
-            }
+    setLinkTarget(text) {
+      let comment = new DOMParser().parseFromString(text, "text/html"),
+      links = comment.getElementsByTagName('a')
+      for (let link of links) {
+          link.setAttribute('target', '_blank')
+      }
+      const comment_html = new XMLSerializer().serializeToString(comment)
+      return comment_html
+    },
+    timeFromNow(time) {
+      return moment(new Date(new Date(0).setUTCSeconds(time))).fromNow()
+    },
+    cookie(name) {
+      return this.$cookies.get(name)
+    },
+    deleteCom(id) {
+      this.$emit("deletecom", id)
+    },
+    editCom(id) {
+      this.editshow = !this.editshow
+      let text = this.$el.getElementsByClassName('edit')[0].innerHTML
+      switch (text) {
+        case 'Edit':
+          this.$el.getElementsByClassName('edit')[0].innerHTML = 'Close'
+          break
+        case 'Close': 
+          this.$el.getElementsByClassName('edit')[0].innerHTML = 'Edit'
+          break
+      }
+      
+    },
+    reply2Com(id) {
+      this.replyshow = !this.replyshow
+      let text = this.$el.getElementsByClassName('reply')[0].innerHTML
+      switch (text) {
+        case 'Reply':
+          this.$el.getElementsByClassName('reply')[0].innerHTML = 'Close'
+          break
+        case 'Close': 
+          this.$el.getElementsByClassName('reply')[0].innerHTML = 'Reply'
+          break
+      }
+      
+    },
+    submit(content, name, email, website, parent, notification) {
+      let data = { title: this.title }
+      this.replyError = []
+      if (name) {
+        data.author = name
+      }
+      if (email) {
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          this.replyError.push("The email is not a valid email address. ")
+        } else {
+          data.email = email
+          if (notification) {
+            data.notification = 1
           }
         }
-        if (website) {
-          try {
-            new URL(website);
-            data.website = website;
-          } catch (_) {
-            this.replyError.push("The website address is not valid. ");
-          }
+      }
+      if (website) {
+        try {
+          new URL(website)
+          data.website = website
+        } catch (_) {
+          this.replyError.push("The website address is not valid. ")
         }
-        if (parent) {
-          data.parent = parent;
-        }
-        if (!content || content.length < 3) {
-          this.replyError.push("The comment should be at least 3 chars long. ");
-        } else {
-          data.text = content;
-        }
-        this.error = this.replyError = this.replyError.join("")
-        if (!this.replyError) {
-          axios
-            .post(`${this.$store.state.isso}new?uri=${this.slug}`, data, {
-              withCredentials: true
-            })
-            .then(res => {
-              this.$emit('newcom', res);
-              this.$router.push("")
-              this.$router.push(`#isso-${res.data.id}`);
-              let headers = res.headers["x-set-cookie"].split("; "),
-                cookie = headers[0].split("=");
-              this.$cookies.set(cookie[0], cookie[1], {
-                maxAge: 60 * 20,
-                path: "/"
-              });
-              if (name) {
-                this.$cookies.set("isso-name", name)
-              }
-              if (email) {
-                this.$cookies.set("isso-email", email)
-              }
-              if (website) {
-                this.$cookies.set("isso-website", website)
-              }
-              if (notification) {
-                this.$cookies.set("isso-notification", notification)
-              }
-            });
-            this.reply2Com(this.id)
-        }
-      },
-      async edit(content, name, email, website, parent, notification) {
-        let data = { };
-        this.editError = [];
-        if (name) {
-          data.author = name
-        } else {
-          data.author = null
-        }
-        if (email) {
-          if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-            this.editError.push("The email is not a valid email address. ");
-          } else {
-            data.email = email;
-            if (this.notification !== notification) {
-              data.notification = 1;
-            }
-          }
-        } else {
-          data.email = null
-        }
-        if (website) {
-          try {
-            new URL(website);
-            data.website = website;
-          } catch (_) {
-            this.editError.push("The website address is not valid. ");
-          }
-        } else {
-          data.website = null
-        }
-        if (!content || content.length < 3) {
-          this.editError.push("The comment should be at least 3 chars long. ");
-        } else {
-          data.text = content;
-        }
-        this.editError = this.editError.join("");
-        if (!this.editError) {
-          try {
-            let edit_res = await axios.put(`${this.$store.state.isso}id/${this.id}`, data, {
-                withCredentials: true
-            })
-            let headers = edit_res.headers["x-set-cookie"].split("; "),
-              cookie = headers[0].split("=");
-            this.$cookies.remove(cookie[0], { path: "/" });
+      }
+      if (parent) {
+        data.parent = parent
+      }
+      if (!content || content.length < 3) {
+        this.replyError.push("The comment should be at least 3 chars long. ")
+      } else {
+        data.text = content
+      }
+      this.error = this.replyError = this.replyError.join("")
+      if (!this.replyError) {
+        axios
+          .post(`${this.$store.state.isso}new?uri=${this.slug}`, data, {
+            withCredentials: true
+          })
+          .then(res => {
+            this.$emit('newcom', res)
+            this.$router.push("")
+            this.$router.push(`#isso-${res.data.id}`)
+            let headers = res.headers["x-set-cookie"].split(" "),
+              cookie = headers[0].split("=")
             this.$cookies.set(cookie[0], cookie[1], {
               maxAge: 60 * 20,
               path: "/"
-            });
-            this.$emit('edit', edit_res.data, this.id)
-            // console.log(this.id)
-            this.editCom(this.id)
-            this.$router.push("")
-            this.$router.push(`#isso-${edit_res.data.id}`)
-          } catch (err) {
-            this.editError = err
-          }
-        } 
+            })
+            if (name) {
+              this.$cookies.set("isso-name", name)
+            }
+            if (email) {
+              this.$cookies.set("isso-email", email)
+            }
+            if (website) {
+              this.$cookies.set("isso-website", website)
+            }
+            if (notification) {
+              this.$cookies.set("isso-notification", notification)
+            }
+          })
+          this.reply2Com(this.id)
       }
     },
-    components: {
-      IssoInputField
+    async edit(content, name, email, website, parent, notification) {
+      let data = { }
+      this.editError = []
+      if (name) {
+        data.author = name
+      } else {
+        data.author = null
+      }
+      if (email) {
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          this.editError.push("The email is not a valid email address. ")
+        } else {
+          data.email = email
+          if (this.notification !== notification) {
+            data.notification = 1
+          }
+        }
+      } else {
+        data.email = null
+      }
+      if (website) {
+        try {
+          new URL(website)
+          data.website = website
+        } catch (_) {
+          this.editError.push("The website address is not valid. ")
+        }
+      } else {
+        data.website = null
+      }
+      if (!content || content.length < 3) {
+        this.editError.push("The comment should be at least 3 chars long. ")
+      } else {
+        data.text = content
+      }
+      this.editError = this.editError.join("")
+      if (!this.editError) {
+        try {
+          let edit_res = await axios.put(`${this.$store.state.isso}id/${this.id}`, data, {
+              withCredentials: true
+          })
+          let headers = edit_res.headers["x-set-cookie"].split("; "),
+            cookie = headers[0].split("=")
+          this.$cookies.remove(cookie[0], { path: "/" })
+          this.$cookies.set(cookie[0], cookie[1], {
+            maxAge: 60 * 20,
+            path: "/"
+          })
+          this.$emit('edit', edit_res.data, this.id)
+          // console.log(this.id)
+          this.editCom(this.id)
+          this.$router.push("")
+          this.$router.push(`#isso-${edit_res.data.id}`)
+        } catch (err) {
+          this.editError = err
+        }
+      } 
     }
-}
+  },
+  components: {
+    IssoInputField
+  }
+})
 </script>

@@ -19,13 +19,14 @@ article
         | Hope the way I tango with Isso helps u!
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue'
+export default Vue.extend({
     data() {
         return {title: "My isso Style"}
     },
     head() {
         return {title: this.title}
     }
-}
+})
 </script>

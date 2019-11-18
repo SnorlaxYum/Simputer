@@ -7,9 +7,9 @@
         a(href="/") Click to go back home
 </template>
 
-
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue'
+export default Vue.extend({
   props: ["error"],
   head() {
     return {
@@ -17,5 +17,5 @@ export default {
     }
   },
   layout: 'errortemp'
-};
+})
 </script>

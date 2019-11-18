@@ -1,5 +1,5 @@
 <template lang="pug">
-article#isso-thread(:data-title="title")
+article#isso-thread
   h4 Leave a comment
   isso-input-field(:parent='null' :error="submit_error" @submit="submit")
   div.comment-root(v-if="comment.length")

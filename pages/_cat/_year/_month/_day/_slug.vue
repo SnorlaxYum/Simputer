@@ -1,5 +1,4 @@
 <template lang="pug">
-client-only
   div
     div
       transition(name="fade")
@@ -15,27 +14,28 @@ client-only
         :tags="attributes.tags"
         :content="html"
       )
-      
-    isso(:title="attributes.title" :slug="slug")
+    client-only
+      isso(:title="attributes.title" :slug="slug")
 </template>
 
-<script>
-import url from 'url';
-import Post from "~/components/Post";
-import Isso from '~/components/Isso';
-export default {
+<script lang="ts">
+import Vue from 'vue'
+import url from 'url'
+import Post from "~/components/Post"
+import Isso from '~/components/Isso'
+export default Vue.extend({
   asyncData({ params, error, store }) {
     const target = store.state.blog.category["all"].posts.get(
       params.slug
-    );
+    )
     if (
       target &&
       target.attributes.published &&
       params.cat === store.getters['blog/slugify'](target.attributes.category)
     ) {
-      return target;
+      return target
     } else {
-      return error({ message: "Page not found", statusCode: 404 });
+      return error({ message: "Page not found", statusCode: 404 })
     }
   },
   data() {
@@ -62,7 +62,7 @@ export default {
         { hid: 'og:url', property: 'og:url', content: thisUrl },
         { hid: 'twitter:card', name: 'twitter:card', content: "summary_large_image" }
       ]
-    };
+    }
   },
   watch: {
     'html': 'contentUpdated'
@@ -76,6 +76,7 @@ export default {
       this.processTitles()
     },
     processTitles() {
+      // console.log(this.$el)
       const titles = this.$el.getElementsByTagName("h2")
       if (titles.length > 0) {
         for (const title of titles) {
@@ -120,10 +121,10 @@ export default {
     }
   },
   mounted() {
-    this.$nextTick(this.addListeners)
+    this.$nextTick(() => {this.addListeners()})
   },
   beforeDestroy() {
     this.destroyListeners()
   }
-};
+})
 </script>

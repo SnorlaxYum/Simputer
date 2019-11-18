@@ -11,24 +11,26 @@ div
            :summary='data[1].attributes.summary ? data[1].attributes.summary : false'
            :isso='data[1].isso')
 </template>
-<script>
+
+<script lang="ts">
+import Vue from 'vue'
 import GetIssoCount from "~/features/GetIssoCount"
-import PostNav from "~/components/PostNav";
-export default {
+import PostNav from "~/components/PostNav"
+export default Vue.extend({
   asyncData({ params, error, store }) {
-    let data = store.state.blog.category[params.cat], data_this;
+    let data = store.state.blog.category[params.cat], data_this
     if (data) {
-      data_this = {...data};
-      data_this.posts = new Map(data_this.posts);
+      data_this = {...data}
+      data_this.posts = new Map(data_this.posts)
       for (let post of data_this.posts) {
-        let post_date = new Date(post[1].attributes.date);
+        let post_date = new Date(post[1].attributes.date)
         if (post_date.getFullYear() !== Number(params.year) || post_date.getMonth() + 1 !== Number(params.month) || post_date.getDate() !== Number(params.day)) {
           data_this.posts.delete(post[0])
         }
       }
-      return data_this;
+      return data_this
     } else {
-      return error({ message: "Section not found", statusCode: 404 });
+      return error({ message: "Section not found", statusCode: 404 })
     }
   },
   mixins: [GetIssoCount],
@@ -38,7 +40,7 @@ export default {
   head() {
     return {
       title: this.title
-    };
+    }
   }
-};
+})
 </script>

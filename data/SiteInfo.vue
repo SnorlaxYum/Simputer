@@ -1,5 +1,6 @@
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue'
+export default Vue.extend({
     head() {
         return {
         titleTemplate: '%s - ' + this.siteTitle
@@ -10,5 +11,5 @@ export default {
             siteTitle: this.$store.state.siteTitle
         }
     }
-}
+})
 </script>
