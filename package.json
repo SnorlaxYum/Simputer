@@ -11,7 +11,7 @@
     "start": "nuxt start",
     "generate": "nuxt generate",
     "test": "jest",
-    "serve": "cd dist && python3 -m http.server"
+    "serve": "python -m http.server --directory dist"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
