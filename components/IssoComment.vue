@@ -32,7 +32,6 @@ div.comment(:id="'isso-'+id")
 import Vue from 'vue'
 import axios from 'axios'
 import IssoInputField from '~/components/IssoInputField'
-import moment from 'moment'
 export default Vue.extend({
   props: ["id", "num", "avatar", "likes", "author", "website", "created", "text", "slug"],
   data() {
@@ -40,10 +39,14 @@ export default Vue.extend({
       replyshow: false,
       editshow: false, 
       editError: null,
-      replyError: null
+      replyError: null,
+      now: new Date()
     }
   },
   methods: {
+    currentTime() {
+      this.now = new Date()
+    },
     vote(id, opinion) {
       this.$emit("vote", id, opinion)
     },
@@ -57,7 +60,13 @@ export default Vue.extend({
       return comment_html
     },
     timeFromNow(time) {
-      return moment(new Date(new Date(0).setUTCSeconds(time))).fromNow()
+      let published = new Date(new Date(0).setUTCSeconds(time)),
+      theRes = (this.now - published) / 1000
+      return theRes < 60 ? `${Math.floor(theRes)} seconds ago` : 
+             theRes < 60 * 60 ? `${Math.floor(theRes/60)} minutes ago` :
+             theRes < 60 * 60 * 24 ? `${Math.floor(theRes/60/60)} hours ago` :
+             theRes < 60 * 60 * 24 * 30 ? `${Math.floor(theRes/60/60/24)} days ago` :
+             theRes < 60 * 60 * 24 * 365 ? `${Math.floor(theRes/60/60/24/30)} months ago` : `${Math.floor(theRes/60/60/24/365)} months ago`
     },
     cookie(name) {
       return this.$cookies.get(name)
@@ -213,6 +222,9 @@ export default Vue.extend({
         }
       } 
     }
+  },
+  mounted() {
+    setInterval(this.currentTime, 1000)
   },
   components: {
     IssoInputField
