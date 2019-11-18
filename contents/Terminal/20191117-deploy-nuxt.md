@@ -6,6 +6,7 @@ tags:
 - nuxt
 - Vue
 - Github Pages
+- python
 status: published
 summary: Just started my first frontend developer job as an intern worker. And to learn vue better, I rewrote my blog using nuxt.
 ---
@@ -21,6 +22,23 @@ Thanks to hmsk's plugin[^4], I could write my posts in markdown and process it r
 I already abandoned it since I can do the same thing with `axios` with my own styles. The implementation is in my source code[^1].  
 With `axios` we could also interact with commenting systems like `Discus` with our own styles, which can be a cool solution of serverless commenting.  
 In the future I might write my own commenting system along with API to learn more about backend things.
+
+## Preview locally
+
+A static generated nuxt app could be different than the one we preview using `yarn dev`. So it's necessary to preview the generated site locally.  
+
+I changed some lines in `packages.json` to implement this:  
+
+```
+  ...
+  "scripts": {
+    ...
+    "serve": "cd dist && python3 -m http.server"
+  },
+  ...
+```
+
+Then I could do `yarn generate && yarn serve` every time I generate the pages to see the result.  
 
 ## The paths that need to be taken care of
 
@@ -43,17 +61,9 @@ When I inspected, I found that the error will disappear if the page don't have a
 
 ## Deploy to Github Pages
 
-In `nuxt.config.js`:  
+One easy way is to change the generate dir from `dist` to `docs` and then `nuxt generate` and push to the repository. However, that's kinda silly and unneccessary since we've got Github Actions. I use [this](https://github.com/peaceiris/actions-gh-pages) for my deployment[^5], which will be triggered automatically once I send a new commit to the `master` branch.  
 
-```
-...
-export default {
-  ...
-  generate: {... dir: 'docs'},
-...
-```
-
-Then `yarn generate`, and then push to the repository, toggle settings to open github pages at `/docs`.  
+Be sure to put a CNAME file with the custom domain to `static` folder.  
 
 ## Why I don't use Firebase Functions or my own server
 
@@ -72,3 +82,4 @@ I'd rather use my own server when it comes to SSR. But nothing compares to Fastl
 [^2]: [API: The generate Property - NuxtJS](https://nuxtjs.org/api/configuration-generate)
 [^3]: [Nuxt.js app doesn't load charts or maps when copying and pasting a link into a new browser tab, otherwise works](https://stackoverflow.com/questions/54010529/nuxt-js-app-doesnt-load-charts-or-maps-when-copying-and-pasting-a-link-into-a-n)
 [^4]: [hmsk/frontmatter-markdown-loader: 📝 Webpack Loader for: FrontMatter (.md) -> HTML + Attributes (+ React/Vue Component)](https://github.com/hmsk/frontmatter-markdown-loader)
+[^5]: [peaceiris/actions-gh-pages: GitHub Actions for GitHub Pages 🚀 Deploy static files and publish your site easily. Static-Site-Generators-friendly.](https://github.com/peaceiris/actions-gh-pages)

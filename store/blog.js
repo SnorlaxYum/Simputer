@@ -141,12 +141,12 @@ export const mutations = {
         }
         }
         // remove the empty tags
-        // for (let tag of state.tags) {
-        //     if (tag[1].posts.size === 0) {
-        //         state.tags.delete(tag[0])
-        //     }
-        // }
-        // // iteration for generation value in nuxt.config.js
+        for (let tag of state.tags) {
+            if (tag[1].posts.size === 0) {
+                state.tags.delete(tag[0])
+            }
+        }
+        // iteration for generation value in nuxt.config.js
         // let slugs = [], date = {}
         // for (let cat of Object.keys(state.category)) {
         //     if (cat !== "all") {
