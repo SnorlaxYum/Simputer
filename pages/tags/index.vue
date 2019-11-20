@@ -4,7 +4,7 @@ article
   content
     ul
       li(v-for='tag of tags')
-        nuxt-link(:to="['','tags',tag[0]].join('/')") {{tag[1].title}}
+        nuxt-link(:to="['','tags',tag[0],''].join('/')") {{tag[1].title}}
         |           ({{tag[1].posts.size}})
 </template>
 

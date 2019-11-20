@@ -3,7 +3,6 @@ const markdownItFootnote = require('markdown-it-footnote');
 const markdownItEmoji = require('markdown-it-emoji');
 const markdownAnchor = require('markdown-it-anchor');
 const markdownhljs = require('markdown-it-highlightjs');
-const uslugify = require('uslug');
 
 const gen = ['/browser',
   '/terminal',
@@ -250,7 +249,41 @@ export default {
             breaks: true,
             typographer: true
           }).use(markdownItFootnote).use(markdownItEmoji).use(markdownAnchor, {
-            slugify: uslugify
+            slugify(title) {
+              // Credit: https://blog.vjeux.com/2010/javascript/javascript-slug.html
+              function keys(o) { var a = []; for (var k in o) a.push(k); return a; }
+              //  var accents = "àáäâèéëêìíïîòóöôùúüûñç";
+              let accents = "\u00e0\u00e1\u00e4\u00e2\u00e8"
+                  + "\u00e9\u00eb\u00ea\u00ec\u00ed\u00ef"
+                  + "\u00ee\u00f2\u00f3\u00f6\u00f4\u00f9"
+                  + "\u00fa\u00fc\u00fb\u00f1\u00e7"
+              let without = "aaaaeeeeiiiioooouuuunc"
+              let map = {'@': ' at ', '\u20ac': ' euro ', 
+                  '$': ' dollar ', '\u00a5': ' yen ',
+                  '\u0026': ' and ', '\u00e6': 'ae', '\u0153': 'oe'}
+              return title
+                  // Handle uppercase characters
+                  .toLowerCase()
+              
+                  // Handle accentuated characters
+                  .replace(
+                  new RegExp('[' + accents + ']', 'g'),
+                  function (c) { return without.charAt(accents.indexOf(c)); })
+              
+                  // Handle special characters
+                  .replace(
+                  new RegExp('[' + keys(map).join('') + ']', 'g'),
+                  function (c) { return map[c]; })
+              
+                  // Dash special characters
+                  .replace(/[^a-z0-9]/g, '-')
+              
+                  // Compress multiple dash
+                  .replace(/-+/g, '-')
+              
+                  // Trim dashes
+                  .replace(/^-|-$/g, '')
+          }
         }).use(markdownhljs)
         }
       })
