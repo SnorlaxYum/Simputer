@@ -1,5 +1,5 @@
 <template lang="pug">
-  footer.footer This site is proudly served by Nuxt.js. Simputer &copy; 2009 - {{ thisYear }}
+  footer.footer This site is proudly served by Python and Nuxt.js. Simputer &copy; 2016 - {{ thisYear }}
 </template>
 
 <script lang="ts">

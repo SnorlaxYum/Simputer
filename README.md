@@ -20,7 +20,8 @@ $ yarn dev
 $ yarn build
 $ yarn start
 
-# generate static project
+# generate static project: Firstly we need an API server, so it needs 2 commands
+$ yarn dev &
 $ yarn generate
 ```
 
