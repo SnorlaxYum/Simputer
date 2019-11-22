@@ -19,7 +19,12 @@ Populating the store with the markdown files converted by that plugin could plac
 I don't have many posts on this blog, but the output of `nuxt generate` comes with 60MB+, which is incredibly large. The reason is the generated page just bundles every pages into one html and js files. The js files are large also due to my reliance on plugins like `uslug`, `hljs`, etc.  
 So could I just make each markdown pages load their own content and thus make the size much small? Yes, and I searched about markdown on nuxt, many people just recommend Gridsome, saying it's a perfect solution about a markdown blog on nuxt. So I just took a look on their website and switched to another page, and I saw their [new GET requests](https://static.snorl.ax/nuxt-speed/gridsome-solution.webp) on switchiong to a new page are mainly JSON-based. And that's possible in a nuxt.js app, all I need is **loading the needed json on a specific page**.  
 
-Then here's my solution, **generate the jsons before-hand and load them onthe specific post page**. In doing this, I don't need that many packages imported in my nuxt project and all these things could be done with python much more easily and quickly, after spending some time writing and testing the code in that python file for my JSON generating process, now my [page size](https://static.snorl.ax/nuxt-speed/page-size-now.webp) and [js bundle size](https://static.snorl.ax/nuxt-speed/my-js-bundle-now.webp) are back to normal. At least they won't be increasing together with my markdown files. Here's the magic of json! Especially for a static nuxt website, I'd better preprocess the data and save them to files, thus making the html files and js bundle files generated as small as possible. Just let a backend language do all the dirty work for me, which serves as an API server in this case. Frontend languages are there for bringing data to the browser. Python is ideal for the job 'cause it has tons of tools such as `slugify`, `markdown` to do that well and it's easy to write code in the language, basically the codes are really self-explanatory and easy to debug (Python Shell just comes in handy).
+Then here's my solution, **generate the jsons before-hand and load them onthe specific post page**. In doing this, I don't need that many packages imported in my nuxt project and all these things could be done with python much more easily and quickly, after spending some time writing and testing the code in that python file for my JSON generating process, now my [page size](https://static.snorl.ax/nuxt-speed/page-size-now.webp) and [js bundle size](https://static.snorl.ax/nuxt-speed/my-js-bundle-now.webp) are back to normal. At least they won't be increasing together with my markdown files. Here's the magic of json! Especially for a static nuxt website, I'd better preprocess the data and save them to files, thus making the html files and js bundle files generated as small as possible. Just let a backend language do all the dirty work for me, which serves as an API server in this case. Frontend languages are there for bringing data to the browser. Python is ideal for the job 'cause it has tons of tools such as `slugify`, `markdown` to do that well and it's easy to write code in the language, basically the codes are really self-explanatory and easy to debug (Python Shell just comes in handy).  
+
+Auto deployment on Github is a bit tricky, since it also needs call the API when running `nuxt generate`, an API server listening at a port that serves the json files is also needed.  
+
+![](https://static.snorl.ax/graphs/nuxt-20191122.svg)
+{: .text-center .graph}
 
 ## Abandon embed.min.js from isso
 
@@ -81,23 +86,8 @@ I took some screenshots:
 
 I'd rather use my own server when it comes to SSR. But nothing compares to Fastly CDN.
 
-## When I forget to add submodule
-
-I moved my `media` directory to the project as well, since it's a git project I have to add it as a `git submodule add`, however I forgot to do so and did `git add .` instead, so on my earlier commit, the folder is shown as a text on Github.  
-
-Solution[^6]:  
-
-1. Unstage it
-
-        $ git rm --cached media
-
-2. Add it in a correct way
-
-        $ git submodule add url_to_repo media
-
 [^1]: [The source code of the blog](https://github.com/SnorlaxYum/Simputer)
 [^2]: [API: The generate Property - NuxtJS](https://nuxtjs.org/api/configuration-generate)
 [^3]: [Nuxt.js app doesn't load charts or maps when copying and pasting a link into a new browser tab, otherwise works](https://stackoverflow.com/questions/54010529/nuxt-js-app-doesnt-load-charts-or-maps-when-copying-and-pasting-a-link-into-a-n)
 [^4]: [hmsk/frontmatter-markdown-loader: 📝 Webpack Loader for: FrontMatter (.md) -> HTML + Attributes (+ React/Vue Component)](https://github.com/hmsk/frontmatter-markdown-loader)
 [^5]: [peaceiris/actions-gh-pages: GitHub Actions for GitHub Pages 🚀 Deploy static files and publish your site easily. Static-Site-Generators-friendly.](https://github.com/peaceiris/actions-gh-pages)
-[^6]: [Issue with adding common code as git submodule: "already exists in the index" - Stack Overflow](https://stackoverflow.com/a/12902857)
