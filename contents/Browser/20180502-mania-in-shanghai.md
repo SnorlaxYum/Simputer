@@ -2,7 +2,7 @@
 title: Mania in Shanghai
 date: 2018-05-02 23:02
 tags: Fall Out Boy, M A N I A, Tour, Shanghai
-authors: Sim
+author: Sim
 summary: Heat in a windy night! 
 ogimage: /images/og/fobmania-tour-twitter.png
 ---

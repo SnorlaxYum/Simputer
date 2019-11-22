@@ -1,34 +1,35 @@
 ﻿<template lang="pug">
 div
-  post-nav(v-for='data of posts'
-           :key='data[0]'
-           :category='data[1].attributes.category'
-           :title='data[1].attributes.title'
-           :date='data[1].attributes.date'
-           :modified='data[1].attributes.modified'
-           :slug='data[0]'
-           :content='data[1].attributes.summary ? false : data[1].html'
-           :summary='data[1].attributes.summary ? data[1].attributes.summary : false'
-           :isso='data[1].isso')
+  post-nav(v-for='post, title of posts'
+            :key='post.slug'
+            :category='post.category'
+            :catslug="post['category_slug']"
+            :title='post.title'
+            :date='post.date'
+            :modified='post.modified'
+            :slug='post.slug'
+            :content='post.summary ? false : post.html'
+            :summary='post.summary ? post.summary : false'
+            :isso='post.isso')
 </template>
 <script lang="ts">
 import Vue from 'vue'
 import GetIssoCount from "~/features/GetIssoCount"
 import PostNav from "~/components/PostNav"
 export default Vue.extend({
-  asyncData({ params, error, store }) {
-    let data = store.state.blog.category[params.cat], data_this
+  async asyncData({ params, error, $axios }) {
+    let data = await $axios.get(`/${params.cat}.json`).then(res => res.data)
     if (data) {
-      data_this = {...data}
-      data_this.posts = new Map(data_this.posts)
-      for (let post of data_this.posts) {
-        let post_date = new Date(post[1].attributes.date)
+      let data_this = {...data}
+      data_this.posts = [...data_this.posts]
+      // console.log(data_this.posts)
+      for (let i = data_this.posts.length - 1; i >= 0; i--) {
+        let post = data_this.posts[i], post_date = new Date(post.date)
         if (post_date.getFullYear() !== Number(params.year)) {
           // console.log(post_date.getFullYear(), params.year)
-          data_this.posts.delete(post[0])
+          data_this.posts.splice(i, 1)
         }
       }
-      // console.log(data_this.posts)
       return data_this
     } else {
       return error({ message: "Section not found", statusCode: 404 })
@@ -40,7 +41,7 @@ export default Vue.extend({
   },
   head() {
     return {
-      title: this.title
+      title: this.name
     }
   }
 })

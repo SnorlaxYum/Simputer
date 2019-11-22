@@ -1,0 +1,8 @@
+﻿{
+    "compilerOptions": {
+      "types": [
+        "@nuxt/vue-app",
+        "@nuxtjs/axios"
+      ]
+    }
+  }

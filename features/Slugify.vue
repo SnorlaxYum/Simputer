@@ -1,13 +1,10 @@
 <script lang="ts">
-import Vue from 'vue'
+import Vue from "vue";
 export default Vue.extend({
-    methods: {
-        slugify_num(num) {
-            return Number(num) > 9 ? Number(num) : '0' + num
-        },
-        slugify_string(str) {
-            return this.$store.getters['blog/slugify'](str)
-        }
+  methods: {
+    slugify_num(num) {
+      return Number(num) > 9 ? Number(num) : "0" + num;
     }
-})
+  }
+});
 </script>

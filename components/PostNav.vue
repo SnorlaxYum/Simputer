@@ -21,6 +21,7 @@ import Vue from 'vue'
 import FormatDate from "~/features/FormatDate"
 import Slugify from "~/features/Slugify"
 import DateParseVue from '../features/DateParse.vue'
+import ThisSlugVue from '../features/ThisSlug.vue'
 export default Vue.extend({
   props: [
     "title",
@@ -30,22 +31,10 @@ export default Vue.extend({
     "category",
     "slug",
     "summary",
-    "isso"
+    "isso",
+    "catslug"
   ],
-  mixins: [FormatDate, Slugify, DateParseVue],
-  computed: {
-    link() {
-      return [
-        "",
-        this.slugify_string(this.category),
-        this.year,
-        this.slugify_num(this.month + 1),
-        this.slugify_num(this.day),
-        this.slug,
-        ""
-      ].join("/")
-    }
-  },
+  mixins: [FormatDate, Slugify, ThisSlugVue, DateParseVue],
   methods: {
     comment_count(newv) {
       if (newv) {

@@ -2,9 +2,9 @@
 title: My Isso Configuration
 author: Sim
 date: 2019-06-10 09:00
-tags:
-- isso
-- config
+modified: 2019-11-20 00:00
+tags:  isso
+	 config
 summary: I love it!
 ---
 <div id="series">
@@ -24,36 +24,35 @@ summary: I love it!
 
 ## Server Configuration
 
-```ini
-[general]
-dbpath = /var/lib/isso/comments.db
-host = https://snorl.ax
-notify = smtp
-log-file = /var/lib/isso/snorl.ax.log
-gravatar = true
-gravatar-url = https://www.gravatar.com/avatar/{}?d=https%%3A%%2F%%2Fstatic.snorl.ax%%2Ftheme%%2Fimages%%2Ficon_anonymous.png
-reply-notifications=true
+	:::ini
+	[general]
+	dbpath = /var/lib/isso/comments.db
+	host = https://snorl.ax
+	notify = smtp
+	log-file = /var/lib/isso/snorl.ax.log
+	gravatar = true
+	gravatar-url = https://www.gravatar.com/avatar/{}?d=https%%3A%%2F%%2Fstatic.snorl.ax%%2Ftheme%%2Fimages%%2Ficon_anonymous.png
+	reply-notifications=true
 
-[moderation]
-enabled = true
+	[moderation]
+	enabled = true
 
-[guard]
-enabled = true
-ratelimit = 1
-direct-reply = 3
-reply-to-self = true
+	[guard]
+	enabled = true
+	ratelimit = 1
+	direct-reply = 3
+	reply-to-self = true
 
-[smtp]
-host = localhost
-port = 25
-security = none
-to = sim@snorl.ax
-from = "Simputer" <admin@snorl.ax>
-timeout = 10
+	[smtp]
+	host = localhost
+	port = 25
+	security = none
+	to = sim@snorl.ax
+	from = "Simputer" <admin@snorl.ax>
+	timeout = 10
 
-[admin]
-enabled = false
-```
+	[admin]
+	enabled = false
 
 For other options I haven't set u could check <a href="https://posativ.org/isso/docs/configuration/server/" target="_blank">the official documentation</a>[^1].  
 
@@ -61,33 +60,33 @@ For other options I haven't set u could check <a href="https://posativ.org/isso/
 
 	* `dbpath` is the path of the sqlite database file where I store the data.  
 	* `host` is the url where I want the isso to be shown, for isso to be shown in both http and https version, it should be set as:  
-	```
-	host =
-		http://snorl.ax
-		https://snorl.ax
-	```
+
+			host =
+				http://snorl.ax
+				https://snorl.ax
+
 	* `notify` is the notification backend for new comments, I set `notify = smtp` so I'll receive a new email when a new comment is successfully submitted to the server, it also make the reply notification possible.  
 	* `log-file` is the path of log showing the status of the isso.
 	* `gravatar = true` enables the use of gravatar.  
 	* `gravatar-url` defines url for gravatar images. The “{}” is where the email hash will be placed. The value after `d=` defines the defalut image  to show if there is no image associated with the requested email hash. If you choose not to set this option, isso will automatically set the value to identicon, which is a geometric pattern based on an email hash.  
 	To set my own default image for the situation, I need to urlencode the url for that image. Now for me `https://static.snorl.ax/theme/images/icon_anonymous.png` is the url, so I do it with python[^2]:  
-	```
-	$ python
-	```
+
+			$ python
+
 	Import the required library for it and do it:  
-	```
-	>>> import urllib.parse
-	>>> the = urllib.parse.quote_plus('https://static.snorl.ax/theme/images/icon_anonymous.png')
-	>>> the.replace('%','%%')
-	```
+
+		>>> import urllib.parse
+		>>> the = urllib.parse.quote_plus('https://static.snorl.ax/theme/images/icon_anonymous.png')
+		>>> the.replace('%','%%')
+
 	Then it'll return the required url-encoded string:  
-	```
-	'https%%3A%%2F%%2Fstatic.snorl.ax%%2Ftheme%%2Fimages%%2Ficon_anonymous.png'
-	```
+	
+		'https%%3A%%2F%%2Fstatic.snorl.ax%%2Ftheme%%2Fimages%%2Ficon_anonymous.png'
+	
 	Now I can set `gravatar-url = https://www.gravatar.com/avatar/{}?d=https%%3A%%2F%%2Fstatic.snorl.ax%%2Ftheme%%2Fimages%%2Ficon_anonymous.png` to see it working. Normally we don't need to replace `%` with `%%`, however in isso if I don't do so, the following error will happen:  
-	```
-	InterpolationSyntaxError: '%' must be followed by '%' or '(', found: u'%3A%2F%2Fstatic.snorl.ax%2Ftheme%2Fimages%2Ficon_anonymous.png'  
-	```
+	
+		InterpolationSyntaxError: '%' must be followed by '%' or '(', found: u'%3A%2F%2Fstatic.snorl.ax%2Ftheme%2Fimages%2Ficon_anonymous.png'  
+	
 	To know more about how to tango with Gravatar, see <a href="https://en.gravatar.com/site/implement/images/" target="_blank">the documentation</a>.  
 
 	* `reply-notification=true` enables email notifications of replies to the commenters who have previously subcribed to email notification of replies.  
@@ -118,13 +117,15 @@ For other options I haven't set u could check <a href="https://posativ.org/isso/
 
 ## Client Configuration
 
-This is the configuration I use on my site:  
+### Current Configuration
 
-```
-<section id=comments data-title="{{ title }}" data-isso-id="/the/path/to/the/page/">
+Since I'm using nuxt now, I could easily play with isso API, you can see how I do it from my components in the [source code](https://github.com/SnorlaxYum/Simputer/tree/master/components).
 
-<script data-isso=https://isso.snorl.ax/ data-isso-gravatar=true data-isso-avatar=false data-isso-reply-notifications=true data-isso-reply-to-self=true data-isso-css=false src=https://static.snorl.ax/theme/js/embed.min.js data-isso-lang=en></script>
-```
+### Previous Configuration  
+
+	<section id=comments data-title="{{ title }}" data-isso-id="/the/path/to/the/page/">
+
+	<script data-isso=https://isso.snorl.ax/ data-isso-gravatar=true data-isso-avatar=false data-isso-reply-notifications=true data-isso-reply-to-self=true data-isso-css=false src=https://static.snorl.ax/theme/js/embed.min.js data-isso-lang=en></script>
 
 For other options I don't use, u can check <a href="https://posativ.org/isso/docs/configuration/client/" target="_blank">the official documention</a>.  
 

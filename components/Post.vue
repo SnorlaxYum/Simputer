@@ -8,24 +8,35 @@
       span(v-if='modified')
         time.modified(:datetime="'Unix time:' + modified") {{date_string_from_date(mod_date)}}
       span.tag-list
-        span(:class="tags.indexOf(tag) == 0 ? 'tag' : 'tag seq-tag'" v-for='tag in tags' :key='tag')
-          nuxt-link(:to="['', 'tags', slugify_string(tag), ''].join('/')") {{ tag }}
+        span(:class="tags.indexOf(tag) == 0 ? 'tag' : 'tag seq-tag'" v-for='tag in tags' :key='tag[1]')
+          nuxt-link(:to="['', 'tags', tag[1], ''].join('/')") {{ tag[0] }}
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import FormatDate from "~/features/FormatDate"
-import Slugify from "~/features/Slugify"
 import DateParseVue from '../features/DateParse.vue'
 export default Vue.extend({
-  props: [
-    "title",
-    "date",
-    "modified",
-    "content",
-    "tags"
-  ],
-  mixins: [FormatDate, Slugify, DateParseVue],
+  props: {  
+    title: {
+      type: String
+    },
+    date: {
+      type: String
+    },
+    modified: {
+      type: [String, Boolean],
+      required: false,
+      default: ''
+    },
+    content: {
+      type: String
+    },
+    tags: {
+      type: Array
+    }
+  },
+  mixins: [FormatDate, DateParseVue],
   watch: {'content': 'contentUpdated'},
   methods: {
     navigate(event) {

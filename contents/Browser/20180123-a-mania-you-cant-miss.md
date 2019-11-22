@@ -1,10 +1,9 @@
 ---
 title: A mania you can't miss
 date: 2018-01-23 02:02
-tags: 
-- Fall Out Boy
-- M A N I A
-authors: Sim
+tags:  Fall Out Boy
+     M A N I A
+author: Sim
 summary: Ready for a mania?
 ogimage: /images/og/fobmania-twitter.png
 ---

@@ -4,7 +4,6 @@ date: 2016-12-08 01:40
 modified: 2019-11-17 12:51
 author: Sim
 tags: KeyCDN, Gitlab, Github, Netlify, speed, CloudFlare, Firebase, CDN
-status: published
 summary: KeyCDN → Gitlab → Github + CloudFlare → Gitlab + Netlify → Github + Cloudflare → Firebase → Cloudflare+Firebase → Cloudflare+Gitlab → Github + Cloudflare → Firebase → My VPS + CloudFlare → My VPS → Github Pages
 ---
 

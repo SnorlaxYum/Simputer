@@ -1,20 +1,20 @@
 <template lang="pug">
-article
-  header Tags
-  content
-    ul
-      li(v-for='tag of tags')
-        nuxt-link(:to="['','tags',tag[0],''].join('/')") {{tag[1].title}}
-        |           ({{tag[1].posts.size}})
+  article
+    header Tags
+    content
+      ul
+        li(v-for='tag_info, tag of tags')
+          nuxt-link(:to="['','tags',tag_info.slug,''].join('/')") {{tag}}
+          |           ({{tag_info.length}})
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 export default Vue.extend({
-  asyncData({ params, error, store }) {
-    let data = store.state.blog.tags
-    if (data) {
-      return { tags: data }
+  async asyncData({ params, error, $axios }) {
+    let tags = await $axios.get("/tags.json").then(res => res.data)
+    if (tags) {
+      return { tags }
     } else {
       return error({ message: "Section not found", statusCode: 404 })
     }

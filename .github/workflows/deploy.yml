@@ -11,18 +11,31 @@ jobs:
     steps:
     - uses: actions/checkout@master
 
+    - name: Setup Python
+      uses: actions/setup-python@v1
+      with:
+        python-version: '3.x' # Version range or exact version of a Python version to use, using semvers version range syntax.
+        architecture: 'x64' # (x64 or x86)
+
     - name: Setup Node
       uses: actions/setup-node@v1
       with:
         node-version: '10.x'
 
+    - run: pip install -r pip-requirement
+
+    - run: python markdown2json.py
+
     - run: npm install
 
     - run: npm ci
 
-    # - run: npm test
+    - run: npm run dev &
 
     - run: npm run generate
+
+    - name: Production URL
+      run: sed -i 's/http:\/\/localhost:3000/https:\/\/snorl.ax/g' dist/_nuxt/*.js
 
     - name: deploy
       uses: peaceiris/actions-gh-pages@v2.5.0

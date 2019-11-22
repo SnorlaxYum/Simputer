@@ -2,10 +2,9 @@
 title: Waiting for Pray For The Wicked
 date: 2018-05-04 00:00
 modified: 2018-05-05 12:00
-tags: 
-- Panic! At The Disco
-- Pray For The Wicked
-authors: Sim
+tags: Panic! At The Disco
+     Pray For The Wicked
+author: Sim
 summary: It will be available on June 22, 2018!
 ogimage: /images/og/pray-for-the-wicked-twitter.png
 ---

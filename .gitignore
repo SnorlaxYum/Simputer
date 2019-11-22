@@ -90,13 +90,16 @@ sw.*
 # Vim swap files
 *.swp
 
-# Firebase
-.firebase
+# Old contents
 old-content
-.firebaserc
-firebase.json
-firebase-debug.log
 
 # some others
 examples
 .editorconfig
+.vscode
+gen_list.json
+static/*.json
+static/*/*.json
+
+# submodules
+media

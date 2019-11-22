@@ -30,7 +30,6 @@ div.comment(:id="'isso-'+id")
 </template>
 <script lang="ts">
 import Vue from 'vue'
-import axios from 'axios'
 import IssoInputField from '~/components/IssoInputField'
 export default Vue.extend({
   props: ["id", "num", "avatar", "likes", "author", "website", "created", "text", "slug"],
@@ -134,7 +133,7 @@ export default Vue.extend({
       }
       this.error = this.replyError = this.replyError.join("")
       if (!this.replyError) {
-        axios
+        this.$axios
           .post(`${this.$store.state.isso}new?uri=${this.slug}`, data, {
             withCredentials: true
           })
@@ -202,7 +201,7 @@ export default Vue.extend({
       this.editError = this.editError.join("")
       if (!this.editError) {
         try {
-          let edit_res = await axios.put(`${this.$store.state.isso}id/${this.id}`, data, {
+          let edit_res = await this.$axios.put(`${this.$store.state.isso}id/${this.id}`, data, {
               withCredentials: true
           })
           let headers = edit_res.headers["x-set-cookie"].split("; "),

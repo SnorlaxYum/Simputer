@@ -35,7 +35,6 @@ article#isso-thread
   p(v-else) Be the first one to comment?
 </template>
 <script>
-import axios from "axios";
 import IssoComment from "~/components/IssoComment";
 import IssoInputField from "~/components/IssoInputField";
 export default {
@@ -49,7 +48,7 @@ export default {
   },
   methods: {
     async load_comments() {
-      let data = await axios.get(`${this.$store.state.isso}?uri=${this.slug}`, {
+      let data = await this.$axios.get(`${this.$store.state.isso}?uri=${this.slug}`, {
         validateStatus: false
       });
       this.comment = data.status == 200 ? data.data.replies : [];
@@ -57,7 +56,7 @@ export default {
     vote(id, opinion) {
       let current = this.$el.querySelector(`#isso-${id} .likes`).innerHTML,
         current_num = Number(current);
-      axios.post(`${this.$store.state.isso}id/${id}/${opinion}`).then(
+      this.$axios.post(`${this.$store.state.isso}id/${id}/${opinion}`).then(
         res => {
           if (res.data.likes + res.data.dislikes !== current_num) {
             this.$el.querySelector(`#isso-${id} .likes`).innerHTML =
@@ -93,7 +92,7 @@ export default {
       let confirm = prompt("Enter 'delete' to confirm");
       if (confirm && (confirm === "delete" || confirm === "'delete'")) {
         try {
-          let de = await axios.delete(`${this.$store.state.isso}id/${id}`, {
+          let de = await this.$axios.delete(`${this.$store.state.isso}id/${id}`, {
             withCredentials: true
           });
           this.$cookies.remove(`isso-${id}`, { path: "/" });
@@ -139,7 +138,7 @@ export default {
       }
       this.submit_error = this.submit_error.join("");
       if (!this.submit_error) {
-        axios
+        this.$axios
           .post(`${this.$store.state.isso}new?uri=${this.slug}`, data, {
             withCredentials: true
           })
@@ -189,6 +188,8 @@ export default {
       } else {
         this.comment.splice(index, 1, json)
       }
+      let height = document.getElementsByTagName('nav')[0].clientHeight
+      setTimeout(() => {window.scrollBy(0, -height)}, 10)
     }
   },
   mounted() {

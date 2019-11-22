@@ -8,31 +8,32 @@
             nuxt-link(v-for="link in links" :to="link.link" :key="link.link")
               li(v-html="link.title")
       post(
-        :title="attributes.title"
-        :date="attributes.date"
-        :modified="attributes.modified"
-        :tags="attributes.tags"
+        :title="title"
+        :date="date"
+        :modified="modified"
+        :tags="tags"
         :content="html"
       )
     client-only
-      isso(:title="attributes.title" :slug="slug")
+      isso(:title="title" :slug="link")
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import url from 'url'
 import Post from "~/components/Post"
 import Isso from '~/components/Isso'
+import SlugifyVue from '../../../../../features/Slugify.vue'
+import DateParseVue from '../../../../../features/DateParse.vue'
+import FormatDateVue from '../../../../../features/FormatDate.vue'
+import ThisSlugVue from '../../../../../features/ThisSlug.vue'
 export default Vue.extend({
-  asyncData({ params, error, store }) {
-    const target = store.state.blog.category["all"].posts.get(
-      params.slug
-    )
+  async asyncData({ params, error, $axios }) {
+    let target = await $axios.get(`/${params.cat}/${params.slug}.json`).then(res => res.data)
     if (
       target &&
-      target.attributes.published &&
-      params.cat === store.getters['blog/slugify'](target.attributes.category)
+      params.cat === target["category_slug"]
     ) {
+      target['modified'] = false
       return target
     } else {
       return error({ message: "Page not found", statusCode: 404 })
@@ -47,16 +48,16 @@ export default Vue.extend({
   },
   head() {
     const siteTitle = this.$store.state.siteTitle,
-    description = this.attributes.summary.replace('<br>', ' '),
+    description = this.summary.replace('<br>', ' '),
     siteUrl = this.$store.state.siteUrl,
-    thisUrl = url.resolve(siteUrl, this.$route.fullPath)
-    let image_path = this.attributes.ogimage ? this.attributes.ogimage : '/images/og/default.webp'
-    image_path = url.resolve(siteUrl, image_path)
+    thisUrl = siteUrl + this.$route.fullPath
+    let image_path = this.ogimage ? this.ogimage : '/images/og/default.webp'
+    image_path = siteUrl + image_path
     return {
-      title: `${this.attributes.title} - ${this.attributes.category}`,
+      title: `${this.title} - ${this.category}`,
       meta: [
-        { hid: 'keywords', name: 'keywords', content: this.attributes.tags.join(",") },
-        { hid: 'og:title', property: 'og:title', content: `${this.attributes.title} - ${this.attributes.category} - ${siteTitle}` },
+        { hid: 'keywords', name: 'keywords', content: this.tags.join(",") },
+        { hid: 'og:title', property: 'og:title', content: `${this.title} - ${this.category} - ${siteTitle}` },
         { hid: 'og:description', property: 'og:description', content: description },
         { hid: 'og:image', property: 'og:image', content: image_path },
         { hid: 'og:url', property: 'og:url', content: thisUrl },
@@ -64,6 +65,7 @@ export default Vue.extend({
       ]
     }
   },
+  mixins: [FormatDateVue,DateParseVue,SlugifyVue,ThisSlugVue],
   watch: {
     'html': 'contentUpdated'
   },
@@ -98,13 +100,13 @@ export default Vue.extend({
           this.$router.push(link.link)
         }
       }
-      const body = document.body,
-      bottom_title = this.links[this.links.length-1],
-      bottom_title_current = this.$route.fullPath.search(bottom_title.link),
-      isso_current = this.$route.fullPath.search('#isso-thread')
-      if (window.pageYOffset + window.innerHeight >= body.offsetHeight && !(bottom_title_current+1) && !(isso_current)) {
-        this.$router.push(bottom_title.link)
-      } 
+      // const body = document.body,
+      // bottom_title = this.links[this.links.length-1],
+      // bottom_title_current = this.$route.fullPath.search(bottom_title.link),
+      // isso_current = this.$route.fullPath.search('#isso-thread')
+      // if (window.pageYOffset + window.innerHeight >= body.offsetHeight && !(bottom_title_current+1) && !(isso_current)) {
+      //   this.$router.push(bottom_title.link)
+      // } 
     },
     destroyListeners() {
       if (this.links.length) {
@@ -121,7 +123,7 @@ export default Vue.extend({
     }
   },
   mounted() {
-    this.$nextTick(() => {this.addListeners()})
+    this.$nextTick(this.addListeners)
   },
   beforeDestroy() {
     this.destroyListeners()

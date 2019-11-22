@@ -2,11 +2,10 @@
 title: Refresh The Browser
 date: 2019-05-10 12:57
 author: Sim
-tags:
-- Pokemon
-- isso
-- movie
-- Firebase
+tags: Pokemon
+     isso
+     movie
+     Firebase
 summary: Time to refresh the browser.
 ---
 

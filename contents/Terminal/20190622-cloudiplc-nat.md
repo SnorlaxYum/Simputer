@@ -4,7 +4,6 @@ date: 2019-06-22 17:55
 modified: 2019-08-05 18:08
 author: Sim
 tags: CloudIPLC, VPS, NAT, Chinese, BBR, Proxy
-status: published
 summary: Whether living in China or not, that could be a must for me.  
 ---
 
@@ -20,22 +19,18 @@ I reinstalled Debian Stretch so the following steps were done on it.
 
 Firstly, ensure ip forwarding feature of ipv4 is open.  
 
-```
-root@server:~$ sysctl net.ipv4.ip_forward
-```
+    :::bash
+    root@server:~$ sysctl net.ipv4.ip_forward
 
 Good to go to the `Step 2` if the following output is shown:  
 
-```
-> net.ipv4.ip_forward = 1
-```
+    > net.ipv4.ip_forward = 1
 
 Otherwise add the option to `/etc/sysctl.conf`:  
 
-```
-root@server:~$ echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
-root@server:~$ sysctl -p
-```
+    :::bash
+    root@server:~$ echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
+    root@server:~$ sysctl -p
 
 ### Step 2: Add rules to iptables
 
@@ -43,28 +38,25 @@ root@server:~$ sysctl -p
 
 Suppose I want to forward a port from the original server to a port with the same number from this server:  
 
-```
-root@server:~$ iptables -t nat -A PREROUTING -p tcp --dport [port] -j DNAT --to-destination [original server ip]
-root@server:~$ iptables -t nat -A PREROUTING -p udp --dport [port] -j DNAT --to-destination [original server ip]
-root@server:~$ iptables -t nat -A POSTROUTING -p tcp -d [original server ip] --dport [port] -j SNAT --to-source [the local ip of this server]
-root@server:~$ iptables -t nat -A POSTROUTING -p udp -d [original server ip] --dport [port] -j SNAT --to-source [the local ip of this server]
-```
+    :::bash
+    root@server:~$ iptables -t nat -A PREROUTING -p tcp --dport [port] -j DNAT --to-destination [original server ip]
+    root@server:~$ iptables -t nat -A PREROUTING -p udp --dport [port] -j DNAT --to-destination [original server ip]
+    root@server:~$ iptables -t nat -A POSTROUTING -p tcp -d [original server ip] --dport [port] -j SNAT --to-source [the local ip of this server]
+    root@server:~$ iptables -t nat -A POSTROUTING -p udp -d [original server ip] --dport [port] -j SNAT --to-source [the local ip of this server]
 
 Suppose I want to forward port 1111 from the original server to port 11111 from this server:  
 
-```
-root@server:~$ iptables -t nat -A PREROUTING -p tcp -m tcp --dport 11111 -j DNAT --to-destination [original server ip]:1111
-root@server:~$ iptables -t nat -A PREROUTING -p udp -m udp --dport 11111 -j DNAT --to-destination [original server ip]:1111
-root@server:~$ iptables -t nat -A POSTROUTING -d [original server ip] -p tcp -m tcp --dport 1111 -j SNAT --to-source [the local ip of this server]
-root@server:~$ iptables -t nat -A POSTROUTING -d [original server ip] -p udp -m udp --dport 1111 -j SNAT --to-source [the local ip of this server]
-```
+    :::bash
+    root@server:~$ iptables -t nat -A PREROUTING -p tcp -m tcp --dport 11111 -j DNAT --to-destination [original server ip]:1111
+    root@server:~$ iptables -t nat -A PREROUTING -p udp -m udp --dport 11111 -j DNAT --to-destination [original server ip]:1111
+    root@server:~$ iptables -t nat -A POSTROUTING -d [original server ip] -p tcp -m tcp --dport 1111 -j SNAT --to-source [the local ip of this server]
+    root@server:~$ iptables -t nat -A POSTROUTING -d [original server ip] -p udp -m udp --dport 1111 -j SNAT --to-source [the local ip of this server]
 
 ### Step 3: Apply The Changes
 
-```
-root@server:~$ iptables-save > /etc/iptables.up.rules
-root@server:~$ iptables-restore < /etc/iptables.up.rules
-```
+    :::bash
+    root@server:~$ iptables-save > /etc/iptables.up.rules
+    root@server:~$ iptables-restore < /etc/iptables.up.rules
 
 ## Speed Up Using BBR
 
@@ -72,23 +64,20 @@ It's a must and helpful[^2].
 
 Install `speedtest-cli` and test the speed:  
 
-```
-root@server:~$ apt install ca-certificates speedtest-cli && speedtest-cli
-```
+    :::bash
+    root@server:~$ apt install ca-certificates speedtest-cli && speedtest-cli
 
 Append the needed lines to `/etc/sysctl.conf`, then reload the changes:  
 
-```
-root@server:~$ echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf
-root@server:~$ echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
-root@server:~$ sysctl --system
-```
+    :::bash
+    root@server:~$ echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf
+    root@server:~$ echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
+    root@server:~$ sysctl --system
 
 Then test again:  
 
-```
-root@server:~$ speedtest-cli
-```
+    :::bash
+    root@server:~$ speedtest-cli
 
 In my test, the download speed went up by around 1 MB/s. It's only a value. I could feel the change when I was watching Youtube and seeing the debug info.
 

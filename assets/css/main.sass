@@ -206,42 +206,13 @@ nav
     @media screen and ( max-width: $middle-smallest-wide )
       padding-top: 7%
       margin: 6%
+    .emojione
+      width: 0.95em
     sup
       font-size: 0.6em
     code
-      background: rgba(0,0,0,0.6)
-      color: rgb(230,230,230)
+      background: #f8f8f8
       padding: 0.1em
-    .hljs-comment, .hljs-quote
-      color: #d4d0ab
-    .hljs-variable, .hljs-template-variable, .hljs-tag, .hljs-name, .hljs-selector-id, .hljs-selector-class, .hljs-regexp, .hljs-deletion
-      color: #ffa07a
-    .hljs-number, .hljs-built_in, .hljs-builtin-name, .hljs-literal, .hljs-type, .hljs-params, .hljs-meta, .hljs-link
-      color: #f5ab35
-    .hljs-attribute
-      color: #ffd700
-    .hljs-string, .hljs-symbol, .hljs-bullet, .hljs-addition
-      color: #abe338
-    .hljs-title, .hljs-section
-      color: #00e0e0
-    .hljs-keyword, .hljs-selector-tag
-      color: #dcc6e0
-    .hljs
-      display: block
-      overflow-x: auto
-      background: #2b2b2b
-      color: #f8f8f2
-      padding: 0.5em
-    .hljs-emphasis
-      font-style: italic
-    .hljs-strong
-      font-weight: bold
-    @media screen and (-ms-high-contrast: active)
-      .hljs-addition, .hljs-attribute, .hljs-built_in, .hljs-builtin-name, .hljs-bullet, .hljs-comment, .hljs-link, .hljs-literal, .hljs-meta, .hljs-number, .hljs-params, .hljs-string, .hljs-symbol, .hljs-type, .hljs-quote
-        color: highlight
-
-      .hljs-keyword, .hljs-selector-tag
-        font-weight: bold
     table
       table-layout: fixed
       width: 100%
@@ -328,12 +299,12 @@ nav
         @media screen and ( max-width: $middle-smaller-wide )
           width: 100%
           height: 40vw
-      .footnotes::before
+      .footnote ol:before
         content: "References:"
         font-weight: bold
-      .footnote-item p 
+      .footnote p 
         line-height: 1
-      ol.footnotes-list
+      .footnote ol
         list-style: none
         counter-reset: li
         li
@@ -341,11 +312,13 @@ nav
           counter-increment: li
         li:before
           position: absolute
-          left: -1.55em
+          left: -2.05em
+          text-align: right
+          width: 1.9em
           content: "[" counter(li) "]  "
         li p
           display: inline
-      .footnotes-sep
+      .footnote hr
         margin: 2em 0
         border-top: 0.01em
       #series
@@ -383,6 +356,178 @@ nav
         font-weight: bold
         li
           list-style-type: disc
+
+
+// pygment
+.codehilitetable .linenos 
+  width: max-content
+  vertical-align: baseline
+.codehilitetable pre
+  margin: 0
+  overflow: auto
+.codehilitetable, .codehilitetable .linenos, .codehilitetable .code
+  background: #f8f8f8
+.codehilite 
+	background: #f8f8f8 
+	.hll 
+		background-color: #ffffcc 
+	.c 
+		color: #408080 
+		font-style: italic 
+	.err 
+		border: 1px solid #FF0000 
+	.k 
+		color: #008000 
+		font-weight: bold 
+	.o 
+		color: #666666 
+	.ch 
+		color: #408080 
+		font-style: italic 
+	.cm 
+		color: #408080 
+		font-style: italic 
+	.cp 
+		color: #BC7A00 
+	.cpf 
+		color: #408080 
+		font-style: italic 
+	.c1 
+		color: #408080 
+		font-style: italic 
+	.cs 
+		color: #408080 
+		font-style: italic 
+	.gd 
+		color: #A00000 
+	.ge 
+		font-style: italic 
+	.gr 
+		color: #FF0000 
+	.gh 
+		color: #000080 
+		font-weight: bold 
+	.gi 
+		color: #00A000 
+	.go 
+		color: #888888 
+	.gp 
+		color: #000080 
+		font-weight: bold 
+	.gs 
+		font-weight: bold 
+	.gu 
+		color: #800080 
+		font-weight: bold 
+	.gt 
+		color: #0044DD 
+	.kc 
+		color: #008000 
+		font-weight: bold 
+	.kd 
+		color: #008000 
+		font-weight: bold 
+	.kn 
+		color: #008000 
+		font-weight: bold 
+	.kp 
+		color: #008000 
+	.kr 
+		color: #008000 
+		font-weight: bold 
+	.kt 
+		color: #B00040 
+	.m 
+		color: #666666 
+	.s 
+		color: #BA2121 
+	.na 
+		color: #7D9029 
+	.nb 
+		color: #008000 
+	.nc 
+		color: #0000FF 
+		font-weight: bold 
+	.no 
+		color: #880000 
+	.nd 
+		color: #AA22FF 
+	.ni 
+		color: #999999 
+		font-weight: bold 
+	.ne 
+		color: #D2413A 
+		font-weight: bold 
+	.nf 
+		color: #0000FF 
+	.nl 
+		color: #A0A000 
+	.nn 
+		color: #0000FF 
+		font-weight: bold 
+	.nt 
+		color: #008000 
+		font-weight: bold 
+	.nv 
+		color: #19177C 
+	.ow 
+		color: #AA22FF 
+		font-weight: bold 
+	.w 
+		color: #bbbbbb 
+	.mb 
+		color: #666666 
+	.mf 
+		color: #666666 
+	.mh 
+		color: #666666 
+	.mi 
+		color: #666666 
+	.mo 
+		color: #666666 
+	.sa 
+		color: #BA2121 
+	.sb 
+		color: #BA2121 
+	.sc 
+		color: #BA2121 
+	.dl 
+		color: #BA2121 
+	.sd 
+		color: #BA2121 
+		font-style: italic 
+	.s2 
+		color: #BA2121 
+	.se 
+		color: #BB6622 
+		font-weight: bold 
+	.sh 
+		color: #BA2121 
+	.si 
+		color: #BB6688 
+		font-weight: bold 
+	.sx 
+		color: #008000 
+	.sr 
+		color: #BB6688 
+	.s1 
+		color: #BA2121 
+	.ss 
+		color: #19177C 
+	.bp 
+		color: #008000 
+	.fm 
+		color: #0000FF 
+	.vc 
+		color: #19177C 
+	.vg 
+		color: #19177C 
+	.vi 
+		color: #19177C 
+	.vm 
+		color: #19177C 
+	.il 
+		color: #666666 
 
 
 .footer

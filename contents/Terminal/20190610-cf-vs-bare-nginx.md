@@ -4,7 +4,6 @@ date: 2019-06-10 22:00
 modified: 2019-06-11 09:34
 author: Sim
 tags: nginx, cloudflare, speed
-status: published
 summary: Well, nowadays, more and more people says that CloudFlare sucks and slows the website speed. But how slow? I made a test today after I've built my own load balancers with my two servers.
 ---
 
