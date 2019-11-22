@@ -1,6 +1,6 @@
 ﻿title: Just switched to nuxt
 date: 2019-11-17 20:49
-modified: 2019-11-22 13:56
+modified: 2019-11-22 17:56
 author: Sim
 tags: nuxt, Gridsome, Vue, Github Pages, git, Python, json
 summary: Just started my first frontend developer job as an intern worker. And to learn vue better, I rewrote my blog using nuxt.

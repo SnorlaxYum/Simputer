@@ -1,6 +1,6 @@
 ﻿title: Git Notes - Submodule && detached HEAD
-date: 2019-11-17 20:49
-modified: 2019-11-22 13:56
+date: 2019-11-17 23:49
+modified: 2019-11-22 18:56
 author: Sim
 tags: git, detached HEAD, submodule
 summary: The solution about forgetting to add submodule and detached HEAD.
