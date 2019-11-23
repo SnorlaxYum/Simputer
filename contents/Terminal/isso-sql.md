@@ -7,19 +7,14 @@ tags: isso
 summary: Of course it's a table with threads and comments
 ---
 
-<div id="series">
-        <p>This post is a part of "<b>My Isso Style</b>" Series.</p>
-        <ol class="parts">
-					<li>
-					<a href="/terminal/2016/07/12/start-to-use-isso/">Installation</a>
-					</li>
-					<li>
-					<a href="/terminal/2019/06/10/my-isso-configuration/">Configuration</a>
-					</li>
-					<li id="i">
-					<b>Inside the Database</b>
-					</li>
-        </ol>
+<div id="series" markdown="1">
+
+This post is a part of __My Isso Style__ Series.
+
+1. [Installation](/terminal/2016/07/12/start-to-use-isso/)
+2. [Configuration](/terminal/2019/06/10/my-isso-configuration/)
+3. __Inside the Database__
+
 </div>
 
 ## The Tables

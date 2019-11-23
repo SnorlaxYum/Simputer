@@ -7,19 +7,15 @@ tags:  isso
 	 config
 summary: I love it!
 ---
-<div id="series">
-        <p>This post is a part of "<b>My Isso Style</b>" Series.</p>
-        <ol class="parts">
-					<li>
-					<a href="/terminal/2016/07/12/start-to-use-isso/">Installation</a>
-					</li>
-					<li id="i">
-					<b>Configuration</b>
-					</li>
-					<li>
-					<a href="/terminal/2019/06/10/inside-the-isso-database/">Inside the Database</a>
-					</li>
-        </ol>
+
+<div id="series" markdown="1">
+
+This post is a part of __My Isso Style__ Series.
+
+1. [Installation](/terminal/2016/07/12/start-to-use-isso/)
+2. __Configuration__
+3. [Inside the Database](/terminal/2019/06/10/inside-the-isso-database/)
+
 </div>
 
 ## Server Configuration

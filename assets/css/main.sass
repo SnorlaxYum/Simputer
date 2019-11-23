@@ -306,6 +306,8 @@ nav
       .footnote ol:before
         content: "References:"
         font-weight: bold
+        display: block
+        margin-bottom: 0.2em
       .footnote p 
         line-height: 1
       .footnote ol
@@ -324,7 +326,9 @@ nav
           display: inline
       .footnote hr
         margin: 2em 0
-        border-top: 0.01em
+        border-left: 0
+        border-right: 0
+        margin-bottom: 0.5em
       #series
         border: 1px dotted
         padding: 1% 2%
@@ -363,12 +367,14 @@ nav
 
 
 // pygment
-.codehilitetable .linenos 
-  width: max-content
-  vertical-align: baseline
-.codehilitetable pre
-  margin: 0
-  overflow: auto
+.codehilitetable
+  border: 0.05em solid
+  .linenos 
+    width: max-content
+    vertical-align: baseline
+  pre
+    margin: 0
+    overflow: auto
 .codehilitetable, .codehilitetable .linenos, .codehilitetable .code
   background: #f8f8f8
 .codehilite 
@@ -533,6 +539,27 @@ nav
 	.il 
 		color: #666666 
 
+// Superfences Tab
+.superfences-tabs
+  display: flex
+  flex-wrap: wrap
+  label
+    cursor: pointer
+    padding: 0.5em
+    margin-right: 0.2em
+    background: #f8f8f8
+    border-radius: 0.5em 0.5em 0 0
+    border: 0.05em solid
+    border-bottom: 0
+  .superfences-content, input
+    display: none
+  .superfences-content
+    order: 10
+  input:checked + label
+    font-weight: bold
+    text-decoration: underline
+  input:checked + label + .superfences-content
+    display: block
 
 .footer
   text-align: center
@@ -687,7 +714,7 @@ $nav-box-light-nor: rgba(0, 0, 0, 0.2)
   display: flex
   flex-direction: column
   .comment
-    border-top: 0.01em solid
+    border-top: 0.05em solid
     display: flex
     @media screen and ( max-width: $middle-smallest-wide )
       flex-direction: row
@@ -769,11 +796,11 @@ article#isso-thread
     display: flex
     flex-direction: column
   .reply-section, .edit-section
-    border-top: 0.01em solid
+    border-top: 0.05em solid
   textarea.comment-content, input.commenter-name, input.commenter-email, input.commenter-website
     width: 100%
     background: transparent
-    border: 0.01em solid
+    border: 0.05em solid
     margin-bottom: 1em
     font-size: 0.95em
     font-family: inherit
@@ -782,7 +809,7 @@ article#isso-thread
     margin-bottom: 1em
   button[type='submit']
     background: transparent
-    border: 0.01em solid
+    border: 0.05em solid
     font-size: 0.95em
     font-family: inherit
     padding: 0.4em

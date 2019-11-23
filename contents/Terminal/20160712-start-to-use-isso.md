@@ -13,19 +13,14 @@ slug: start-to-use-isso
 summary: WOW......
 ---
 
-<div id="series">
-        <p>This post is a part of "<b>My Isso Style</b>" Series.</p>
-        <ol class="parts">
-					<li id="i">
-					<b>Installation</b>
-					</li>
-					<li>
-					<a href="/terminal/2019/06/10/my-isso-configuration/">Configuration</a>
-					</li>
-					<li>
-					<a href="/terminal/2019/06/10/inside-the-isso-database/">Inside the Database</a>
-					</li>
-        </ol>
+<div id="series" markdown="1">
+
+This post is a part of __My Isso Style__ Series.
+
+1. __Installation__
+2. [Configuration](/terminal/2019/06/10/my-isso-configuration/)
+3. [Inside the Database](/terminal/2019/06/10/inside-the-isso-database/)
+
 </div>
 
 Well, looking back from 2018 and I have got to say, it's more than light-weight and keeps getting better.  
@@ -176,40 +171,67 @@ When it's active and running, enable it so it will start and run every time u re
 
 ## Integrate into the web server
 
-I'm using Nginx, and running it in `/isso` of my subdomain `snorl.ax`, so the relevant server block in `/etc/nginx/conf.d/default.conf` is like this:  
+Two ways to do this with nginx, I've actually used both:
 
-	:::nginx
-	server {
-		#...
-		server_name snorl.ax;
+1. Running it in `/isso` of the domain `snorl.ax`, the relevant server block in `/etc/nginx/conf.d/default.conf` is shown in SUB-URI tab.
+2. Running it in a subdomain like `isso.snorl.ax`, the relevant server block in `/etc/nginx/conf.d/default.conf` is shown in Subdomain tab. 
 
-		#...
+```nginx hl_lines="7 8 9 10 11 12 13" tab="SUB-URI"
+server {
+	#...
+	server_name snorl.ax;
 
-		location /isso {
-		proxy_pass http://localhost:8001;
-		proxy_set_header X-Script-Name /isso;
-		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-		proxy_set_header Host $host;
-		proxy_set_header X-Forwarded-Proto $scheme;
-		}
+	#...
 
-		#...
-
+	location /isso {
+	proxy_pass http://localhost:8001;
+	proxy_set_header X-Script-Name /isso;
+	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+	proxy_set_header Host $host;
+	proxy_set_header X-Forwarded-Proto $scheme;
 	}
 
-The `location /isso` block is the things needed to be included.  
+	#...
+
+}
+```
+
+```nginx hl_lines="7 8 9 10 11 12" tab="Subdomain"
+server {
+	#...
+	server_name isso.snorl.ax;
+
+	#...
+
+	location ^~ / {
+	proxy_pass http://localhost:8001;
+	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+	proxy_set_header Host $host;
+	proxy_set_header X-Forwarded-Proto $scheme;
+	}
+
+	#...
+
+}
+```
 
 ## Insert into the website
 
-The `https://isso.snorl.ax/js/embed.min.js` should be available.  
-Time to insert the code to comment area (If u get a 404 error it's due to something like the cache settings of ur js files, delete certain lines of it will help):  
+### API Way
+
+This is the way this blog implemented. See [Official doc about API](https://posativ.org/isso/docs/extras/api/) for more. My way of doing it can be seen from [the source code of the blog](https://github.com/SnorlaxYum/Simputer).
+
+### Direct way
+
+The `https://isso.snorl.ax/js/embed.min.js` should be available.
+Time to insert the code to comment area (If u get a 404 error it's due to something like the cache settings of ur js files, delete certain lines of it will help):
 
 	:::html
 	<script data-isso="https://isso.snorl.ax/" src="https://isso.snorl.ax/js/embed.min.js"></script>
 
 	<section id=“isso-thread”></section>
 
-Now it's online. Try commenting in the browser. <a href="https://posativ.org/isso/docs/troubleshooting/" target="_blank">Troubleshoot</a> if it fails.  
+Now it's online. Try commenting in the browser. <a href="https://posativ.org/isso/docs/troubleshooting/" target="_blank">Troubleshoot</a> if it fails.
 
 ## [Optional] Deploy with gevent
 
@@ -292,27 +314,50 @@ Create the directory:
 	$ mkdir /tmp/isso
 	$ chown -R isso:isso /tmp/isso
 
-I'm using Nginx, and running it in the subdomain `/isso` of my domain `snorl.ax`, so the relevant server block in `/etc/nginx/conf.d/default.conf` is like this:  
+Change the lines in nginx configuration:  
+1. When isso is running in `/isso` of the domain `snorl.ax`, the relevant server block in `/etc/nginx/conf.d/default.conf` is shown in SUB-URI tab.
+2. When isso is running in it in a subdomain like `isso.snorl.ax`, the relevant server block in `/etc/nginx/conf.d/default.conf` is shown in Subdomain tab. 
+	
+```nginx hl_lines="7 8 9 10 11 12 13 14" tab="SUB-URI"
+server {
+	# ...
+	server_name snorl.ax;
 
-	:::nginx
-	server {
-		# ...
-		server_name snorl.ax;
+	# ...
 
-		# ...
-
-		location /isso {
-			include         uwsgi_params;
-			uwsgi_pass unix:/tmp/isso/uwsgi.sock;
-			uwsgi_param HTTP_X_SCRIPT_NAME /isso;
-			uwsgi_param HTTP_HOST $host;
-		}
-
-		# ...
-
+	location /isso {
+		include         uwsgi_params;
+		uwsgi_pass unix:/tmp/isso/uwsgi.sock;
+		uwsgi_param HTTP_X_SCRIPT_NAME /isso;
+		uwsgi_param HTTP_HOST $host;
+		uwsgi_param HTTP_X_FORWARDED_FOR $proxy_add_x_forwarded_for;
+		uwsgi_param HTTP_X_FORWARDED_PROTO $scheme;
 	}
 
-The `location /isso` block is the things needed to be included.  
+	# ...
+
+}
+```
+
+```nginx hl_lines="7 8 9 10 11 12 13" tab="Subdomain"
+server {
+	# ...
+	server_name isso.snorl.ax;
+
+	# ...
+
+	location ^~ / {
+		include         uwsgi_params;
+		uwsgi_pass unix:/tmp/isso/uwsgi.sock;
+		uwsgi_param HTTP_HOST $host;
+		uwsgi_param HTTP_X_FORWARDED_FOR $proxy_add_x_forwarded_for;
+		uwsgi_param HTTP_X_FORWARDED_PROTO $scheme;
+	}
+
+	# ...
+
+}
+```
 
 Restart my nginx:  
 
@@ -357,62 +402,64 @@ CloudFlare Tutorial about solution: <a href="https://support.cloudflare.com/hc/e
 I'm using Nginx currently, in the conf the variable `X-Forwarded-For` is set for showing true IP.  
 
 1. Edit `/etc/nginx/nginx.conf`, make sure the `http` section contains `set_real_ip_from` field with the IPs of Cloudflare and real_ip_header is set to `X-Forwarded-For`, just like this:  
-		:::nginx
-		http {
-		# ...
-		set_real_ip_from 103.21.244.0/22;
-		set_real_ip_from 103.22.200.0/22;
-		set_real_ip_from 103.31.4.0/22;
-		set_real_ip_from 104.16.0.0/12;
-		set_real_ip_from 108.162.192.0/18;
-		set_real_ip_from 131.0.72.0/22;
-		set_real_ip_from 141.101.64.0/18;
-		set_real_ip_from 162.158.0.0/15;
-		set_real_ip_from 172.64.0.0/13;
-		set_real_ip_from 173.245.48.0/20;
-		set_real_ip_from 188.114.96.0/20;
-		set_real_ip_from 190.93.240.0/20;
-		set_real_ip_from 197.234.240.0/22;
-		set_real_ip_from 198.41.128.0/17;
+	```nginx
+	http {
+	# ...
+	set_real_ip_from 103.21.244.0/22;
+	set_real_ip_from 103.22.200.0/22;
+	set_real_ip_from 103.31.4.0/22;
+	set_real_ip_from 104.16.0.0/12;
+	set_real_ip_from 108.162.192.0/18;
+	set_real_ip_from 131.0.72.0/22;
+	set_real_ip_from 141.101.64.0/18;
+	set_real_ip_from 162.158.0.0/15;
+	set_real_ip_from 172.64.0.0/13;
+	set_real_ip_from 173.245.48.0/20;
+	set_real_ip_from 188.114.96.0/20;
+	set_real_ip_from 190.93.240.0/20;
+	set_real_ip_from 197.234.240.0/22;
+	set_real_ip_from 198.41.128.0/17;
 
-		real_ip_header X-Forwarded-For;
-		# ...
-		}
-		# ```
+	real_ip_header X-Forwarded-For;
+	# ...
+	}
+	# 
+	```
 
-		If ur Nginx supports ipv6, try the following:  
-		# ```
-		http {
-		# ...
-		set_real_ip_from 103.21.244.0/22;
-		set_real_ip_from 103.22.200.0/22;
-		set_real_ip_from 103.31.4.0/22;
-		set_real_ip_from 104.16.0.0/12;
-		set_real_ip_from 108.162.192.0/18;
-		set_real_ip_from 131.0.72.0/22;
-		set_real_ip_from 141.101.64.0/18;
-		set_real_ip_from 162.158.0.0/15;
-		set_real_ip_from 172.64.0.0/13;
-		set_real_ip_from 173.245.48.0/20;
-		set_real_ip_from 188.114.96.0/20;
-		set_real_ip_from 190.93.240.0/20;
-		set_real_ip_from 197.234.240.0/22;
-		set_real_ip_from 198.41.128.0/17;
-		set_real_ip_from 2400:cb00::/32;
-		set_real_ip_from 2606:4700::/32;
-		set_real_ip_from 2803:f800::/32;
-		set_real_ip_from 2405:b500::/32;
-		set_real_ip_from 2405:8100::/32;
-		set_real_ip_from 2c0f:f248::/32;
-		set_real_ip_from 2a06:98c0::/29;
+	If the Nginx supports ipv6, try the following:  
+	```nginx
+	http {
+	# ...
+	set_real_ip_from 103.21.244.0/22;
+	set_real_ip_from 103.22.200.0/22;
+	set_real_ip_from 103.31.4.0/22;
+	set_real_ip_from 104.16.0.0/12;
+	set_real_ip_from 108.162.192.0/18;
+	set_real_ip_from 131.0.72.0/22;
+	set_real_ip_from 141.101.64.0/18;
+	set_real_ip_from 162.158.0.0/15;
+	set_real_ip_from 172.64.0.0/13;
+	set_real_ip_from 173.245.48.0/20;
+	set_real_ip_from 188.114.96.0/20;
+	set_real_ip_from 190.93.240.0/20;
+	set_real_ip_from 197.234.240.0/22;
+	set_real_ip_from 198.41.128.0/17;
+	set_real_ip_from 2400:cb00::/32;
+	set_real_ip_from 2606:4700::/32;
+	set_real_ip_from 2803:f800::/32;
+	set_real_ip_from 2405:b500::/32;
+	set_real_ip_from 2405:8100::/32;
+	set_real_ip_from 2c0f:f248::/32;
+	set_real_ip_from 2a06:98c0::/29;
 
-		real_ip_header X-Forwarded-For;
-		# ...
-		}
+	real_ip_header X-Forwarded-For;
+	# ...
+	}
+	```
 
-Notes that the CloudFlare IPs above were up to date when I modified the article, check for urself. If u use another CDN or find that any of the CloudFlare IPs outdated, replace the IPs with the correct ones.
+	Notes that the CloudFlare IPs above were up to date when I modified the article, check for urself. If u use another CDN or find that any of the CloudFlare IPs outdated, replace the IPs with the correct ones.
 
-3. Refresh and try commenting. The IP in the mail turns out to be the true IP of the commenter.  
+2. Refresh and try commenting. The IP in the mail turns out to be the true IP of the commenter.  
 
 [^1]: [Isso Official Documentation](https://posativ.org/isso/docs/) 
 [^2]: [Why you should not use Python’s easy_install carelessly on Debian](https://workaround.org/easy-install-debian) 

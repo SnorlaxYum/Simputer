@@ -11,15 +11,15 @@ The blog is now powered by nuxt.js, I just posted the source code on [Github](ht
 
 ~~Thanks to hmsk's plugin[^4], I could write my posts in markdown and process it really efficiently. However to use the posts across several pages like Tag or Category it's a must to populate Vuex Store with them. The implementation is in my source code. To sort the posts or tags by a certain standard, I have to save them to `Map`, then define the behaviour of its iterator.~~  
 
-Populating the store with the markdown files converted by that plugin could place my generated site in an oversized situation:  
+Populating the store with the markdown files converted by that plugin[^4] could place my generated site in an oversized situation:  
 
 1. [The Large Markdown Buudle Pages](https://static.snorl.ax/nuxt-speed/md-html.webp)
 2. [The Large Markdown Bundle Javascript File](https://static.snorl.ax/nuxt-speed/md-js-bundle.webp)
 
 I don't have many posts on this blog, but the output of `nuxt generate` comes with 60MB+, which is incredibly large. The reason is the generated page just bundles every pages into one html and js files. The js files are large also due to my reliance on plugins like `uslug`, `hljs`, etc.  
-So could I just make each markdown pages load their own content and thus make the size much small? Yes, and I searched about markdown on nuxt, many people just recommend Gridsome, saying it's a perfect solution about a markdown blog on nuxt. So I just took a look on their website and switched to another page, and I saw their [new GET requests](https://static.snorl.ax/nuxt-speed/gridsome-solution.webp) on switchiong to a new page are mainly JSON-based. And that's possible in a nuxt.js app, all I need is **loading the needed json on a specific page**.  
+So could I just make each markdown pages load their own content and thus make the size much small? Yes, and I searched about markdown on nuxt, many people just recommend Gridsome, saying it's a perfect solution about a markdown blog on nuxt. So I just took a look on their website and switched to another page, and I saw their [new GET requests](https://static.snorl.ax/nuxt-speed/gridsome-solution.webp) on switching to a new page are mainly JSON-based. And that's possible in a nuxt.js app, all I need is **loading the needed json on a specific page**.  
 
-Then here's my solution, **generate the jsons before-hand and load them onthe specific post page**. In doing this, I don't need that many packages imported in my nuxt project and all these things could be done with python much more easily and quickly, after spending some time writing and testing the code in that python file for my JSON generating process, now my [page size](https://static.snorl.ax/nuxt-speed/page-size-now.webp) and [js bundle size](https://static.snorl.ax/nuxt-speed/my-js-bundle-now.webp) are back to normal. At least they won't be increasing together with my markdown files. Here's the magic of json! Especially for a static nuxt website, I'd better preprocess the data and save them to files, thus making the html files and js bundle files generated as small as possible. Just let a backend language do all the dirty work for me, which serves as an API server in this case. Frontend languages are there for bringing data to the browser. Python is ideal for the job 'cause it has tons of tools such as `slugify`, `markdown` to do that well and it's easy to write code in the language, basically the codes are really self-explanatory and easy to debug (Python Shell just comes in handy).  
+Then here's my solution, **generate the jsons before-hand and load them on the specific post page**. In doing this, I don't need that many packages imported in my nuxt project and all these things could be done with python much more easily and quickly, after spending some time writing and testing the code in that python file for my JSON generating process, now my [page size](https://static.snorl.ax/nuxt-speed/page-size-now.webp) and [js bundle size](https://static.snorl.ax/nuxt-speed/my-js-bundle-now.webp) are back to normal. At least they won't be increasing together with my markdown files. Here's the magic of json! Especially for a static nuxt website, I'd better preprocess the data and save them to files, thus making the html files and js bundle files generated as small as possible. Just let a backend language do all the dirty work for me, which serves as an API server in this case. Frontend languages are there for bringing data to the browser. Python is ideal for the job 'cause it has tons of tools such as `slugify`, `markdown` to do that well and it's easy to write code in the language, basically the codes are really self-explanatory and easy to debug (Python Shell just comes in handy).  
 
 Auto deployment on Github is a bit tricky, since it also needs call the API when running `nuxt generate`, an API server listening at a port that serves the json files is also needed.  
 
@@ -40,12 +40,12 @@ I changed some lines in `packages.json` to implement this:
 
     :::json
     {
-      # ...
+      ...
       "scripts": {
-        # ...
+        ...
         "serve": "python -m http.server --directory dist"
       },
-      # ...
+      ...
     }
 
 Then I could do `yarn generate && yarn serve` every time I generate the pages to see the result.  

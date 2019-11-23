@@ -31,8 +31,8 @@ for cat in cats:
     cat_posts = os.listdir(cat_path)
     generate_list.append('/{}'.format(cat_slug))
     for post in cat_posts:
-        md = markdown.Markdown(extensions=['pymdownx.superfences', 'meta', 'footnotes', 'toc', 'codehilite', 'attr_list',
-                                           'pymdownx.emoji', 'pymdownx.tilde', 'tables', 'nl2br'], extension_configs={'codehilite': {'linenums': True}})
+        md = markdown.Markdown(extensions=['pymdownx.superfences', 'meta', 'footnotes', 'toc', 'codehilite', 'attr_list', 'pymdownx.emoji', 'pymdownx.extra',
+                                           'pymdownx.tilde', 'pymdownx.smartsymbols', 'tables', 'nl2br'], extension_configs={'codehilite': {'linenums': True}})
         # print(post)
         content = open(os.path.join(cat_path, post),
                        encoding='utf-8-sig').read()
