@@ -4,18 +4,16 @@
     content(v-html='content')
     footer
       span
-        time.published(:datetime="'Unix time:' + date") {{date_string_from_date(pub_date)}}
+        time.published(v-html="date")
       span(v-if='modified')
-        time.modified(:datetime="'Unix time:' + modified") {{date_string_from_date(mod_date)}}
+        time.modified(v-html="modified")
       span.tag-list
         span(:class="tags.indexOf(tag) == 0 ? 'tag' : 'tag seq-tag'" v-for='tag in tags' :key='tag[1]')
-          nuxt-link(:to="['', 'tags', tag[1], ''].join('/')") {{ tag[0] }}
+          nuxt-link(:to="tag[1]") {{ tag[0] }}
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import FormatDate from "~/features/FormatDate"
-import DateParseVue from '../features/DateParse.vue'
 export default Vue.extend({
   props: {  
     title: {
@@ -36,7 +34,6 @@ export default Vue.extend({
       type: Array
     }
   },
-  mixins: [FormatDate, DateParseVue],
   watch: {'content': 'contentUpdated'},
   methods: {
     navigate(event) {

@@ -3,7 +3,6 @@
     post-nav(v-for='post of posts'
              :key='post.slug'
              :category='post.category'
-             :catslug="post['category_slug']"
              :title='post.title'
              :date='post.date'
              :modified='post.modified'

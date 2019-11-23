@@ -15,25 +15,21 @@
         :content="html"
       )
     client-only
-      isso(:title="title" :slug="link")
+      isso(:title="title" :slug="slug")
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import Post from "~/components/Post"
 import Isso from '~/components/Isso'
-import SlugifyVue from '../../../../../features/Slugify.vue'
-import DateParseVue from '../../../../../features/DateParse.vue'
-import FormatDateVue from '../../../../../features/FormatDate.vue'
-import ThisSlugVue from '../../../../../features/ThisSlug.vue'
 export default Vue.extend({
-  async asyncData({ params, error, $axios }) {
+  async asyncData({ params, error, route, $axios }) {
     let target = await $axios.get(`/${params.cat}/${params.slug}.json`).then(res => res.data)
     if (
       target &&
-      params.cat === target["category_slug"]
+      target.slug === route.path
     ) {
-      target['modified'] = false
+      target['modified'] = target['modified'] ? target['modified'] : false
       return target
     } else {
       return error({ message: "Page not found", statusCode: 404 })
@@ -65,7 +61,6 @@ export default Vue.extend({
       ]
     }
   },
-  mixins: [FormatDateVue,DateParseVue,SlugifyVue,ThisSlugVue],
   watch: {
     'html': 'contentUpdated'
   },

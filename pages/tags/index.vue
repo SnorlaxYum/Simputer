@@ -4,7 +4,7 @@
     content
       ul
         li(v-for='tag_info, tag of tags')
-          nuxt-link(:to="['','tags',tag_info.slug,''].join('/')") {{tag}}
+          nuxt-link(:to="tag_info.slug") {{tag}}
           |           ({{tag_info.length}})
 </template>
 

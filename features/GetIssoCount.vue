@@ -1,13 +1,11 @@
 <script lang="ts">
 import Vue from 'vue'
-import Slugify from "~/features/Slugify"
 export default Vue.extend({
-  mixins: [Slugify],
   methods: {
     async query_comment_numbers() {
       let slugs = []
       for (const data of this.posts) {
-        slugs.push(this.get_link(data))
+        slugs.push(data.slug)
       }
       // console.log(slugs)
       try {
@@ -22,18 +20,6 @@ export default Vue.extend({
       } catch (e) {
         console.log(e)
       }
-    },
-    get_link(link) {
-      let linkdate = new Date(link.date)
-      return [
-        "",
-        link['category_slug'],
-        linkdate.getFullYear(),
-        this.slugify_num(linkdate.getMonth() + 1),
-        this.slugify_num(linkdate.getDate()),
-        link.slug,
-        ""
-      ].join("/")
     }
   },
   mounted() {

@@ -1,27 +1,23 @@
 <template lang="pug">
   article.main
     header
-      nuxt-link(:to='link') {{title}}
+      nuxt-link(:to='slug') {{title}}
     content(v-if='summary')
       p(v-html='summary')
       p.t-right
-        nuxt-link(:to='link') Continue Reading
-    content(v-else='' v-html='content')
+        nuxt-link(:to='slug') Continue Reading
+    content(v-else v-html='content')
     footer
       span
-        time.published(:datetime="'Unix time:' + date") {{date_string_from_date(pub_date)}}
+        time.published(v-html="date")
       span(v-if='modified')
-        time.modified(:datetime="'Unix time:' + modified") {{date_string_from_date(mod_date)}}
+        time.modified(v-html="modified")
       span
-        nuxt-link(:to="link+'#isso-thread'" v-html="comment_count(isso)")
+        nuxt-link(:to="slug+'#isso-thread'" v-html="comment_count(isso)")
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import FormatDate from "~/features/FormatDate"
-import Slugify from "~/features/Slugify"
-import DateParseVue from '../features/DateParse.vue'
-import ThisSlugVue from '../features/ThisSlug.vue'
 export default Vue.extend({
   props: [
     "title",
@@ -31,10 +27,8 @@ export default Vue.extend({
     "category",
     "slug",
     "summary",
-    "isso",
-    "catslug"
+    "isso"
   ],
-  mixins: [FormatDate, Slugify, ThisSlugVue, DateParseVue],
   methods: {
     comment_count(newv) {
       if (newv) {

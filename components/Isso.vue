@@ -48,10 +48,8 @@ export default {
   },
   methods: {
     async load_comments() {
-      let data = await this.$axios.get(`${this.$store.state.isso}?uri=${this.slug}`, {
-        validateStatus: false
-      });
-      this.comment = data.status == 200 ? data.data.replies : [];
+      let data = await this.$axios.get(`${this.$store.state.isso}?uri=${this.slug}`,{validateStatus: false})
+      this.comment = data.status === 200 ? data.data.replies : []
     },
     vote(id, opinion) {
       let current = this.$el.querySelector(`#isso-${id} .likes`).innerHTML,
