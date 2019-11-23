@@ -8,24 +8,55 @@ from datetime import timedelta
 from json import dump
 from copy import deepcopy
 import collections
+from urllib.parse import urljoin
+from feedgen.feed import FeedGenerator
+from pytz import timezone
 
+SITENAME = "Simputer"
+SITEURL = "https://snorl.ax"
+TZ = timezone("Asia/Chongqing")
+FEEDAUTHOR = {'name': 'Sim', 'email': 'sim@snorl.ax'}
 output_directory = 'static'
-posts = {
-    # I don't need this because I don't need to list all the posts
-    # 'all': []
-}
+posts = {}
 post_slugs = []
 post_slug_format = "/{cat}/{year}/{month}/{day}/{slug}/"
 tag_slug_format = "/tags/{slug}/"
 posts_inside = []
 tags = {}
 generate_list = []
+cat_feed_path_format = 'static/%s/atom.xml'
+cat_feeds = {}
+
+class AtomGen(FeedGenerator):
+    def __init__(self, title, description, link, language):
+        super().__init__()
+        self.title(title)
+        self.description(description)
+        self.author(FEEDAUTHOR)
+        self.id(link)
+        self.link( href=SITEURL, rel='alternate' )
+        self.link( href=link, rel='self' )
+        self.language(language)
+    def entry_add(self, titl, link, published, updated='', content='',order='append'):
+        entry = super().add_entry(order=order)
+        print(entry)
+        entry.title(titl)
+        entry.link(href=link)
+        if content:
+            entry.content(content)
+        entry.id(link)
+        # print("published: "+published)
+        # print("updated: "+updated)
+        entry.published(TZ.localize(datetime.strptime(published, '%Y-%m-%d %H:%M')))
+        entry.updated(TZ.localize(datetime.strptime(published, '%Y-%m-%d %H:%M')))
+        if updated:
+            entry.updated(TZ.localize(datetime.strptime(updated, '%Y-%m-%d %H:%M')))
+        return entry
 
 # list 'contents' directory
-
 cats = os.listdir('contents')
 for cat in cats:
-    cat_slug = cat.lower()
+    cat_slug = slugify(cat)
     cat_path = os.path.join('contents', cat)
     cat_json_path = os.path.join(output_directory, cat_slug)
     if not cat in posts.keys():
@@ -33,16 +64,18 @@ for cat in cats:
     os.makedirs(cat_json_path, exist_ok=True)
     cat_posts = os.listdir(cat_path)
     generate_list.append('/{}'.format(cat_slug))
+    # initiate feed for the category
+    cat_feed_path = cat_feed_path_format % cat_slug
+    cat_id = urljoin(SITEURL, cat_slug)
+    cat_feeds[cat] = AtomGen("%s - %s" % (cat, SITENAME), "%s in %s" % (cat, SITENAME), cat_id, 'en')
     for post in cat_posts:
         md = markdown.Markdown(extensions=['pymdownx.superfences', 'meta', 'footnotes', 'toc', 'codehilite', 'attr_list', 'pymdownx.emoji', 'pymdownx.extra',
                                            'pymdownx.tilde', 'pymdownx.smartsymbols', 'tables', 'nl2br'], extension_configs={'codehilite': {'linenums': True}})
-        # print(post)
         content = open(os.path.join(cat_path, post),
                        encoding='utf-8-sig').read()
         content_html = md.convert(content)
         rep_index = 0
         content_meta = md.Meta
-        # print(content_meta)
         content_meta['title'] = "".join(content_meta['title'])
         content_meta['date'] = "".join(content_meta['date'])
         post_date = datetime.strptime(content_meta['date'], '%Y-%m-%d %H:%M')
@@ -71,7 +104,8 @@ for cat in cats:
             content_meta['slug'] = "".join(content_meta['slug'])
         else:
             content_meta['slug'] = slugify(content_meta['title'])
-        content_meta['slug'] = post_slug_format.format(cat=cat_slug, year=post_year, month=post_month, day=post_day, slug=content_meta['slug'])
+        content_meta['slug'] = post_slug_format.format(
+            cat=cat_slug, year=post_year, month=post_month, day=post_day, slug=content_meta['slug'])
         while content_meta['slug'] in post_slugs:
             rep_index += 1
             content_meta['slug'] = '{}-{}/'.format(
@@ -95,9 +129,9 @@ for cat in cats:
 dump(generate_list, open('gen_list.json', 'w'))
 print('Wrote to gen_list.json')
 
-# sort posts in a descending order according to the date
 
 def sortmethod(a, b):
+    """sort posts in a descending order according to the date"""
     a_time = datetime.strptime(a['date'], '%Y-%m-%d %H:%M')
     b_time = datetime.strptime(b['date'], '%Y-%m-%d %H:%M')
     com_value = a_time - b_time
@@ -108,67 +142,99 @@ def sortmethod(a, b):
     else:
         return 1
 
-# write the parsed date string to the post
 
 def parsepostdate_single(ob):
+    """write the parsed date string to the post"""
     post = deepcopy(ob)
     published = datetime.strptime(post['date'], '%Y-%m-%d %H:%M')
-    parsed_published = "{dt:%B} {dt.day}, {dt.year}".format(dt = published)
+    parsed_published = "{dt:%B} {dt.day}, {dt.year}".format(dt=published)
     post['date'] = parsed_published
     if ('modified' in post):
         modified = datetime.strptime(post['modified'], '%Y-%m-%d %H:%M')
-        parsed_modified = "{dt:%B} {dt.day}, {dt.year}".format(dt = modified)
+        parsed_modified = "{dt:%B} {dt.day}, {dt.year}".format(dt=modified)
         post['modified'] = parsed_modified
     return post
 
-# write the parsed date string to each post
 
 def parsepostdates(ob):
+    """write the parsed date string to each post"""
     parsed_ob = deepcopy(ob)
     parsed_posts = deepcopy(ob['posts'])
     for post in parsed_posts:
         published = datetime.strptime(post['date'], '%Y-%m-%d %H:%M')
-        parsed_published = "{dt:%B} {dt.day}, {dt.year}".format(dt = published)
+        parsed_published = "{dt:%B} {dt.day}, {dt.year}".format(dt=published)
         post['date'] = parsed_published
         if ('modified' in post):
             modified = datetime.strptime(post['modified'], '%Y-%m-%d %H:%M')
-            parsed_modified = "{dt:%B} {dt.day}, {dt.year}".format(dt = modified)
+            parsed_modified = "{dt:%B} {dt.day}, {dt.year}".format(dt=modified)
             post['modified'] = parsed_modified
     parsed_ob['posts'] = parsed_posts
     return parsed_ob
 
-# tags
 
+# tags
+# sort the tags by post count in a descending order
 tags = collections.OrderedDict(
     sorted(tags.items(), key=lambda kv: -len(kv[1]['posts'])))
 tags_list = {}
 os.makedirs(os.path.join(output_directory, 'tags'), exist_ok=True)
+# init feed for tags
+tags_feed_path = 'static/tags/atom.xml'
+tags_id = urljoin(SITEURL,'tags')
+tags_feed = AtomGen("Tags - %s" % SITENAME, "The tags in %s" % SITENAME, tags_id, 'en')
+
 for tag, tag_things in tags.items():
     # dump to tags_list
     tags_list[tag_things['name']] = {
         'length': len(tag_things['posts']), 'slug': tag}
     # sort the posts
     tags[tag]['posts'] = sorted(tags[tag]['posts'], key=cmp_to_key(sortmethod))
+    # Add the tag to the total tags feed
+    tag_entry_url = urljoin(SITEURL, tag)
+    # print(tags[tag]['posts'], "Pub: "+tags[tag]['posts'][-1]['date'])
+    tag_entry = tags_feed.entry_add(tag_things['name'], tag_entry_url, tags[tag]['posts'][-1]['date'], tags[tag]['posts'][0]['date'])
     # write to json
     tag_json = os.path.join(output_directory, '{}.json'.format(tag.strip('/')))
     dump(parsepostdates(tags[tag]), open(tag_json, 'w'))
     print("Wrote to {}".format(tag_json))
 
+# tags rss generation
+tags_feed.atom_file(tags_feed_path)
+print("Wrote to %s" % tags_feed_path)
+
+# tags json generation
 tags_json = os.path.join(output_directory, 'tags.json')
 dump(tags_list, open(tags_json, 'w'))
 print("Wrote to {}".format(tags_json))
 
 # write to category.json
 for cat, cat_posts in posts.items():
+    cat_slug = slugify(cat)
     posts[cat] = sorted(posts[cat], key=cmp_to_key(sortmethod))
-    json_name = os.path.join(output_directory, '{}.json'.format(slugify(cat)))
-    dump(parsepostdates({'name': cat, 'posts': posts[cat]}), open(json_name, 'w'))
+    # Add the recent 5 posts to the total cat feed
+    recent_po = posts[cat][:5]
+    for post in recent_po:
+        post_entry_url = urljoin(SITEURL, post['slug'])
+        if 'modified' in post:
+            up_date = post['modified']
+        else:
+            up_date = ''
+        post_entry = cat_feeds[cat].entry_add(post['title'], post_entry_url, post['date'], up_date, post['summary'])
+    # cat rss generation
+    cat_feeds[cat].atom_file(cat_feed_path_format % cat_slug)
+    print("Wrote to %s" % (cat_feed_path_format % cat_slug))
+    # dump to json
+    json_name = os.path.join(output_directory, '{}.json'.format(cat_slug))
+    dump(parsepostdates(
+        {'name': cat, 'posts': posts[cat]}), open(json_name, 'w'))
     print("Wrote to {}".format(json_name))
 
 posts_inside = sorted(posts_inside, key=cmp_to_key(sortmethod))
+
 # write to cat/post.json
 for single_post in posts_inside:
-    json_name = os.path.join(output_directory, single_post['category'].lower(
-    ), '{}.json'.format(single_post['slug'].split("/")[-2]))
+    json_name = os.path.join(output_directory, slugify(
+        single_post['category']), '{}.json'.format(single_post['slug'].split("/")[-2]))
     dump(parsepostdate_single(single_post), open(json_name, 'w'))
     print("Wrote to {}".format(json_name))
+

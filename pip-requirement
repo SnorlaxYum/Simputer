@@ -2,3 +2,4 @@
 python-slugify
 pygments
 pymdown-extensions
+feedgen
