@@ -1,5 +1,5 @@
 ﻿<template lang="pug">
-    div.com-section
+    div.com-section(@keyup.ctrl)
         textarea(class='comment-content' placeholder='Type Comment Here (At least 3 chars)' v-model="content")
         input(class="commenter-name" placeholder='Name (Optional)' v-model="name")
         input(class="commenter-email" placeholder='E-mail (Optional)' v-model="email")
@@ -39,7 +39,24 @@ export default Vue.extend({
     cookie(name) {
       // return this.$cookie.get(name)
       return this.$cookies.get(name)
+    },
+    CtrlEnterSubmit(event) {
+      if (event.ctrlKey && event.keyCode == 13) {
+        this.$el.querySelector('button[type="submit"]').click()
+      }
+    },
+    addCtrlEnterListeners() {
+      this.$el.addEventListener('keydown', this.CtrlEnterSubmit)
+    },
+    destroyListener() {
+      this.$el.removeEventListener('keydown', this.CtrlEnterSubmit)
     }
+  },
+  mounted() {
+    this.$nextTick(this.addCtrlEnterListeners)
+  },
+  beforeDestroy() {
+    this.destroyListener()
   }
 })
 </script>
