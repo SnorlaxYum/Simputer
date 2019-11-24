@@ -1,7 +1,6 @@
 ﻿from functools import cmp_to_key
 import os
 import markdown
-import re
 from slugify import slugify
 from datetime import datetime
 from datetime import timedelta
@@ -40,7 +39,13 @@ class AtomGen(FeedGenerator):
         self.link(href=link, rel='self')
         self.language(language)
 
-    def entry_add(self, titl, link, published, updated='', content='', order='append'):
+    def entry_add(self,
+                  titl,
+                  link,
+                  published,
+                  updated='',
+                  content='',
+                  order='append'):
         entry = super().add_entry(order=order)
         # print(entry)
         entry.title(titl)
@@ -68,19 +73,31 @@ def posts_meta(directory):
         cat_slug = slugify(cat)
         cat_path = os.path.join(directory, cat)
         cat_json_path = os.path.join(output_directory, cat_slug)
-        if not cat in posts.keys():
+        if cat not in posts.keys():
             posts[cat] = []
         os.makedirs(cat_json_path, exist_ok=True)
         cat_posts = os.listdir(cat_path)
         generate_list.append('/{}'.format(cat_slug))
         # initiate feed for the category
-        cat_feed_path = cat_feed_path_format % cat_slug
         cat_id = urljoin(SITEURL, cat_slug)
         cat_feeds[cat] = AtomGen(
-            "%s - %s" % (cat, SITENAME), "%s in %s" % (cat, SITENAME), cat_id, 'en')
+            "%s - %s" % (cat, SITENAME),
+            "%s in %s" % (cat, SITENAME), cat_id, 'en')
         for post in cat_posts:
-            md = markdown.Markdown(extensions=['pymdownx.superfences', 'meta', 'footnotes', 'toc', 'codehilite', 'attr_list', 'pymdownx.emoji', 'pymdownx.extra',
-                                               'pymdownx.tilde', 'pymdownx.smartsymbols', 'tables', 'nl2br'], extension_configs={'codehilite': {'linenums': True}})
+            md = markdown.Markdown(extensions=['pymdownx.superfences',
+                                               'meta',
+                                               'footnotes',
+                                               'toc',
+                                               'codehilite',
+                                               'attr_list',
+                                               'pymdownx.emoji',
+                                               'pymdownx.extra',
+                                               'pymdownx.tilde',
+                                               'pymdownx.smartsymbols',
+                                               'tables',
+                                               'nl2br'],
+                                   extension_configs={'codehilite':
+                                                      {'linenums': True}})
             content = open(os.path.join(cat_path, post),
                            encoding='utf-8-sig').read()
             content_html = md.convert(content)
@@ -95,7 +112,9 @@ def posts_meta(directory):
             post_day = '%02d' % post_date.day
             if not '/{}/{}'.format(cat_slug, post_year) in generate_list:
                 generate_list.append('/{}/{}'.format(cat_slug, post_year))
-            if not '/{}/{}/{}'.format(cat_slug, post_year, post_month) in generate_list:
+            if not '/{}/{}/{}'.format(cat_slug,
+                                      post_year,
+                                      post_month) in generate_list:
                 generate_list.append(
                     '/{}/{}/{}'.format(cat_slug, post_year, post_month))
             if not '/{}/{}/{}/{}'.format(cat_slug, post_year, post_month, post_day) in generate_list:
@@ -104,8 +123,8 @@ def posts_meta(directory):
             if (len(content_meta["tags"]) == 1):
                 content_meta['tags'] = content_meta['tags'][0].split(', ')
             for index in range(len(content_meta['tags'])):
-                content_meta['tags'][index] = [content_meta['tags']
-                                               [index], tag_slug_format.format(slug=slugify(content_meta['tags'][index]))]
+                content_meta['tags'][index] = [content_meta['tags'][index],
+                                               tag_slug_format.format(slug=slugify(content_meta['tags'][index]))]
             if 'modified' in content_meta:
                 content_meta['modified'] = "".join(content_meta['modified'])
             if 'author' in content_meta:
@@ -233,7 +252,8 @@ def tags_files(tags):
 
     # tags json generation
     tags_json = os.path.join(output_directory, 'tags.json')
-    dump({'atom': urljoin(SITEURL, '/'.join(tags_feed_path.split('/')[1:])), 'tags': tags_list}, open(tags_json, 'w'))
+    dump({'atom': urljoin(SITEURL, '/'.join(tags_feed_path.split('/')
+                                            [1:])), 'tags': tags_list}, open(tags_json, 'w'))
     print("Wrote to {}".format(tags_json))
 
 
@@ -252,8 +272,11 @@ def posts_files(posts_all, posts_inside):
         print("Wrote to %s" % (cat_feed_path))
         # dump to json
         json_name = os.path.join(output_directory, '{}.json'.format(cat_slug))
-        dump(parsepostdates(
-            {'name': cat, 'atom': urljoin(SITEURL,'/'.join(cat_feed_path.split('/')[1:])),'posts': posts[cat]}), open(json_name, 'w'))
+        dump(
+            parsepostdates(
+                {'name': cat, 'atom': urljoin(SITEURL, '/'.join(cat_feed_path.split('/')[1:])),
+                 'posts': posts[cat]}),
+            open(json_name, 'w'))
         print("Wrote to {}".format(json_name))
 
     # sort all posts
