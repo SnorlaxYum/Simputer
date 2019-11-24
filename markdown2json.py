@@ -227,13 +227,13 @@ def tags_files(tags):
         dump(parsepostdates(tags[tag]), open(tag_json, 'w'))
         print("Wrote to {}".format(tag_json))
 
-    # tags rss generation
+    # tags atom generation
     tags_feed.atom_file(tags_feed_path)
     print("Wrote to %s" % tags_feed_path)
 
     # tags json generation
     tags_json = os.path.join(output_directory, 'tags.json')
-    dump(tags_list, open(tags_json, 'w'))
+    dump({'atom': urljoin(SITEURL, '/'.join(tags_feed_path.split('/')[1:])), 'tags': tags_list}, open(tags_json, 'w'))
     print("Wrote to {}".format(tags_json))
 
 
@@ -247,12 +247,13 @@ def posts_files(posts_all, posts_inside):
         for post in recent_po:
             post_entry = addEntryToFeed(post, cat_feeds[cat])
         # cat rss generation
-        cat_feeds[cat].atom_file(cat_feed_path_format % cat_slug)
-        print("Wrote to %s" % (cat_feed_path_format % cat_slug))
+        cat_feed_path = cat_feed_path_format % cat_slug
+        cat_feeds[cat].atom_file(cat_feed_path)
+        print("Wrote to %s" % (cat_feed_path))
         # dump to json
         json_name = os.path.join(output_directory, '{}.json'.format(cat_slug))
         dump(parsepostdates(
-            {'name': cat, 'posts': posts[cat]}), open(json_name, 'w'))
+            {'name': cat, 'atom': urljoin(SITEURL,'/'.join(cat_feed_path.split('/')[1:])),'posts': posts[cat]}), open(json_name, 'w'))
         print("Wrote to {}".format(json_name))
 
     # sort all posts

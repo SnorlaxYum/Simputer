@@ -41,7 +41,8 @@ export default Vue.extend({
   },
   head() {
     return {
-      title: this.title
+      title: this.title,
+      link: [{ rel: 'alternate', href: this.atom, type: 'application/atom+xml' }]
     }
   }
 })

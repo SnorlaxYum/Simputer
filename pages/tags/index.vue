@@ -14,14 +14,15 @@ export default Vue.extend({
   async asyncData({ params, error, $axios }) {
     let tags = await $axios.get("/tags.json").then(res => res.data)
     if (tags) {
-      return { tags }
+      return tags
     } else {
       return error({ message: "Section not found", statusCode: 404 })
     }
   },
   head() {
     return {
-      title: "Tags"
+      title: "Tags",
+      link: [{ rel: 'alternate', href: this.atom, type: 'application/atom+xml' }]
     }
   }
 })

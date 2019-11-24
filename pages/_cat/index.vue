@@ -30,7 +30,8 @@ export default Vue.extend({
   },
   head() {
     return {
-      title: this.name
+      title: this.name,
+      link: [{ rel: 'alternate', href: this.atom, type: 'application/atom+xml' }]
     }
   }
 })
