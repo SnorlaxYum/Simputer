@@ -18,6 +18,7 @@ TZ = timezone("Asia/Chongqing")
 FEEDAUTHOR = {'name': 'Sim', 'email': 'sim@snorl.ax'}
 output_directory = 'static'
 posts = {}
+posts_all = []
 post_slugs = []
 post_slug_format = "/{cat}/{year}/{month}/{day}/{slug}/"
 tag_slug_format = "/tags/{slug}/"
@@ -39,7 +40,7 @@ class AtomGen(FeedGenerator):
         self.language(language)
     def entry_add(self, titl, link, published, updated='', content='',order='append'):
         entry = super().add_entry(order=order)
-        print(entry)
+        # print(entry)
         entry.title(titl)
         entry.link(href=link)
         if content:
@@ -52,6 +53,8 @@ class AtomGen(FeedGenerator):
         if updated:
             entry.updated(TZ.localize(datetime.strptime(updated, '%Y-%m-%d %H:%M')))
         return entry
+
+all_feed = AtomGen('Recent posts in %s' % SITENAME, 'Recent posts in %s' % SITENAME, SITEURL, 'en')
 
 # list 'contents' directory
 cats = os.listdir('contents')
@@ -109,7 +112,7 @@ for cat in cats:
         while content_meta['slug'] in post_slugs:
             rep_index += 1
             content_meta['slug'] = '{}-{}/'.format(
-                content_meta['slug'].strip('/'), rep_index)
+                content_meta['slug'].rstrip('/'), rep_index)
         post_slugs.append(content_meta['slug'])
         if not content_meta['slug'] in generate_list:
             generate_list.append(content_meta['slug'])
@@ -118,6 +121,7 @@ for cat in cats:
         content_inside['html'] = content_html
         content_inside['category'] = cat
         posts[cat].append(content_meta)
+        posts_all.append(content_meta)
         for tag in content_meta['tags']:
             if not tag[1] in tags:
                 tags[tag[1]] = {'name': tag[0], 'posts': []}
@@ -171,6 +175,15 @@ def parsepostdates(ob):
     parsed_ob['posts'] = parsed_posts
     return parsed_ob
 
+def addEntryToFeed(post, feed):
+    """add a post to posts feed"""
+    post_entry_url = urljoin(SITEURL, post['slug'])
+    if 'modified' in post:
+        up_date = post['modified']
+    else:
+        up_date = ''
+    post_entry = feed.entry_add(post['title'], post_entry_url, post['date'], up_date, post['summary'])
+    return post_entry
 
 # tags
 # sort the tags by post count in a descending order
@@ -214,12 +227,7 @@ for cat, cat_posts in posts.items():
     # Add the recent 5 posts to the total cat feed
     recent_po = posts[cat][:5]
     for post in recent_po:
-        post_entry_url = urljoin(SITEURL, post['slug'])
-        if 'modified' in post:
-            up_date = post['modified']
-        else:
-            up_date = ''
-        post_entry = cat_feeds[cat].entry_add(post['title'], post_entry_url, post['date'], up_date, post['summary'])
+        post_entry = addEntryToFeed(post, cat_feeds[cat])
     # cat rss generation
     cat_feeds[cat].atom_file(cat_feed_path_format % cat_slug)
     print("Wrote to %s" % (cat_feed_path_format % cat_slug))
@@ -229,6 +237,17 @@ for cat, cat_posts in posts.items():
         {'name': cat, 'posts': posts[cat]}), open(json_name, 'w'))
     print("Wrote to {}".format(json_name))
 
+# sort all posts
+posts_all = sorted(posts_all, key=cmp_to_key(sortmethod))
+# Add the recent 5 posts to the total cat feed
+all_recent = posts_all[:5]
+for post in all_recent:    
+    post_entry = addEntryToFeed(post, all_feed)
+# rss generation for recent posts
+all_feed.atom_file('static/atom.xml')
+print("Wrote to %s" % 'static/atom.xml' )
+
+# sort the inside posts
 posts_inside = sorted(posts_inside, key=cmp_to_key(sortmethod))
 
 # write to cat/post.json
