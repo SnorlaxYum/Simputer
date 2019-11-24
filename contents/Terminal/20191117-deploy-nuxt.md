@@ -2,7 +2,7 @@
 date: 2019-11-17 20:49
 modified: 2019-11-22 17:56
 author: Sim
-tags: nuxt, Gridsome, Vue, Github Pages, git, Python, json
+tags: nuxt, markdown, Gridsome, Vue, Github Pages, git, Python, json
 summary: Just started my first frontend developer job as an intern worker. And to learn vue better, I rewrote my blog using nuxt.
 
 The blog is now powered by nuxt.js, I just posted the source code on [Github](https://github.com/SnorlaxYum/Simputer)[^1].  
