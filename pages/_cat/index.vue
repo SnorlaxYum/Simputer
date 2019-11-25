@@ -1,5 +1,9 @@
 <template lang="pug">
 div
+  article.cat
+    h1 {{ name }}
+      a(:href="atom" class="atom" target="_blank")
+        img(src="/images/feed.svg")
   post-nav(v-for='post, title of posts'
             :key='post.slug'
             :category='post.category'

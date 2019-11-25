@@ -1,6 +1,8 @@
 <template lang="pug">
-  article
+  article.tags
     header Tags
+      a(:href="atom" class="atom" target="_blank")
+        img(src="/images/feed.svg")
     content
       ul
         li(v-for='tag_info, tag of tags')

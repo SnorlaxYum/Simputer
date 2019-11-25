@@ -1,5 +1,5 @@
 <template lang="pug">
-article
+article.page
   header About Me
   content
     client-only

@@ -1,5 +1,5 @@
 <template lang="pug">
-article
+article.page
     header {{title}}
     content
         #series
@@ -14,6 +14,7 @@ article
                     nuxt-link(to='/terminal/2019/06/10/my-isso-configuration/') Configuration
                 li
                     nuxt-link(to='/terminal/2019/06/10/inside-the-isso-database/') Inside the Database
+        br
         | Welcome to My Isso Style!
         br
         | Hope the way I tango with Isso helps u!

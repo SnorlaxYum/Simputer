@@ -1,5 +1,7 @@
 <template lang="pug">
   div 
+    article.cat
+      h1 Tag: {{ name }}
     post-nav(v-for='post of posts'
              :key='post.slug'
              :category='post.category'

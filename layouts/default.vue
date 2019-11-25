@@ -2,7 +2,8 @@
   site-container
     top-nav(:nav='topnav')
     contents
-      nuxt
+      transition(name="fade")
+        nuxt
     foot
 </template>
 
@@ -36,7 +37,9 @@ export default Vue.extend({
           this.topnav = true
           break
       }
-      if (to.path === from.path && to.hash !== from.hash && getComputedStyle(document.getElementsByTagName('nav')[0]).position === "sticky") {
+      if (!to.hash) {
+        window.scrollTo({top:0, behavior: 'smooth'})
+      } else if (to.path === from.path && to.hash !== from.hash && getComputedStyle(document.getElementsByTagName('nav')[0]).position === "sticky") {
         let height = document.getElementsByTagName('nav')[0].clientHeight
         setTimeout(() => {window.scrollBy(0, -height)}, 10)
       }

@@ -1,15 +1,20 @@
 ﻿<template lang="pug">
 div
-  post-nav(v-for='post, title of posts'
-            :key='post.slug'
-            :category='post.category'
-            :title='post.title'
-            :date='post.date'
-            :modified='post.modified'
-            :slug='post.slug'
-            :content='post.summary ? false : post.html'
-            :summary='post.summary ? post.summary : false'
-            :isso='post.isso')
+  article.cat
+    h1 {{ name }}
+      a(:href="atom" class="atom" target="_blank")
+        img(src="/images/feed.svg")
+  transition(name="fade")
+    post-nav(v-for='post, title of posts'
+              :key='post.slug'
+              :category='post.category'
+              :title='post.title'
+              :date='post.date'
+              :modified='post.modified'
+              :slug='post.slug'
+              :content='post.summary ? false : post.html'
+              :summary='post.summary ? post.summary : false'
+              :isso='post.isso')
 </template>
 
 <script lang="ts">
