@@ -8,7 +8,8 @@ summary: Recently NetEase went under fire for treatment of ill employee
 
 ## News
 
-![Netease Building](https://static.snorl.ax/posts/NETEASE.webp)
+![Netease Building](https://static.snorl.ax/graphs/NETEASE.svg)
+{: .text-center .graph}
 
 The news below is originally posted in technode[^1].
 
