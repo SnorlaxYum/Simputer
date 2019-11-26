@@ -4,3 +4,4 @@ pygments
 pymdown-extensions
 pytz
 feedgen
+htmlmin

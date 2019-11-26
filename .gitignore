@@ -103,6 +103,7 @@ static/*/*.json
 static/atom.xml
 static/*/atom.xml
 static/*/.rss
+*.pyc
 
 # submodules
 media

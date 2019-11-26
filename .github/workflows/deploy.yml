@@ -34,6 +34,8 @@ jobs:
 
     - run: npm run generate
 
+    - run: python htmlminify.py
+
     - name: Production URL
       run: sed -i 's/http:\/\/localhost:3000/https:\/\/snorl.ax/g' dist/_nuxt/*.js
 
