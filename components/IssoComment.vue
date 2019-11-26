@@ -32,7 +32,32 @@ div.comment(:id="'isso-'+id")
 import Vue from 'vue'
 import IssoInputField from '~/components/IssoInputField'
 export default Vue.extend({
-  props: ["id", "num", "avatar", "likes", "author", "website", "created", "text", "slug"],
+  props: {
+    id: {
+      type: Number
+    },
+    avatar: {
+      type: String
+    },
+    likes: {
+      type: Number
+    },
+    author: {
+      type: String
+    },
+    website: {
+      type: String
+    },
+    created: {
+      type: Number
+    },
+    text: {
+      type: String
+    },
+    slug: {
+      type: String
+    }
+  },
   data() {
     return {
       replyshow: false,
@@ -63,9 +88,10 @@ export default Vue.extend({
       theRes = (this.now - published) / 1000
       return theRes < 60 ? `${Math.floor(theRes)} seconds ago` : 
              theRes < 60 * 60 ? `${Math.floor(theRes/60)} minutes ago` :
+             theRes < 60 * 60 * 2 ? `1 hour ago` :
              theRes < 60 * 60 * 24 ? `${Math.floor(theRes/60/60)} hours ago` :
              theRes < 60 * 60 * 24 * 30 ? `${Math.floor(theRes/60/60/24)} days ago` :
-             theRes < 60 * 60 * 24 * 365 ? `${Math.floor(theRes/60/60/24/30)} months ago` : `${Math.floor(theRes/60/60/24/365)} months ago`
+             theRes < 60 * 60 * 24 * 365 ? `${Math.floor(theRes/60/60/24/30)} months ago` : `${Math.floor(theRes/60/60/24/365)} years ago`
     },
     cookie(name) {
       return this.$cookies.get(name)
