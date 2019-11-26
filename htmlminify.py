@@ -6,7 +6,7 @@ def minify(path):
     with open(path, 'r') as page:
         page_con = page.read()
     print("Minifying %s" % path)
-    minified = htmlmin.minify(page_con)
+    minified = htmlmin.minify(page_con, remove_empty_space=True)
     with open(path, 'w') as writer:
         writer.write(minified)
 
