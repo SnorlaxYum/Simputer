@@ -1,5 +1,6 @@
 title: Some Form dealing about Promise and Component in Ant Design (React.js)
 date: 2019-12-13 21:49
+modified: 2019-12-17 23:44
 author: Sim
 tags: Ant Design, React.js, Javascript, wrappedComponentRef, Promise, Form
 summary: Recently I've been working with React and Ant Design at work. React is a pretty flexible framework to work with, while Ant Design is a comprehensive framework like Bootstrap. Although i need sometime to adapt to it. 
@@ -69,7 +70,7 @@ For example I need a function that returns a Promise in `loadData` attribute in 
 
 The example on the official website[^1] says everything:  
 
-```js hl_lines="6 7 8 9 10 11 12 13 14 44 45 46 47 48 49 50 51 52 53"
+```js hl_lines="44 45 46 47 48 49 50 51 52 53"
 import { Form, Input, Select, Button } from 'antd';
 
 const { Option } = Select;
