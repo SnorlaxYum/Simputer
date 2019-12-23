@@ -1,6 +1,6 @@
 title: Some Form dealing about Promise and Component in Ant Design (React.js)
 date: 2019-12-13 21:49
-modified: 2019-12-17 23:44
+modified: 2019-12-23 23:44
 author: Sim
 tags: Ant Design, React.js, Javascript, wrappedComponentRef, Promise, Form
 summary: Recently I've been working with React and Ant Design at work. React is a pretty flexible framework to work with, while Ant Design is a comprehensive framework like Bootstrap. Although i need sometime to adapt to it. 
@@ -151,5 +151,30 @@ class PriceInput extends React.Component {
   }
 }
 ```
+
+## componentDidUpdate: make changes towards value changes in props or state
+
+```
+import React from 'react'
+
+class something extends React.Components {
+  \\...
+  componentDidUpdate(prevProps, prevState) {
+    console.log('The previous props of the component: ' + prevProps + '\nThe current props of the component: ' + this.props)
+    console.log('The previous props of the component: ' + prevProps + '\nThe current props of the component: ' + this.props)
+  }
+  \\...
+}
+
+export default something
+```
+
+This is a really useful thing in React Lifecycle.  
+
+I can use it to:  
+
+1. Monitor the changes in the state in the component and do something according to it
+2. Monitor the changes in the props in the component and do something according to it
+3. Do something as long as the data changes.
 
 [^1]: [Form - Ant Design](https://ant.design/components/form/#components-form-demo-customized-form-controls)
