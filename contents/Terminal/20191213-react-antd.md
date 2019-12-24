@@ -1,6 +1,6 @@
 title: Some Form dealing about Promise and Component in Ant Design (React.js)
 date: 2019-12-13 21:49
-modified: 2019-12-23 23:44
+modified: 2019-12-24 22:44
 author: Sim
 tags: Ant Design, React.js, Javascript, wrappedComponentRef, Promise, Form
 summary: Recently I've been working with React and Ant Design at work. React is a pretty flexible framework to work with, while Ant Design is a comprehensive framework like Bootstrap. Although i need sometime to adapt to it. 
@@ -152,6 +152,69 @@ class PriceInput extends React.Component {
 }
 ```
 
+However `getDerivedStateFromProps` is kinda dated and not recommended in React now[^2] and could lead to some issues. Generally to acheive the things above I would rewrite the code to make the component fully controlled like the officially recommended way:  
+
+```js hl_lines="19 20 21 22 23 24 25 26 27 28 29"
+import { Form, Input, Select, Button } from 'antd';
+
+const { Option } = Select;
+
+class PriceInput extends React.Component {
+
+  handleNumberChange = e => {
+    const number = parseInt(e.target.value || 0, 10);
+    if (isNaN(number)) {
+      return;
+    }
+    this.triggerChange({ number });
+  };
+
+  handleCurrencyChange = currency => {
+    this.triggerChange({ currency });
+  };
+
+  triggerChange = changedValue => {
+    // Should provide an event to pass value to Form.
+    const { onChange, number, currency } = this.props;
+    if (onChange) {
+      onChange({
+        number,
+        currency,
+        ...changedValue,
+      });
+    }
+  };
+
+  renderThing(props) {
+    const { size, currency, number } = props;
+    return (
+      <span>
+        <Input
+          type="text"
+          size={size}
+          value={number}
+          onChange={this.handleNumberChange}
+          style={{ width: '65%', marginRight: '3%' }}
+        />
+        <Select
+          value={currency}
+          size={size}
+          style={{ width: '32%' }}
+          onChange={this.handleCurrencyChange}
+        >
+          <Option value="rmb">RMB</Option>
+          <Option value="dollar">Dollar</Option>
+        </Select>
+      </span>
+    );
+  }
+
+  render() {
+    return renderThing(this.props)
+  }
+}
+```
+
 ## componentDidUpdate: make changes towards value changes in props or state
 
 ```
@@ -175,6 +238,9 @@ I can use it to:
 
 1. Monitor the changes in the state in the component and do something according to it
 2. Monitor the changes in the props in the component and do something according to it
-3. Do something as long as the data changes.
+3. Do something as long as the data changes.  
+
+It's like the `watcher` and `computed` in the Vue.
 
 [^1]: [Form - Ant Design](https://ant.design/components/form/#components-form-demo-customized-form-controls)
+[^2]: [You Probably Don't Need Derived State – React Blog](https://reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html)
