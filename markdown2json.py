@@ -124,7 +124,7 @@ def posts_meta(directory):
                 content_meta['tags'] = content_meta['tags'][0].split(', ')
             for index in range(len(content_meta['tags'])):
                 content_meta['tags'][index] = [content_meta['tags'][index],
-                                               tag_slug_format.format(slug=slugify(content_meta['tags'][index]))]
+                                               tag_slug_format.format(slug=slugify(content_meta['tags'][index])).rstrip('/')]
             if 'modified' in content_meta:
                 content_meta['modified'] = "".join(content_meta['modified'])
             if 'author' in content_meta:
@@ -138,9 +138,9 @@ def posts_meta(directory):
                 cat=cat_slug, year=post_year, month=post_month, day=post_day, slug=content_meta['slug'])
             while content_meta['slug'] in post_slugs:
                 rep_index += 1
-                content_meta['slug'] = '{}-{}/'.format(
+                content_meta['slug'] = '{}-{}'.format(
                     content_meta['slug'].rstrip('/'), rep_index)
-            post_slugs.append(content_meta['slug'])
+            post_slugs.append(content_meta['slug'].rstrip('/'))
             if not content_meta['slug'] in generate_list:
                 generate_list.append(content_meta['slug'])
             # do the extra for the inside of the post
