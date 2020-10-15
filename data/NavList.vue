@@ -6,7 +6,7 @@ export default Vue.extend({
       OutNavList: [
         { title: "Email", description: "Contact me through email.", id: 'email', textcontainer: 'dark', link: 'mailto:sim@snorl.ax'},
         { title: "Panic! At The Simputer", description: "My u2b channel about Brendon Urie.", id: 'panic', textcontainer: 'dark', link: 'https://www.youtube.com/channel/UC7petj8k1afy2zZT1hHzjfg'},
-        { title: "Pokémon At The Simputer", description: "My u2b channel about Pokémon.", id: 'pokemon', textcontainer: 'dark', link: 'https://www.youtube.com/channel/UCnqOLMtPJaqa7e_6FhZ8-rw'},
+        { title: "Gaming At The Simputer", description: "My u2b channel about Gaming.", id: 'pokemon', textcontainer: 'dark', link: 'https://www.youtube.com/channel/UCnqOLMtPJaqa7e_6FhZ8-rw'},
       ],
       InNavList: [
         {title: 'Terminal', description: 'Where I talk something about servers or codes.', slug: 'terminal', textcontainer: 'dark' },
