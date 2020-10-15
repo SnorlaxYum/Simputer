@@ -5,6 +5,7 @@
   "author": "Sim",
   "private": true,
   "scripts": {
+    "json": "python markdown2json.py",
     "dev": "nuxt",
     "build": "nuxt build",
     "clean": "rm -rf dist/*",
