@@ -9,7 +9,7 @@ article.page
           td Sim
         tr
           td Languages
-          td Html, CSS, Javascript, Python, Shell Script
+          td Html, CSS, Javascript, Golang, Python, Shell Script
         tr
           td Tools
           td Visual Studio Code, Gimp, Vim
