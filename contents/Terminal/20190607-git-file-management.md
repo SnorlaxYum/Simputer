@@ -44,7 +44,7 @@ On my local computer:
 
     :::bash
     sim@localhost:~$ cd project
-    sim@localhost:~/project$ git init && git add . && git commit -m "initial commit" && git remote add origin ssh://sim@server:port:/home/sim/new_dir.git && git push origin master
+    sim@localhost:~/project$ git init && git add . && git commit -m "initial commit" && git remote add origin ssh://sim@server:port/home/sim/new_dir.git && git push origin master
 
 Then on the server, I can do this:  
 
@@ -107,7 +107,7 @@ On my local computer:
 
     :::bash
     sim@localhost:~$ cd project
-    sim@localhost:~/project$ git remote add origin2 ssh://sim@server2:port:/home/sim/new_dir.git
+    sim@localhost:~/project$ git remote add origin2 ssh://sim@server2:port/home/sim/new_dir.git
     sim@localhost:~/project$ git push origin2 master
 
 Then on the server, I can do this:  
