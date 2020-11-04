@@ -15,7 +15,7 @@ import NavList from '~/data/NavList'
 export default Vue.extend({
   head() {
     return {title: 'Homepage',
-      link: [{ rel: 'alternate', href: 'https://snorl.ax/atom.xml', type: 'application/atom+xml' }]}
+      link: [{ rel: 'alternate', href: `${this.$store.state.siteUrl}/atom.xml`, type: 'application/atom+xml' }]}
   },
   components: {
     NavBoxes

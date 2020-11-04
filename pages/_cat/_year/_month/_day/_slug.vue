@@ -5,7 +5,7 @@
         article.post-nav(v-if="nav")
           h1 Table of Contents
           ul
-            nuxt-link(v-for="link in links" :to="link.link" :key="link.link")
+            nuxt-link(v-for="link in links" :to="link.link" :key="link.link" :class="active && active.link == link.link ? 'nuxt-nav-active' : ''")
               li(v-html="link.title")
       post(
         :title="title"
@@ -39,12 +39,13 @@ export default Vue.extend({
     return {
       nav: false,
       links: [],
+      active: null,
       slug: this.$route.fullPath
     }
   },
   head() {
     const siteTitle = this.$store.state.siteTitle,
-    description = this.summary.replace('<br>', ' '),
+    description = this.summary ? this.summary.replace('<br>', ' ') : '',
     siteUrl = this.$store.state.siteUrl,
     thisUrl = siteUrl + this.$route.fullPath
     let image_path = this.ogimage ? this.ogimage : '/images/og/default.webp'
@@ -87,12 +88,14 @@ export default Vue.extend({
     addActive(event) {
       for (const link of this.links) {
         const dis = document.getElementById(link.link.replace('#','')).getBoundingClientRect().top
-        let already = this.$route.hash === link.link, height = 50
+        let height = 50
         if (getComputedStyle(document.getElementsByTagName('nav')[0]).position === "sticky") {
-          height = document.getElementsByTagName('nav')[0].clientHeight * 0.8
-        }
-        if (Math.abs(dis) <= height && !already) {
-          this.$router.push(link.link)
+          let navHeight = document.getElementsByTagName('nav')[0].clientHeight
+          if (Math.abs(dis - navHeight) <= height) {
+            this.active = link
+          }
+        } else if (Math.abs(dis) <= height) {
+          this.active = link
         }
       }
       // const body = document.body,
@@ -119,6 +122,11 @@ export default Vue.extend({
   },
   mounted() {
     this.$nextTick(this.addListeners)
+    if (this.$route.hash.search('#isso-')+1) {
+      setTimeout(() => {
+        scrollTo({top: document.getElementById(this.$route.hash.replace('#', '')).offsetTop, behavior: 'smooth'})
+      }, 1)
+    }
   },
   beforeDestroy() {
     this.destroyListeners()
