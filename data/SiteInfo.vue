@@ -3,7 +3,13 @@ import Vue from 'vue'
 export default Vue.extend({
     head() {
         return {
-        titleTemplate: '%s - ' + this.siteTitle
+            titleTemplate: '%s - ' + this.siteTitle,
+            link: [
+                {
+                    rel: 'preconnect',
+                    href: 'https://isso.snorl.ax'
+                }
+            ]
         }
     },
     data() {
