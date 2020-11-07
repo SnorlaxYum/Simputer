@@ -8,9 +8,9 @@
     "json": "python markdown2json.py",
     "dev": "nuxt",
     "build": "nuxt build",
-    "clean": "shopt -u dotglob && rm -rf dist/*",
+    "clean": "rm -rf dist/*",
     "start": "nuxt start",
-    "generate": "mv dist/.git static/ && nuxt generate && rm -rf static/.git",
+    "generate": "nuxt generate",
     "test": "jest",
     "serve": "python -m http.server --directory dist"
   },

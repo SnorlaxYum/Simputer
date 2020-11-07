@@ -12,7 +12,7 @@ from feedgen.feed import FeedGenerator
 from pytz import timezone
 
 SITENAME = "Simputer"
-SITEURL = "https://test3.snorl.ax"
+SITEURL = "https://snorl.ax"
 TZ = timezone("Asia/Chongqing")
 FEEDAUTHOR = {'name': 'Sim', 'email': 'sim@snorl.ax'}
 output_directory = 'static'
