@@ -4,12 +4,6 @@ export default Vue.extend({
     head() {
         return {
             titleTemplate: '%s - ' + this.siteTitle,
-            link: [
-                {
-                    rel: 'preconnect',
-                    href: 'https://isso.snorl.ax'
-                }
-            ]
         }
     },
     data() {

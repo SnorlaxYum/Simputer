@@ -1,5 +1,5 @@
 export const state = () => ({
     siteTitle: 'Simputer',
-    siteUrl: 'https://snorl.ax',
-    isso: 'https://isso.snorl.ax/'
+    siteUrl: 'https://test3.snorl.ax',
+    isso: 'https://test3.snorl.ax/isso/'
 })
