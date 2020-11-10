@@ -176,44 +176,46 @@ Two ways to do this with nginx, I've actually used both:
 1. Running it in `/isso` of the domain `snorl.ax`, the relevant server block in `/etc/nginx/conf.d/default.conf` is shown in SUB-URI tab.
 2. Running it in a subdomain like `isso.snorl.ax`, the relevant server block in `/etc/nginx/conf.d/default.conf` is shown in Subdomain tab. 
 
-```nginx hl_lines="7 8 9 10 11 12 13" tab="SUB-URI"
-server {
-	#...
-	server_name snorl.ax;
+=== "SUB-URI"
+	```{.nginx hl_lines="7-13" linenums="1"}
+	server {
+		#...
+		server_name snorl.ax;
 
-	#...
+		#...
 
-	location /isso {
-	proxy_pass http://localhost:8001;
-	proxy_set_header X-Script-Name /isso;
-	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-	proxy_set_header Host $host;
-	proxy_set_header X-Forwarded-Proto $scheme;
+		location /isso {
+		proxy_pass http://localhost:8001;
+		proxy_set_header X-Script-Name /isso;
+		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		proxy_set_header Host $host;
+		proxy_set_header X-Forwarded-Proto $scheme;
+		}
+
+		#...
+
 	}
+	```
 
-	#...
+=== "Subdomain"
+	```{.nginx hl_lines="7-12" linenums="1"}
+	server {
+		#...
+		server_name isso.snorl.ax;
 
-}
-```
+		#...
 
-```nginx hl_lines="7 8 9 10 11 12" tab="Subdomain"
-server {
-	#...
-	server_name isso.snorl.ax;
+		location ^~ / {
+		proxy_pass http://localhost:8001;
+		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		proxy_set_header Host $host;
+		proxy_set_header X-Forwarded-Proto $scheme;
+		}
 
-	#...
+		#...
 
-	location ^~ / {
-	proxy_pass http://localhost:8001;
-	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-	proxy_set_header Host $host;
-	proxy_set_header X-Forwarded-Proto $scheme;
 	}
-
-	#...
-
-}
-```
+	```
 
 ## Insert into the website
 
@@ -318,46 +320,48 @@ Change the lines in nginx configuration:
 1. When isso is running in `/isso` of the domain `snorl.ax`, the relevant server block in `/etc/nginx/conf.d/default.conf` is shown in SUB-URI tab.
 2. When isso is running in it in a subdomain like `isso.snorl.ax`, the relevant server block in `/etc/nginx/conf.d/default.conf` is shown in Subdomain tab. 
 	
-```nginx hl_lines="7 8 9 10 11 12 13 14" tab="SUB-URI"
-server {
-	# ...
-	server_name snorl.ax;
+=== "SUB-URI"
+	```{.nginx hl_lines="7 8 9 10 11 12 13 14" linenums="1"}
+	server {
+		# ...
+		server_name snorl.ax;
 
-	# ...
+		# ...
 
-	location /isso {
-		include         uwsgi_params;
-		uwsgi_pass unix:/tmp/isso/uwsgi.sock;
-		uwsgi_param HTTP_X_SCRIPT_NAME /isso;
-		uwsgi_param HTTP_HOST $host;
-		uwsgi_param HTTP_X_FORWARDED_FOR $proxy_add_x_forwarded_for;
-		uwsgi_param HTTP_X_FORWARDED_PROTO $scheme;
+		location /isso {
+			include         uwsgi_params;
+			uwsgi_pass unix:/tmp/isso/uwsgi.sock;
+			uwsgi_param HTTP_X_SCRIPT_NAME /isso;
+			uwsgi_param HTTP_HOST $host;
+			uwsgi_param HTTP_X_FORWARDED_FOR $proxy_add_x_forwarded_for;
+			uwsgi_param HTTP_X_FORWARDED_PROTO $scheme;
+		}
+
+		# ...
+
 	}
+	```
 
-	# ...
+=== "Subdomain"
+	```{.nginx hl_lines="7 8 9 10 11 12 13" linenums="1"}
+	server {
+		# ...
+		server_name isso.snorl.ax;
 
-}
-```
+		# ...
 
-```nginx hl_lines="7 8 9 10 11 12 13" tab="Subdomain"
-server {
-	# ...
-	server_name isso.snorl.ax;
+		location ^~ / {
+			include         uwsgi_params;
+			uwsgi_pass unix:/tmp/isso/uwsgi.sock;
+			uwsgi_param HTTP_HOST $host;
+			uwsgi_param HTTP_X_FORWARDED_FOR $proxy_add_x_forwarded_for;
+			uwsgi_param HTTP_X_FORWARDED_PROTO $scheme;
+		}
 
-	# ...
+		# ...
 
-	location ^~ / {
-		include         uwsgi_params;
-		uwsgi_pass unix:/tmp/isso/uwsgi.sock;
-		uwsgi_param HTTP_HOST $host;
-		uwsgi_param HTTP_X_FORWARDED_FOR $proxy_add_x_forwarded_for;
-		uwsgi_param HTTP_X_FORWARDED_PROTO $scheme;
 	}
-
-	# ...
-
-}
-```
+	```
 
 Restart my nginx:  
 
@@ -402,7 +406,7 @@ CloudFlare Tutorial about solution: <a href="https://support.cloudflare.com/hc/e
 I'm using Nginx currently, in the conf the variable `X-Forwarded-For` is set for showing true IP.  
 
 1. Edit `/etc/nginx/nginx.conf`, make sure the `http` section contains `set_real_ip_from` field with the IPs of Cloudflare and real_ip_header is set to `X-Forwarded-For`, just like this:  
-	```nginx
+	```{.nginx linenums="1"}
 	http {
 	# ...
 	set_real_ip_from 103.21.244.0/22;
@@ -427,7 +431,7 @@ I'm using Nginx currently, in the conf the variable `X-Forwarded-For` is set for
 	```
 
 	If the Nginx supports ipv6, try the following:  
-	```nginx
+	```{.nginx linenums="1"}
 	http {
 	# ...
 	set_real_ip_from 103.21.244.0/22;

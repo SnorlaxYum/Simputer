@@ -85,6 +85,7 @@ def posts_meta(directory):
             "%s in %s" % (cat, SITENAME), cat_id, 'en')
         for post in cat_posts:
             md = markdown.Markdown(extensions=['pymdownx.superfences',
+                                               'pymdownx.tabbed',
                                                'meta',
                                                'footnotes',
                                                'toc',
@@ -97,7 +98,9 @@ def posts_meta(directory):
                                                'tables',
                                                'nl2br'],
                                    extension_configs={'codehilite':
-                                                      {'linenums': True}})
+                                                      {'linenums': True},
+                                                      'pymdownx.superfences':
+                                                      {'disable_indented_code_blocks': True}})
             content = open(os.path.join(cat_path, post),
                            encoding='utf-8-sig').read()
             content_html = md.convert(content)
