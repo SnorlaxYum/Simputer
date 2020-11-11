@@ -235,7 +235,7 @@ Time to insert the code to comment area (If u get a 404 error it's due to someth
 
 Now it's online. Try commenting in the browser. <a href="https://posativ.org/isso/docs/troubleshooting/" target="_blank">Troubleshoot</a> if it fails.
 
-## [Optional] Deploy with gevent
+## [Optional] Deployment
 
 Isso ships with a built-in web server, which is useful for the initial setup and may be used in production for low-traffic sites (up to 20 requests per second). Running a “real” WSGI server supports nice things such as UNIX domain sockets, daemonization and solid HTTP handler while being more stable, secure and web-scale than the built-in web server.[^1]
 
