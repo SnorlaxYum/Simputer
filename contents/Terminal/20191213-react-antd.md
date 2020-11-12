@@ -9,7 +9,7 @@ summary: Recently I've been working with React and Ant Design at work. React is 
 
 This is especially useful when I need a component to fetch something from another.  
 
-```js
+```{.js linenums="1"}
 import React from 'react'
 // ...
 class Something extends React.Component {
@@ -36,7 +36,7 @@ In some scenes I need tree to be loaded according to my need, that's when promis
 
 For example I need a function that returns a Promise in `loadData` attribute in `<TreeSelect>`:
 
-```js
+```{.js linenums="1"}
 //...
     onLoadData = treeNode => {
         let _this = this
@@ -70,7 +70,7 @@ For example I need a function that returns a Promise in `loadData` attribute in 
 
 The example on the official website[^1] says everything:  
 
-```js hl_lines="44 45 46 47 48 49 50 51 52 53"
+```{.js linenums="1"  hl_lines="44-53"}
 import { Form, Input, Select, Button } from 'antd';
 
 const { Option } = Select;
@@ -154,7 +154,7 @@ class PriceInput extends React.Component {
 
 However `getDerivedStateFromProps` is kinda dated and not recommended in React now[^2] and could lead to some issues. Generally to acheive the things above I would rewrite the code to make the component fully controlled like the officially recommended way:  
 
-```js hl_lines="19 20 21 22 23 24 25 26 27 28 29"
+```{.js hl_lines="19 20 21 22 23 24 25 26 27 28 29" linenums="1"}
 import { Form, Input, Select, Button } from 'antd';
 
 const { Option } = Select;
@@ -212,7 +212,7 @@ class PriceInput extends React.Component {
 
 ## componentDidUpdate: make changes towards value changes in props or state
 
-```
+```{.js linenums="1"}
 import React from 'react'
 
 class something extends React.Components {

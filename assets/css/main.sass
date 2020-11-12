@@ -83,6 +83,13 @@ nav
 .content-container
   display: flex
   flex-direction: column
+  .post-flex
+    display: flex
+    align-items: flex-start
+    flex-direction: row-reverse
+    @media screen and ( max-width: $middle-smaller-wide )
+      flex-direction: column
+      align-items: stretch
   article
     overflow: auto
     background: $content-bg
@@ -236,19 +243,22 @@ nav
   article.main
     transition: opacity 1s
   article.post-nav
-    width: 20%
+    width: 30%
     float: right
     padding: 1%
     font-size: 1em
     position: sticky
     top: 7em
     margin-top: 0
+    margin-left: 0
     @media screen and ( max-width: $middle-smaller-wide )
-      margin-top: 2%
-      width: auto
-      float: none
+      margin: 4%
+      width: inherit
       position: relative
       top: 0
+    @media screen and ( max-width: $middle-smallest-wide )
+      padding: 0 7%
+      margin: 6%
     h1
       padding-left: 6%
       font-size: 1.2em
@@ -305,8 +315,9 @@ nav
   background: #f8f8f8
 .codehilite , .highlight
 	background: #f8f8f8 
-	.hll 
-		background-color: #ccc 
+	.hll
+		background: #cccccc
+  display: block
 	.c 
 		color: #408080 
 		font-style: italic 

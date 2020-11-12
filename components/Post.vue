@@ -1,12 +1,12 @@
 <template lang="pug">
   article.main
-    header(v-html='title')
-    content(v-html='content')
+    header {{title}}
+    content(v-html="content")
     footer
       span
-        time.published(v-html="date")
+        time.published {{date}}
       span(v-if='modified')
-        time.modified(v-html="modified")
+        time.modified {{modified}}
       span.tag-list
         span(:class="tags.indexOf(tag) == 0 ? 'tag' : 'tag seq-tag'" v-for='tag in tags' :key='tag[1]')
           nuxt-link(:to="tag[1]") {{ tag[0] }}

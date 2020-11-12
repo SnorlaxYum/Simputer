@@ -1,6 +1,6 @@
 <template lang="pug">
   div
-    div
+    div.post-flex
       transition(name="fade")
         article.post-nav(v-if="nav")
           h1 Table of Contents

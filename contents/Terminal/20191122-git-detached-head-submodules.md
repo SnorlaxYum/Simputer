@@ -23,20 +23,20 @@ Solution[^1]:
 
 My git in `media` directory somehow got a detached state:  
 
-```
+```{linenums="1"}
 $ git commit -m "aaa"
 HEAD detached from 8799335
 ```
 
 To fix that[^2] and merge the untracked changes, so I need to checkout the corresponding branch:  
 
-```
+```{linenums="1"}
 $ git checkout master
 ```
 
 Then it shows the log:  
 
-```
+```{linenums="1"}
 Warning: you are leaving 4 commits behind, not connected to
 any of your branches:
 
@@ -55,7 +55,7 @@ Switched to branch 'master'
 
 Then follow the instruction and push:  
 
-```
+```{linenums="1"}
 $ git branch tmp 69c7986
 $ git push origin master
 ```

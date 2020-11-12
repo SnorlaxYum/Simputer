@@ -9,11 +9,11 @@
     content(v-else v-html='content')
     footer
       span
-        time.published(v-html="date")
+        time.published {{date}}
       span(v-if='modified')
-        time.modified(v-html="modified")
+        time.modified {{modified}}
       span
-        nuxt-link(:to="slug+'#isso-thread'" v-html="comment_count(isso)")
+        nuxt-link(:to="slug+'#isso-thread'") {{comment_count(isso)}}
 </template>
 
 <script lang="ts">
