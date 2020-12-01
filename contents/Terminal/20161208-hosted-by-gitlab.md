@@ -1,10 +1,10 @@
 ---
 title: Site Migration History
 date: 2016-12-08 01:40
-modified: 2019-11-17 12:51
+modified: 2020-12-01 18:22
 author: Sim
 tags: KeyCDN, Gitlab, Github, Netlify, speed, CloudFlare, Firebase, CDN
-summary: KeyCDN → Gitlab → Github + CloudFlare → Gitlab + Netlify → Github + Cloudflare → Firebase → Cloudflare+Firebase → Cloudflare+Gitlab → Github + Cloudflare → Firebase → My VPS + CloudFlare → My VPS → Github Pages
+summary: KeyCDN → Gitlab → Github + CloudFlare → Gitlab + Netlify → Github + Cloudflare → Firebase → Cloudflare+Firebase → Cloudflare+Gitlab → Github + Cloudflare → Firebase → My VPS + CloudFlare → My VPS → Github Pages → Github + Cloudflare
 ---
 
 ## Summary
@@ -190,8 +190,31 @@ This site is now served by two servers without Cloudflare as a frontend.
 (As I found out that Cloudflare CDN generally slows down the site speed).  
 Here's [the relevant results](/terminal/2019/06/10/performance-test-on-a-page-cloudflare-vs-bare-nginx/).
 
-## 2019-11-17 ~ Now: Github Pages
+## 2019-11-17 ~ 2020-12-01: Github Pages
 
 Back to CDN again. When it comes to Nuxt, nothing can beat CDN.  
 Meanwhile I could do backend things on my own server.  
 Cheers.
+
+## 2020-12-01 ~ Now: Github Pages + Cloudflare
+
+This very site has some 503 problems today: 
+
+```{linenums="1"}
+[sim@simputer ~]$ curl -I https://snorl.ax/images/about.svg
+HTTP/1.1 200 Connection established
+HTTP/2 503 
+date: Tue, 01 Dec 2020 09:18:53 GMT
+content-type: text/html; charset=utf-8
+set-cookie: __cfduid=dce5e82c93bb9deba13d6957c1c5edc3b1606814333; expires=Thu, 31-Dec-20 09:18:53 GMT; path=/; domain=.snorl.ax; HttpOnly; SameSite=Lax
+retry-after: 0
+server: Varnish
+via: 1.1 varnish
+x-served-by: cache-sjc10058-SJC
+x-cache: MISS
+x-cache-hits: 0
+x-timer: S1606814334.855894,VS0,VE35
+x-fastly-request-id: d7f03a90d4373ae8673c327d92a2d197eb53b6c0
+```
+
+I switched my DNS hosting to Cloudflare recently so I put Cloudflare CDN in front of this site. Cache everything and always online will help a lot to avoid this case...... Not worried about a little decrease in the speed since Fastly makes it fast.
