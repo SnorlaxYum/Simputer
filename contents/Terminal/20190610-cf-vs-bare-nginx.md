@@ -1,7 +1,7 @@
 ---
 title: Performance Test on a page - Cloudflare VS Bare Nginx
 date: 2019-06-10 22:00
-modified: 2019-06-11 09:34
+modified: 2020-12-03 17:34
 author: Sim
 tags: nginx, cloudflare, speed
 summary: Well, nowadays, more and more people says that CloudFlare sucks and slows the website speed. But how slow? I made a test today after I've built my own load balancers with my two servers.
@@ -337,6 +337,8 @@ Score Table:
 | :------------- | :------------- |
 | 2       | 12       |
 
-CloudFlare only won two rounds, when something occasional happened. So that result is, almost a total win for bare Nginx. I believe with only one server behind the CloudFlare, Cloudflare will behave worse since there will be some longer paths for CloudFlare to receive responses from thus resulting in a longer waiting time. But CloudFlare is okay as a free service, while I can't expect too much from it with so many users on it. I'm still a user of their DNS. Their DNS is famous for its fast speed.
+CloudFlare only won two rounds, when something occasional happened. So that result is, almost a total win for bare Nginx. I believe with only one server behind the CloudFlare, Cloudflare will behave worse since there will be some longer paths for CloudFlare to receive responses from thus resulting in a longer waiting time. But CloudFlare is okay as a free service, while I can't expect too much from it with so many users on it. I'm still a user of their DNS. Their DNS is famous for its fast speed.  
+
+__Update:__ Actually I did some tests on my isso subdomain backend. Load balanced bare nginx servers behaved worse than single nginx behind Cloudflare CDN if I use Cloudflare on my main site. Load balanced nginx servers behind Cloudflare CDN behaved worse than single nginx behind Cloudflare CDN as well. I'd rather use Cloudflare CDN alone for dynamic contents if I use Cloudflare CDN for my static contents. Less lookup, faster speed. (Haven't tried contributed database though, that might lead to a different result)
 
 [^1]: [Website Speed Test | Full Page Performance Check](https://tools.keycdn.com/speed)
