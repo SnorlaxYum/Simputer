@@ -2,8 +2,7 @@
 div
   article.cat
     h1 {{ name }}
-      a(:href="atom" class="atom" target="_blank")
-        img(src="/images/feed.svg")
+      feed-link(:link="atom")
   post-nav(v-for='post, title of posts'
             :key='post.slug'
             :category='post.category'
@@ -19,6 +18,7 @@ div
 import Vue from 'vue'
 import GetIssoCount from "~/features/GetIssoCount"
 import PostNav from "~/components/PostNav"
+import FeedLink from "~/components/FeedLink"
 export default Vue.extend({
   async asyncData({ params, error, $axios }) {
     let data = await $axios.get(`/${params.cat}.json`).then(res => res.data)
@@ -30,7 +30,8 @@ export default Vue.extend({
   },
   mixins: [GetIssoCount],
   components: {
-    PostNav
+    PostNav,
+    FeedLink
   },
   head() {
     return {

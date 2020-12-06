@@ -1,9 +1,8 @@
 ﻿<template lang="pug">
 div
   article.cat
-    h1 {{ name }}
-      a(:href="atom" class="atom" target="_blank")
-        img(src="/images/feed.svg")
+    h1 {{ name }} ({{period}})
+      feed-link(:link="atom")
   post-nav(v-for='post, title of posts'
             :key='post.slug'
             :category='post.category'
@@ -20,28 +19,25 @@ div
 import Vue from 'vue'
 import GetIssoCount from "~/features/GetIssoCount"
 import PostNav from "~/components/PostNav"
+import FeedLink from "~/components/FeedLink"
 export default Vue.extend({
   async asyncData({ params, error, $axios }) {
     let data = await $axios.get(`/${params.cat}.json`).then(res => res.data)
+    const {year, month} = params
     if (data) {
-      let data_this = {...data}
-      data_this.posts = [...data_this.posts]
-      // console.log(data_this.posts)
-      for (let i = data_this.posts.length - 1; i >= 0; i--) {
-        let post = data_this.posts[i], post_date = new Date(post.date)
-        if (post_date.getFullYear() !== Number(params.year) || post_date.getMonth()+1 !== Number(params.month)) {
-          // console.log(post_date.getFullYear(), params.year)
-          data_this.posts.splice(i, 1)
-        }
-      }
-      return data_this
+      data.posts = data.posts.filter(post => {
+        const date = new Date(post.date)
+        return date.getFullYear() === Number(year) && date.getMonth()+1 === Number(month)
+      })
+      return {...data, period: new Date(year, month - 1).toLocaleString('en-US', {month: 'long', year: 'numeric'})}
     } else {
       return error({ message: "Section not found", statusCode: 404 })
     }
   },
   mixins: [GetIssoCount],
   components: {
-    PostNav
+    PostNav,
+    FeedLink
   },
   head() {
     return {

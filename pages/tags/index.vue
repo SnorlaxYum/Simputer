@@ -1,8 +1,7 @@
 <template lang="pug">
   article.tags
     header Tags
-      a(:href="atom" class="atom" target="_blank")
-        img(src="/images/feed.svg")
+      feed-link(:link="atom")
     content
       ul
         li(v-for='tag_info, tag of tags')
@@ -12,6 +11,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import FeedLink from "~/components/FeedLink"
 export default Vue.extend({
   async asyncData({ params, error, $axios }) {
     let tags = await $axios.get("/tags.json").then(res => res.data)
@@ -20,6 +20,9 @@ export default Vue.extend({
     } else {
       return error({ message: "Section not found", statusCode: 404 })
     }
+  },
+  components: {
+    FeedLink
   },
   head() {
     return {
