@@ -1,3 +1,6 @@
+@import './svg';
+
+
 $font-color: #515151
 $nav-box-dark: #515151
 $nav-box-light: #fff
@@ -52,7 +55,7 @@ nav
     height: 100%
     padding: 1em
   .logo
-    background: url("/images/icon.svg") no-repeat
+    background: url($svg-pre+$logo) no-repeat
     height: 65px
     width: 275px
     background-size: auto 100%
@@ -607,28 +610,27 @@ $nav-box-light-nor: rgba(0, 0, 0, 0.2)
 //   background: $nav-box-dark-nor
 // .light:hover
 //   background: $nav-box-dark-tran
-  
 
 .terminal
-  background: url("/images/terminal.svg")
+  background: url($svg-pre+$terminal-svg)
 
 .browser
-  background: url("/images/browser.svg")
+  background: url($svg-pre+$browser-svg)
 
 .about
-  background: url("/images/about.svg")
+  background: url($svg-pre+$about-svg)
 
 .email
-  background: url("/images/mail.svg")
+  background: url($svg-pre+$mail-svg)
 
 .panic
-  background: url("/images/panic.svg")
+  background: url($svg-pre+$panic-svg)
 
 .tags
-  background: url("/images/tags.svg")
+  background: url($svg-pre+$tags-svg)
 
 .pokemon
-  background: url("/images/pokemon.svg")
+  background: url($svg-pre+$pokemon-svg)
 
 .center-item
   margin-left: auto
