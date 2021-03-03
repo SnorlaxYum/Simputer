@@ -56,9 +56,9 @@ export default {
         current_num = Number(current);
       this.$axios.post(`${this.$store.state.isso}id/${id}/${opinion}`).then(
         res => {
-          if (res.data.likes + res.data.dislikes !== current_num) {
+          if (res.data.likes - res.data.dislikes !== current_num) {
             this.$el.querySelector(`#isso-${id} .likes`).innerHTML =
-              res.data.likes + res.data.dislikes;
+              res.data.likes - res.data.dislikes;
           }
         },
         error => {
