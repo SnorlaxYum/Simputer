@@ -15,7 +15,8 @@ SITENAME = "Simputer"
 SITEURL = "https://snorl.ax"
 TZ = timezone("Asia/Chongqing")
 FEEDAUTHOR = {'name': 'Sim', 'email': 'sim@snorl.ax'}
-output_directory = 'static'
+post_output_directory = 'posts'
+static_dir = 'static'
 posts = {}
 posts_all = []
 post_slugs = []
@@ -72,7 +73,7 @@ def posts_meta(directory):
     for cat in cats:
         cat_slug = slugify(cat)
         cat_path = os.path.join(directory, cat)
-        cat_json_path = os.path.join(output_directory, cat_slug)
+        cat_json_path = os.path.join(post_output_directory, cat_slug)
         if cat not in posts.keys():
             posts[cat] = []
         os.makedirs(cat_json_path, exist_ok=True)
@@ -224,9 +225,10 @@ def tags_files(tags):
     tags = collections.OrderedDict(
         sorted(tags.items(), key=lambda kv: -len(kv[1]['posts'])))
     tags_list = {}
-    os.makedirs(os.path.join(output_directory, 'tags'), exist_ok=True)
+    os.makedirs(os.path.join(static_dir, 'tags'), exist_ok=True)
+    os.makedirs(os.path.join(post_output_directory, 'tags'), exist_ok=True)
     # init feed for tags
-    tags_feed_path = os.path.join(output_directory, 'tags/atom.xml')
+    tags_feed_path = os.path.join(static_dir, 'tags/atom.xml')
     tags_id = urljoin(SITEURL, 'tags')
     tags_feed = AtomGen("Tags - %s" %
                         SITENAME, "The tags in %s" % SITENAME, tags_id, 'en')
@@ -245,7 +247,7 @@ def tags_files(tags):
             tag_things['name'], tag_entry_url, tags[tag]['posts'][-1]['date'], tags[tag]['posts'][0]['date'])
         # write to json
         tag_json = os.path.join(
-            output_directory, '{}.json'.format(tag.strip('/')))
+            post_output_directory, '{}.json'.format(tag.strip('/')))
         dump(parsepostdates(tags[tag]), open(tag_json, 'w'))
         print("Wrote to {}".format(tag_json))
 
@@ -254,7 +256,7 @@ def tags_files(tags):
     print("Wrote to %s" % tags_feed_path)
 
     # tags json generation
-    tags_json = os.path.join(output_directory, 'tags.json')
+    tags_json = os.path.join(post_output_directory, 'tags.json')
     dump({'atom': urljoin(SITEURL, '/'.join(tags_feed_path.split('/')
                                             [1:])), 'tags': tags_list}, open(tags_json, 'w'))
     print("Wrote to {}".format(tags_json))
@@ -271,10 +273,11 @@ def posts_files(posts_all, posts_inside):
             post_entry = addEntryToFeed(post, cat_feeds[cat])
         # cat rss generation
         cat_feed_path = cat_feed_path_format % cat_slug
+        os.makedirs(os.path.dirname(cat_feed_path), exist_ok=True)
         cat_feeds[cat].atom_file(cat_feed_path)
         print("Wrote to %s" % (cat_feed_path))
         # dump to json
-        json_name = os.path.join(output_directory, '{}.json'.format(cat_slug))
+        json_name = os.path.join(post_output_directory, '{}.json'.format(cat_slug))
         dump(
             parsepostdates(
                 {'name': cat, 'atom': urljoin(SITEURL, '/'.join(cat_feed_path.split('/')[1:])),
@@ -297,7 +300,7 @@ def posts_files(posts_all, posts_inside):
 
     # write to cat/post.json
     for single_post in posts_inside:
-        json_name = os.path.join(output_directory, slugify(
+        json_name = os.path.join(post_output_directory, slugify(
             single_post['category']), '{}.json'.format(single_post['slug'].split("/")[-2]))
         dump(parsepostdate_single(single_post), open(json_name, 'w'))
         print("Wrote to {}".format(json_name))
