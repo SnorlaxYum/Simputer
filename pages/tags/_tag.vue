@@ -17,9 +17,10 @@
 import Vue from 'vue'
 import GetIssoCount from "~/features/GetIssoCount"
 import PostNav from '~/components/PostNav'
+
 export default Vue.extend({
-  async asyncData({ params, error, $axios }) {
-    let data = await $axios.get(`/tags/${params.tag}.json`).then(res => res.data)
+  async asyncData({ params, error }) {
+    let data = await import(`~/posts/tags/${params.tag}.json`).then(mod => mod.default)
     if (data) {
       return data
     } else {

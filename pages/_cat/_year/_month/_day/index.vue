@@ -21,9 +21,10 @@ import Vue from 'vue'
 import GetIssoCount from "~/features/GetIssoCount"
 import PostNav from "~/components/PostNav"
 import FeedLink from "~/components/FeedLink"
+
 export default Vue.extend({
-  async asyncData({ params, error, $axios }) {
-    let data = await $axios.get(`/${params.cat}.json`).then(res => res.data)
+  async asyncData({ params, error }) {
+    let data = await import(`~/posts/${params.cat}/${params.slug}.json`).then(mod => mod.default)
     const {year, month, day} = params
     if (data) {
       data.posts = data.posts.filter(post => {

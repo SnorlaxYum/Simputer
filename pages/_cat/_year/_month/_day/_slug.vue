@@ -18,13 +18,13 @@
       isso(:title="title" :slug="slug")
 </template>
 
-<script lang="ts">
+<script>
 import Vue from 'vue'
 import Post from "~/components/Post"
 import Isso from '~/components/Isso'
-export default Vue.extend({
-  async asyncData({ params, error, route, $axios }) {
-    let target = await $axios.get(`/${params.cat}/${params.slug}.json`).then(res => res.data)
+export default ({
+  async asyncData({ params, error, route }) {
+    const target = await import(`~/posts/${params.cat}/${params.slug}.json`).then(mod => mod.default)
     if (
       target &&
       target.slug === route.path

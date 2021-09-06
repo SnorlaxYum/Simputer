@@ -12,9 +12,10 @@
 <script lang="ts">
 import Vue from 'vue'
 import FeedLink from "~/components/FeedLink"
+
 export default Vue.extend({
-  async asyncData({ params, error, $axios }) {
-    let tags = await $axios.get("/tags.json").then(res => res.data)
+  async asyncData({ params, error }) {
+    let tags = await import("~/posts/tags.json").then(mod => mod.default)
     if (tags) {
       return tags
     } else {

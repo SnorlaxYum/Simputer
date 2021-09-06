@@ -14,14 +14,14 @@ div
             :summary='post.summary ? post.summary : false'
             :isso='post.isso')
 </template>
-<script lang="ts">
-import Vue from 'vue'
+<script>
 import GetIssoCount from "~/features/GetIssoCount"
 import PostNav from "~/components/PostNav"
 import FeedLink from "~/components/FeedLink"
-export default Vue.extend({
-  async asyncData({ params, error, $axios }) {
-    let data = await $axios.get(`/${params.cat}.json`).then(res => res.data)
+
+export default ({
+  async asyncData({ params, error }) {
+    let data = await import(`~/posts/${params.cat}.json`).then(mod => mod.default)
     if (data) {
       return data
     } else {
