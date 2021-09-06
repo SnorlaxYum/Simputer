@@ -19,7 +19,6 @@ I reinstalled Debian Stretch so the following steps were done on it.
 
 Firstly, ensure ip forwarding feature of ipv4 is open.  
 
-    :::bash
     root@server:~$ sysctl net.ipv4.ip_forward
 
 Good to go to the `Step 2` if the following output is shown:  
@@ -28,7 +27,6 @@ Good to go to the `Step 2` if the following output is shown:
 
 Otherwise add the option to `/etc/sysctl.conf`:  
 
-    :::bash
     root@server:~$ echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
     root@server:~$ sysctl -p
 
@@ -38,7 +36,6 @@ Otherwise add the option to `/etc/sysctl.conf`:
 
 Suppose I want to forward a port from the original server to a port with the same number from this server:  
 
-    :::bash
     root@server:~$ iptables -t nat -A PREROUTING -p tcp --dport [port] -j DNAT --to-destination [original server ip]
     root@server:~$ iptables -t nat -A PREROUTING -p udp --dport [port] -j DNAT --to-destination [original server ip]
     root@server:~$ iptables -t nat -A POSTROUTING -p tcp -d [original server ip] --dport [port] -j SNAT --to-source [the local ip of this server]
@@ -46,7 +43,6 @@ Suppose I want to forward a port from the original server to a port with the sam
 
 Suppose I want to forward port 1111 from the original server to port 11111 from this server:  
 
-    :::bash
     root@server:~$ iptables -t nat -A PREROUTING -p tcp -m tcp --dport 11111 -j DNAT --to-destination [original server ip]:1111
     root@server:~$ iptables -t nat -A PREROUTING -p udp -m udp --dport 11111 -j DNAT --to-destination [original server ip]:1111
     root@server:~$ iptables -t nat -A POSTROUTING -d [original server ip] -p tcp -m tcp --dport 1111 -j SNAT --to-source [the local ip of this server]
@@ -54,7 +50,6 @@ Suppose I want to forward port 1111 from the original server to port 11111 from 
 
 ### Step 3: Apply The Changes
 
-    :::bash
     root@server:~$ iptables-save > /etc/iptables.up.rules
     root@server:~$ iptables-restore < /etc/iptables.up.rules
 
@@ -64,19 +59,16 @@ It's a must and helpful[^2].
 
 Install `speedtest-cli` and test the speed:  
 
-    :::bash
     root@server:~$ apt install ca-certificates speedtest-cli && speedtest-cli
 
 Append the needed lines to `/etc/sysctl.conf`, then reload the changes:  
 
-    :::bash
     root@server:~$ echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf
     root@server:~$ echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
     root@server:~$ sysctl --system
 
 Then test again:  
 
-    :::bash
     root@server:~$ speedtest-cli
 
 In my test, the download speed went up by around 1 MB/s. It's only a value. I could feel the change when I was watching Youtube and seeing the debug info.

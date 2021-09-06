@@ -17,12 +17,10 @@ Add the lines to `/etc/apt/sources.list`:
 
 If the key hasn't been added, add it:  
 
-    :::bash
     sim@server:~$ wget https://nginx.org/keys/nginx_signing.key && sudo apt-key add nginx_signing.key
 
 Then install it:  
 
-    :::bash
     sim@server:~$ sudo apt update && sudo apt install nginx
 
 ## Brotli: Basic Settings
@@ -31,23 +29,19 @@ THe brotli is not included in the prebuilt package. So I have to build it from s
 
 Get the source:  
 
-    :::bash
     sim@server:~$ sudo apt source nginx
 
 Then clone `ngx_brotli` from github:  
 
-    :::bash
     sim@server:~$ git clone https://github.com/eustas/ngx_brotli.git
     sim@server:~$ cd ngx_brotli && git submodule update --init && cd ~
 
 Install the build dependencies:  
 
-    :::bash
     sim@server:~$ sudo apt build-dep nginx
 
 Make the modules and copy it to the right place:  
 
-    :::bash
     sim@server:~$ cd ~/nginx-*
     sim@server:~/nginx-1.17.0$ ./configure --with-compat --add-dynamic-module=../ngx_brotli
     sim@server:~/nginx-1.17.0$ make modules
@@ -55,14 +49,12 @@ Make the modules and copy it to the right place:
 
 `/etc/nginx/nginx.conf`:  
 
-    :::nginx
     load_module modules/ngx_http_brotli_filter_module.so;
     load_module modules/ngx_http_brotli_static_module.so;
     ...
 
 Include the lines in server blocks that need the brotli:  
 
-    :::nginx
     server {
       # ...
       brotli on;
@@ -75,7 +67,6 @@ Don't include the lines in http block directly since it will force all the serve
 
 Restart nginx:  
 
-    :::bash
     sim@server:~/nginx-1.17.0$ sudo systemctl restart nginx
 
 The other third party modules not included in the prebuilt package can be installed this way as well.  
@@ -92,7 +83,6 @@ But it is not useful for me when I'm using `proxy_pass` to a backend from a fron
 
 `/etc/nginx/conf.d/default.conf`:  
 
-    :::nginx
     load_module modules/ngx_http_brotli_filter_module.so;
     load_module modules/ngx_http_brotli_static_module.so;
 

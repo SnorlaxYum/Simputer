@@ -40,7 +40,6 @@ Meanwhile the output of `networkctl` looked like this:
 
 There's nothing to do with so-called eth1, so this is my edited `/etc/network/interfaces` now:  
 
-    :::None
     source /etc/network/interfaces.d/*
     auto lo
     iface lo inet loopback

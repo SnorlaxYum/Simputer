@@ -38,7 +38,6 @@ A static generated nuxt app could be different than the one we preview using `ya
 
 I changed some lines in `packages.json` to implement this:  
 
-    :::json
     {
       ...
       "scripts": {

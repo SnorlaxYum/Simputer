@@ -31,7 +31,6 @@ In my case I found files in `/etc/apt/sources.list.d/` too so I did similar chan
 
 Then upgrade:  
 
-    :::Bash shell scripts
     sim@server:~$ sudo apt update && sudo apt upgrade && sudo apt dist-upgrade
 
 Answer to the prompts in the process. Then it's done.  
@@ -48,7 +47,6 @@ It's because from version 2.3 I must specify path to DH parameters file using[^1
 
 So to resolve this:  
 
-    :::Bash shell scripts
     sim@server:~$ su
     root@server:~$ openssl dhparam 4096 > /var/mail/dh.pem
 
@@ -66,7 +64,6 @@ Specifying this is recommended as well:
 
 Then restart:  
 
-    :::Bash shell scripts
     root@server:~$ systemctl restart dovecot
 
 Now I'm able to log in to my imap again.

@@ -43,7 +43,6 @@ The address could be my choice of source containing the backports, what I added 
 
 Then I installed the packages using the command:  
 
-	:::console
 	$ sudo apt -t stretch-backports install postfix-pgsql sasl2-bin libsasl2-modules postgresql libpam-pgsql dovecot-pgsql dovecot-imapd dovecot-pop3d
 
 ## Configuring PostgreSQL
@@ -54,14 +53,12 @@ Edit `/etc/postgresql/pg_hba.conf` to accept password authentication for localho
 
 Create the database:  
 
-	:::console
 	$ sudo su postgres
 	$ createdb mails
 	$ psql mails
 
 Create tables:  
 
-	:::PostgreSQL
 	CREATE TABLE transport (
 	domain VARCHAR(128) NOT NULL,
 	transport VARCHAR(128) NOT NULL,
@@ -93,7 +90,6 @@ Create tables:
 
 Create separate users for read and write accesses. Postfix and Dovecot needs only read access. I may want to use the writer user for your own purposes.  
 
-	:::sql
 	CREATE USER mailreader PASSWORD 'secret';
 	grant select on transport, users, virtual, postfix_mailboxes, postfix_virtual to mailreader;
 	create user mailwriter password 'secret';
@@ -101,7 +97,6 @@ Create separate users for read and write accesses. Postfix and Dovecot needs onl
 
 Add domain, user to the database. The examples below add the domain `snorl.ax` and a user with the mail address `kim@snorl.ax`:  
 
-	:::sql
 	insert into transport (domain, transport) values ('snorl.ax', 'virtual:');
 	insert into users (userid, uid, gid, home) values ('user@snorl.ax', 5000, 5000, 'snorl.ax/mails/user');
 	insert into users (userid, uid, gid, home) values ('user2@snorl.ax', 5000, 5000, 'snorl.ax/mails/user2');
@@ -109,7 +104,6 @@ Add domain, user to the database. The examples below add the domain `snorl.ax` a
 
 The password for a user can be generated using `doveadm` utility[^4]:  
 
-	:::console
 	$ doveadm pw -s CRYPT
 
 It will prompt me to enter the password twice:  
@@ -119,35 +113,29 @@ It will prompt me to enter the password twice:
 
 Then it will print a encrypted string like the one below for me to write into the database:  
 
-	:::console
 	{CRYPT}1cElWVzS3.EVg
 
 To do something with the password, access the `psql` utility again:  
 
-	:::console
 	$ sudo su postgres
 	$ psql mails
 
 To update an existing user with the password:  
 
-	:::sql
 	UPDATE users SET password='{CRYPT}1cElWVzS3.EVg' WHERE userid='user@snorl.ax';
 
 To set the password when creating the user:  
 
-	:::sql
 	insert into users (userid, password, uid, gid, home) values ('user3@snorl.ax', '{CRYPT}1cElWVzS3.EVg', 5000, 5000, 'snorl.ax/mails/user3');
 
 Self-check.  
 
 To check the existing user:  
 
-	:::sql
 	SELECT * FROM users;
 
 A table like this will be shown:  
 
-	:::console
 		userid     |       password       | realname | uid  | gid  |         home         | mail
 	----------------+----------------------+----------+------+------+----------------------+------
 	user1@snorl.ax | {CRYPT}xxxxxxxxxxxxx |          | 5000 | 5000 | snorl.ax/mails/user1 |
@@ -155,7 +143,6 @@ A table like this will be shown:
 
 To check the correspondence between username and mail address:  
 
-	:::sql
 	SELECT * FROM virtual;
 
 A table similar to the following one will be shown:  
@@ -170,25 +157,21 @@ A table similar to the following one will be shown:
 
 Create `/var/mail/vhosts/` and the folder named my domain:
 
-	:::console
 	$ sudo mkdir -p /var/mail/vhosts/snorl.ax
 
 Create the group and the user for it:  
 
-	:::console
 	$ sudo groupadd -g 5000 vmail
 	$ sudo useradd -g vmail -u 5000 vmail -d /var/mail
 
 Change the owner of the `/var/mail/` folder and its contents to belong to `vmail`:  
 
-	:::console
 	$ sudo chown -R vmail:vmail /var/mail
 
 ## Configuring Postfix
 
 Edit `/etc/postfix/main.cf` to set the following values[^12]:  
 
-	:::ini
 	transport_maps = pgsql:/etc/postfix/transport.cf
 	virtual_uid_maps = pgsql:/etc/postfix/uids.cf
 	virtual_gid_maps = pgsql:/etc/postfix/gids.cf
@@ -210,13 +193,11 @@ These defines mailbox domains and relevant settings such as sasl, mailbox locati
 
 Edit `/etc/postfix/sasl/smtpd.conf` to include the following lines:  
 
-	:::ini
 	pwcheck_method: saslauthd
 	saslauthd_path: /etc/mux
 
 `/etc/postfix/transport.cf`  
 
-	:::ini
 	user=mailreader
 	password=secret
 	dbname=mails
@@ -227,7 +208,6 @@ Edit `/etc/postfix/sasl/smtpd.conf` to include the following lines:
 
 `/etc/postfix/uids.cf`  
 
-	:::ini
 	user=mailreader
 	password=secret
 	dbname=mails
@@ -238,7 +218,6 @@ Edit `/etc/postfix/sasl/smtpd.conf` to include the following lines:
 
 `/etc/postfix/gids.cf`  
 
-	:::ini
 	user=mailreader
 	password=secret
 	dbname=mails
@@ -249,7 +228,6 @@ Edit `/etc/postfix/sasl/smtpd.conf` to include the following lines:
 
 `/etc/postfix/mailboxes.cf`  
 
-	:::ini
 	user=mailreader
 	password=secret
 	dbname=mails
@@ -260,7 +238,6 @@ Edit `/etc/postfix/sasl/smtpd.conf` to include the following lines:
 
 `/etc/postfix/virtual.cf`  
 
-	:::ini
 	user=mailreader
 	password=secret
 	dbname=mails
@@ -271,20 +248,17 @@ Edit `/etc/postfix/sasl/smtpd.conf` to include the following lines:
 
 By default, these two lines are included in `/etc/postfix/main.cf`:  
 
-	:::ini
 	alias_maps = hash:/etc/aliases
 	alias_database = hash:/etc/aliases
 
 It's for the local delivery, meant to be sent to the users on the computer. Since I have the virtual domain and mailboxes, it will be more convenient to forward it to the mailbox. Put the lines in `/etc/aliases`:  
 
-	:::ini
 	# user:	the mail address
 	kim:	kim@snorl.ax
 	root:	root@snorl.ax
 
 Then update:  
 
-	:::console
 	$ sudo newaliases
 
 In this case, local delivery will work. System messages to `kim ` will be delivered to `kim@snorl.ax`.
@@ -293,14 +267,12 @@ In this case, local delivery will work. System messages to `kim ` will be delive
 
 Edit `/etc/default/saslauthd`:  
 
-	:::ini
 	START=yes
 	MECHANISMS=pam
 	PARAMS="-r -m /var/spool/postfix/etc"
 
 `/etc/pam_pgsql.conf`  
 
-	:::ini
 	database = mails
 	host = localhost
 	user = mailreader
@@ -315,21 +287,18 @@ Edit `/etc/default/saslauthd`:
 
 Create `/etc/pam.d/smtp`:  
 
-	:::ini
 	auth        required    pam_pgsql.so
 	account     required    pam_pgsql.so
 	password    required    pam_pgsql.so
 
 Put the following line to `/etc/postfix/sasl/smtpd.conf`:  
 
-	:::ini
 	mech_list: login plain
 
 ## Configuring Dovecot
 
 Put the following lines in the `/etc/dovecot/dovecot.conf`:  
 
-	:::ini
 	mail_location = maildir:~/
 	passdb {
 	  args = /usr/local/etc/dovecot-sql.conf
@@ -343,7 +312,6 @@ Put the following lines in the `/etc/dovecot/dovecot.conf`:
 
 `/usr/local/etc/dovecot-sql.conf`:  
 
-	:::ini
 	driver = pgsql
 	connect = host=localhost dbname=mails user=mailreader password=secret
 	default_pass_scheme = CRYPT
@@ -352,7 +320,6 @@ Put the following lines in the `/etc/dovecot/dovecot.conf`:
 
 Ensure the following line is included in `/etc/dovecot/conf.d/10-auth.conf`[^5]:  
 
-	:::ini
 	disable_plaintext_auth = no
 
 I'll switch this back to `yes` or other options afterward. Plain text is for test.  
@@ -361,7 +328,6 @@ I'll switch this back to `yes` or other options afterward. Plain text is for tes
 
 When I'm ready to send and receive mails from my server, I should edit the domain's MX record so it points to the IP address of the server, similar to the examples below:  
 
-	:::dns
 	mail.snorl.ax A 10 12.34.56.78
 	mail.snorl.ax AAAA 10 2aaa:bbb:dddd:eeee::1
 	snorl.ax MX 10 mail.snorl.ax
@@ -370,17 +336,14 @@ When I'm ready to send and receive mails from my server, I should edit the domai
 
 Restart the relevant services before testing:  
 
-	:::console
 	$ sudo systemctl restart saslauthd postgresql postfix dovecot
 
 Install the Mailutils package:
 
-	:::console
 	$ sudo apt-get install mailutils
 
 Log into an email account like gmail to send an email to `kim@snorl.ax`, then check if there's any message:  
 
-	:::console
 	$ sudo mail -f /var/mail/vhosts/snorl.ax/mails/user
 
 Now test imap using an Email Client like ThunderBird:  
@@ -418,7 +381,6 @@ It is generally better to use my own server to send mails if I wanna have my own
 
 To find out what SASL implementations are compiled into Postfix[^6], use the following commands:  
 
-	:::console
 	$ postconf -a (SASL support in the SMTP server)
 	$ postconf -A (SASL support in the SMTP+LMTP client)
 
@@ -432,13 +394,11 @@ Key: `/etc/letsencrypt/live/snorl.ax/privkey.pem`
 
 Set the values in `/etc/postfix/main.cf`:  
 
-	:::ini
 	smtpd_tls_cert_file=/etc/letsencrypt/live/snorl.ax/fullchain.pem
 	smtpd_tls_key_file=/etc/letsencrypt/live/snorl.ax/privkey.pem
 
 Add the block into `/etc/dovecot/conf.d/10-ssl.conf`[^18]:  
 
-	:::ini
 	local_name mail.snorl.ax {
 		ssl_cert = </etc/letsencrypt/live/snorl.ax/fullchain.pem
 		ssl_key = </etc/letsencrypt/live/snorl.ax/privkey.pem
@@ -446,7 +406,6 @@ Add the block into `/etc/dovecot/conf.d/10-ssl.conf`[^18]:
 
 Restart them to see the effect:  
 
-	:::console
 	$ sudo systemctl restart dovecot postfix
 
 ### Postfix to Dovecot SASL communication
@@ -455,7 +414,6 @@ It saves hassle to configure Postfix to Dovecot SASL communication.
 
 Relevant block in `/etc/dovecot/conf.d/10-master.conf` (to place the Dovecot SASL socket in the path and make it writable and readable by user and group `postfix` only):  
 
-	:::ini
 	service auth {
 	  ...
 	  unix_listener /var/spool/postfix/private/auth {
@@ -469,14 +427,12 @@ Relevant block in `/etc/dovecot/conf.d/10-master.conf` (to place the Dovecot SAS
 
 Specify the following value in `/etc/dovecot/conf.d/10-auth.conf`:  
 
-	:::ini
 	auth_mechanisms = plain login
 
 ### Enabling SASL authentication in the Postfix SMTP server
 
 Specify the following value in `/etc/postfix/main.cf`:  
 
-	:::ini
 	smtpd_sasl_type = dovecot
 	smtpd_sasl_path = private/auth
 	smtpd_sasl_auth_enable = yes
@@ -488,47 +444,45 @@ Set the desired values in `/etc/postfix/main.cf`.
 
 Deny anonymous authentication:  
 
-	:::ini
 	smtpd_sasl_security_options = noanonymous
 	smtpd_sasl_tls_security_options = $smtpd_sasl_security_options
 
 A more sophisticated policy allows plaintext mechanisms, but only over a TLS-encrypted connection:   
 
-	:::ini
 	smtpd_sasl_security_options = noanonymous, noplaintext
 	smtpd_sasl_tls_security_options = noanonymous
 
 To offer SASL authentication only after a TLS-encrypted session has been established specify this:  
 
-	:::ini
 	smtpd_tls_auth_only = yes
 
 ### Mail relay authorization
 
 Set the desired values in `/etc/postfix/main.cf`. With `permit_sasl_authenticated` the Postfix SMTP server can allow SASL-authenticated SMTP clients to send mail to remote destinations. Examples:  
 
-	:::ini hl_lines="3"
-	smtpd_relay_restrictions =
-		permit_mynetworks
-		permit_sasl_authenticated
-		reject_unauth_destination
-		...other rules...
+```{hl_lines="3"}
+smtpd_relay_restrictions =
+	permit_mynetworks
+	permit_sasl_authenticated
+	reject_unauth_destination
+	...other rules...
+```
 
 ### Envelope sender address authorization
 
 In `/etc/postfix/main.cf`, configure `smtpd_sender_login_maps` and add `reject_sender_login_mismatch` before `permit_sasl_authenticated` in `smtpd_recipient_restrictions`:  
 
-	:::ini hl_lines="1 4"
-	smtpd_sender_login_maps = hash:/etc/postfix/controlled_envelope_senders
-	smtpd_relay_restrictions =
-		...
-		reject_sender_login_mismatch
-		permit_sasl_authenticated
-		...
+```{hl_lines="1 4"}
+smtpd_sender_login_maps = hash:/etc/postfix/controlled_envelope_senders
+smtpd_relay_restrictions =
+	...
+	reject_sender_login_mismatch
+	permit_sasl_authenticated
+	...
+```
 
 The table in `/etc/postfix/controlled_envelope_senders` should be configured like this:  
 
-	:::ini
     # envelope sender           owners (SASL login names)
     kim@snorl.ax                user@snorl.ax
     som@snorl.ax                user1@snorl.ax
@@ -537,7 +491,6 @@ On the left is the email address, on the right is the login name.
 
 Generate the database:
 
-	:::console
 	$ sudo postmap /etc/postfix/controlled_envelope_senders
 
 Now, the Postfix SMTP server knows who the sender is. Given a table of envelope sender addresses and SASL login names, the Postfix SMTP server can decide if the SASL authenticated client is allowed to use a particular envelope sender address.  
@@ -546,7 +499,6 @@ Now, the Postfix SMTP server knows who the sender is. Given a table of envelope 
 
 To test the server side, connect (for example, with `telnet`) to the Postfix SMTP server port and you should be able to have a conversation as shown below. Information sent by the client is shown in highlighted font.  
 
-	:::console hl_lines="1 4 11"
 	$ telnet server.example.com 25
 	...
 	220 server.example.com ESMTP Postfix
@@ -562,7 +514,6 @@ To test the server side, connect (for example, with `telnet`) to the Postfix SMT
 
 To test this over a connection that is encrypted with TLS, use openssl s_client instead of telnet:
 
-	:::console hl_lines="1 4"
 	$ openssl s_client -connect server.example.com:25 -starttls smtp
 	...
 	220 server.example.com ESMTP Postfix
@@ -571,21 +522,18 @@ To test this over a connection that is encrypted with TLS, use openssl s_client 
 
 Use a recent version of `bash` shell and replace the `AHRlc3QAdGVzdHBhc3M=` above with the output of this command:  
 
-	:::console
 	$ echo -ne '\000username\000password' | openssl base64
 
 ### Enabling SASL authentication in the Postfix SMTP/LMTP client
 
 Set the values in `/etc/postfix/main.cf`:  
 
-	:::ini
 	smtp_sasl_auth_enable = yes
 	smtp_tls_security_level = encrypt
 	smtp_sasl_password_maps = pgsql:/etc/postfix/password.cf
 
 In `/etc/postfix/password.cf`:  
 
-	:::ini
 	user=mailreader
 	password=secret
 	dbname=mails
@@ -596,7 +544,6 @@ In `/etc/postfix/password.cf`:
 
 Restart postfix to see the effect:  
 
-	:::console
 	$ sudo systemctl restart postfix
 
 ### Open the submission port
@@ -605,19 +552,16 @@ The submission port is recommended to be used for smtp.
 
 Uncomment the following line in `/etc/postfix/master.cf`:  
 
-	:::ini
 	submission inet n       -       y       -       -       smtpd
 
 Restart postfix to see the effect:  
 
-	:::console
 	$ sudo systemctl restart postfix
 
 ### Configure SPF and DKIM
 
 Install DKIM, SPF and Postfix-pcre[^7],  
 
-	:::console
 	$ sudo apt-get install opendkim opendkim-tools postfix-policyd-spf-python postfix-pcre
 
 #### SPF
@@ -628,41 +572,37 @@ Add spf as a TXT Record to DNS:
 
 Add the following entry to `/etc/postfix/master.cf`:  
 
-	:::ini
 	policyd-spf  unix  -       n       n       -       0       spawn
 	    user=policyd-spf argv=/usr/bin/policyd-spf
 
 Configure the following value in `/etc/postfix/main.cf`:  
 
-	:::ini
 	policyd-spf_time_limit = 3600
 
 In `/etc/postfix/main.cf`, edit the `smtpd_relay_restrictions` entry to add a `check_policy_service` entry:  
 
-	:::ini hl_lines="4"
-	smtpd_relay_restrictions =
-	    ...
-	    reject_unauth_destination,
-	    check_policy_service unix:private/policyd-spf,
-	    ...
+``` hl_lines="4"
+smtpd_relay_restrictions =
+	...
+	reject_unauth_destination,
+	check_policy_service unix:private/policyd-spf,
+	...
+```
 
 Make sure to add the `check_policy_service` entry after the `reject_unauth_destination` entry to avoid having your system become an open relay. If `reject_unauth_destination` is the last item in your restrictions list, add the comma after it and omit the comma at the end of the `check_policy_service` item above.  
 
 Restart Postfix.
 
-	:::console
 	$ sudo systemctl restart postfix
 
 Check the operation of the policy agent by looking at raw headers on incoming email messages for the SPF results header. The header the policy agent adds to messages should look something like this:  
 
-	:::txt
 	Received-SPF: Pass (sender SPF authorized) identity=mailfrom; client-ip=127.0.0.1; helo=mail.snorl.ax; envelope-from=text@snorl.ax; receiver=tknarr@silverglass.org
 
 #### DKIM
 
 Edit `/etc/opendkim.conf` and uncomment or edit certain lines:  
 
-	:::ini
 	# This is a basic configuration that can easily be adapted to suit a standard
 	# installation. For more advanced options, see opendkim.conf(5) and/or
 	# /usr/share/doc/opendkim/examples/opendkim.conf.sample.
@@ -726,18 +666,15 @@ Edit `/etc/opendkim.conf` and uncomment or edit certain lines:
 
 Ensure the permission is correctly set:  
 
-	:::console
 	$ sudo chmod u=rw,go=r /etc/opendkim.conf
 
 Create directory for the socket:  
 
-	:::console
 	$ sudo mkdir /var/spool/postfix/opendkim
 	$ chown opendkim:postfix /var/spool/postfix/opendkim
 
 Create directory for OpenDKIM's data files:  
 
-	:::console
 	$ sudo mkdir -p /etc/opendkim/keys
 	$ sudo chown -R opendkim:opendkim /etc/opendkim
 	$ sudo chmod go-rw /etc/opendkim/keys
@@ -763,36 +700,30 @@ Create `/etc/opendkim/trusted.hosts`
 
 Set the permission:  
 
-	:::console
 	$ sudo chown -R opendkim:opendkim /etc/opendkim
 	$ sudo chmod -R go-rwx /etc/opendkim/keys
 
 Generate the key:  
 
-	:::console
 	$ sudo opendkim-genkey -b 2048 -h rsa-sha256 -r -s YYYYMM -d example.com -v
 
 Move it to the set path:  
 
-	:::console
 	$ sudo mv YYYYMM.private /etc/opendkim/keys/example.private
 	$ sudo mv YYYYMM.txt /etc/opendkim/keys/example.txt
 
 Make sure all the files in the dir have correct permissions:  
 
-	:::console
 	$ cd /etc
 	$ sudo chown -R opendkim:opendkim /etc/opendkim
 	$ sudo chmod -R go-rw /etc/opendkim/keys
 
 Restart to see if there's any error:   
 
-	:::console
 	$ sudo systemctl restart opendkim
 
 Check it if there's any error:  
 
-	:::console
 	$ sudo systemctl status -l opendkim
 
 For example, in `/etc/opendkim/keys/example.txt`:  
@@ -811,12 +742,10 @@ Paste that into the value for the TXT record in DNS:
 
 Test the key:  
 
-	:::console
 	$ opendkim-testkey -d snorl.ax -s YYYYMM
 
 To hook it into the postfix, edit `/etc/postfix/main.cf`:  
 
-	:::ini
 	# OpenDKIM
 	milter_default_action = accept
 	# Postfix ≥ 2.6 milter_protocol = 6, Postfix ≤ 2.5 milter_protocol = 2
@@ -826,12 +755,10 @@ To hook it into the postfix, edit `/etc/postfix/main.cf`:
 
 Add user postfix to group opendkim:  
 
-	:::console
 	$ sudo usermod -a -G opendkim postfix
 
 Restart them.  
 
-	:::console
 	$ sudo systemctl restart opendkim postfix
 
 Verify if everything’s working by sending a test e-mail to `check-auth@verifier.port25.com` using an email client configured to submit mail to the submission port on the mail server.
@@ -856,22 +783,18 @@ The reason the YYYYMM format is used for the selector is that best practice call
 
 Generate it in my home dir:  
 
-	:::console
 	$ opendkim-genkey -b 2048 -h rsa-sha256 -r -s YYYYMM -d snorl.ax -v
 
 Set the DNS the way it is done above, test it:
 
-	:::console
 	$ opendkim-testkey -d example.com -s YYYYMM -k example.private
 
 Stop opendkim for a moment:  
 
-	:::console
 	$ sudo systemctl stop opendkim
 
 Copy it to the path:
 
-	:::console
 	$ cp *.private /etc/opendkim/keys/
 	$ chown opendkim:opendkim /etc/opendkim/keys/*
 	$ chmod go-rw /etc/opendkim/keys/*
@@ -884,7 +807,6 @@ Edit `/etc/opendkim/key.table` and change the old YYYYMM values to the new selec
 `CRAM-MD5` protects the password in transit against eaves droppers and somewhat gets good support in clients.  
 So it's the default method doveadm uses[^13][^14]. To generate a CRAM-MD5 for a password:  
 
-	:::console
 	$ doveadm pw
 
 Enter the password twice:  
@@ -894,12 +816,10 @@ Enter the password twice:
 
 Then a hash like this will be generated and printed:  
 
-	:::console
 	{CRAM-MD5}26b633ec8bf9dd526293c5897400bddeef9299fad
 
 To do something with the password, access the `psql` utility again:  
 
-	:::console
 	$ sudo su postgres
 	$ psql mails
 
@@ -909,7 +829,6 @@ To check the existing user:
 
 A table like this will be shown:  
 
-	:::ini
 	     userid     |       password       | realname | uid  | gid  |         home         | mail
 	----------------+----------------------------------------------------------------------------+----------+------+------+----------------------+------
 	 user1@snorl.ax | {CRYPT}xxxxxxxxxxxxx |          | 5000 | 5000 | snorl.ax/mails/user1 |
@@ -921,7 +840,6 @@ To check the correspondence between username and mail address:
 
 A table similar to the following one will be shown:  
 
-	:::ini
 	    address     |     userid     
 	----------------+----------------
 	 xxxx@snorl.ax  | user@snorl.ax
@@ -934,11 +852,12 @@ To update an existing user with the password:
 
 In `/etc/dovecot/conf.d/10-auth.conf`, disable plaintext login and add cram-md5 to the mechanisms:  
 
-	:::ini hl_lines="2 4"
-	...
-	disable_plaintext_auth = yes
-	...
-	auth_mechanisms = plain login cram-md5
+```{hl_lines="2 4"}
+...
+disable_plaintext_auth = yes
+...
+auth_mechanisms = plain login cram-md5
+```
 
 In `/etc/postfix/sasl/smtpd.conf`, set the corresponding option to include `cram-md5`:  
 
@@ -946,17 +865,19 @@ In `/etc/postfix/sasl/smtpd.conf`, set the corresponding option to include `cram
 
 In `/etc/pam_pgsql.conf`, set it to cram-md5:  
 
-	:::ini hl_lines="2"
-	...
-	pw_type = cram-md5
-	...
+```{hl_lines="2"}
+...
+pw_type = cram-md5
+...
+```
 
 In `/usr/local/etc/dovecot-sql.conf`, set it to cram-md5:  
 
-	:::ini hl_lines="2"
-	...
-	default_pass_scheme = CRAM-MD5
-	...
+```{hl_lines="2"}
+...
+default_pass_scheme = CRAM-MD5
+...
+```
 
 Then test logging in with `encrypted password` over SSL in imap and STARTTLS in smtp.   
 
@@ -964,17 +885,14 @@ Then test logging in with `encrypted password` over SSL in imap and STARTTLS in 
 
 Test sending mail outside of my mail server, like a Gmail account.  
 
-	:::console
 	$ echo "Email body text" | sudo mail -s "Email subject line" recipient@gmail.com -aFrom:kim@snorl.ax
 
 Sometimes if I test sending while having the `@snorl.ax` omitted, like this:  
 
-	:::console
 	$ echo "Email body text" | sudo mail -s "Email subject line" recipient@gmail.com -aFrom:kim
 
 The mail sender will be `kim@mail.snorl.ax` instaed, due to the default behaviour that mailutils append the hostname to usernames like this. Then the mail will be sent to `/var/mail/kim` instead. To change the appended domain to the desired `@snorl.ax`, create `/etc/mailutils.conf` with the setting:  
 
-	:::ini
 	address {
 	  email-domain snorl.ax;
 	};
@@ -993,26 +911,22 @@ Now test SMTP using an Email Client like ThunderBird:
 
 Try looking into `/var/log/mail.log`:  
 
-	:::console
 	Jan 18 15:22:14 snorlax dovecot: auth-worker(5228): pam(tyler@snorl.ax,37.49.224.186): pam_authenticate() failed: Authentication failure (password mismatch?)
 
 It's normal that some IP I've never known keeps brute-forcing. Neither do I use any IP from that IP range.
 
 Install the package to make the change permanent.  
 
-	:::console
 	$ sudo apt-get install iptables-persistent
 
 In this case, block the ip range might be a good idea:  
 
-	:::console
 	$ sudo iptables -A INPUT -s 37.49.224.0/24 -j DROP
 
 ## Hide sender's IP in the sent mail's header
 
 I'm using submission port. Uncomment and add and edit the relevant lines in `/etc/postfix/master.cf`, the relevant lines should look like this[^9]:   
 
-	:::ini
 	submission inet n       -       -       -       -       smtpd
 	  -o smtpd_tls_security_level=encrypt
 	  -o smtpd_sasl_auth_enable=yes
@@ -1022,7 +936,6 @@ I'm using submission port. Uncomment and add and edit the relevant lines in `/et
 
 Pass `header_checks` to the new cleanup service in `/etc/postfix/master.cf`, relevant lines look like this:  
 
-	:::ini
 	cleanup   unix  n       -       -       -       0       cleanup
 	subcleanup unix n       -       -       -       0       cleanup
 	  -o header_checks=regexp:/etc/postfix/submission_header_checks
@@ -1031,12 +944,10 @@ Create the file `/etc/postfix/submission_header_checks`, which will contain the 
 
 If `smtpd_sasl_authenticated_header` is `yes`, then use this in the file:  
 
-	:::ini
 	/^Received:.*\(Authenticated sender:/ IGNORE
 
 Otherwise(also by default when `smtpd_sasl_authenticated_header` is not set), use this in the file:  
 
-	:::ini
 	/^Received:.*\(Postfix/ IGNORE
 
 Restart postfix to see the effect.
@@ -1047,12 +958,10 @@ It's one of the most well-known mail spam filters. Speaking of spam filter, it c
 
 Install Spamassassin and its dependencies and dovecot-sieve.  
 
-	:::console
 	$ sudo apt install spamassassin spamc dovecot-sieve
 
 Start the service and enable it.
 
-	:::console
 	$ sudo systemctl start spamassassin
 	$ sudo systemctl enable spamassassin
 
@@ -1060,12 +969,10 @@ Modify `/etc/postfix/master.cf`:
 
 1. Change the smtp line to:  
 
-		:::ini
 		smtp      inet  n       -       -       -       -       smtpd -o content_filter=spamassassin
 
 2. Add the following (a call to our newly-created spamfilter script) at the end:  
 
-		:::ini
 		spamassassin unix -     n   n   -   -   pipe
 		    flags=ROhu user=vmail:vmail argv=/usr/bin/spamc -f -e
 		    /usr/lib/dovecot/deliver -f ${sender} -d ${user}@${nexthop}
@@ -1074,7 +981,6 @@ Modify `/etc/postfix/master.cf`:
 
 Modify `/etc/mail/spamassassin/local.cf` to include the following settings:  
 
-	:::ini
 	# Just add an X-Spam-Report header to suspected spam, rather than rewriting the content of the e-mail
 	report_safe 0
 	# Also we want to add a detailed ham report header to even e-mail that ISN'T suspected to be spam
@@ -1084,38 +990,39 @@ Modify `/etc/mail/spamassassin/local.cf` to include the following settings:
 
 Modify `/etc/dovecot/conf.d/15-mailboxes.conf` to ensure the following lines are included(By default they are included):  
 
-	:::ini
 	mailbox Junk {
 	   special_use = \Junk
 	}
 
 Edit `/etc/dovecot/conf.d/90-sieve.conf` and comment the line `sieve = ~/.dovecot.sieve`, like this:  
 
-	:::ini hl_lines="4"
-	...
-	plugin {
-	...
-	#sieve = file:~/sieve;active=~/.dovecot.sieve
+```{hl_lines="4"}
+...
+plugin {
+...
+#sieve = file:~/sieve;active=~/.dovecot.sieve
+```
 
 Edit `/etc/dovecot/conf.d/90-plugin.conf` as:  
 
-	:::ini hl_lines="4"
+```{hl_lines="4"}
+...
+plugin {
 	...
-	plugin {
-		...
-		sieve = /etc/dovecot/sieve/default.sieve
-	}
+	sieve = /etc/dovecot/sieve/default.sieve
+}
+```
 
 Edit `/etc/dovecot/conf.d/15-lda.conf`:  
 
-	:::ini hl_lines="2"
-	protocol lda {
-		mail_plugins = $mail_plugins sieve
-	}
+```{hl_lines="2"}
+protocol lda {
+	mail_plugins = $mail_plugins sieve
+}
+```
 
 Create folder `/etc/dovecot/sieve/`:  
 
-	:::console
 	$ mkdir /etc/dovecot/sieve/
 
 Create file `/etc/dovecot/sieve/default.sieve` with this content:  
@@ -1127,12 +1034,10 @@ Create file `/etc/dovecot/sieve/default.sieve` with this content:
 
 Change the folder permissions to the virtual email user and group like:  
 
-	:::console
 	$ chown vmail:vmail /etc/dovecot/sieve/ -R
 
 Restart postfix, dovecot and spamassassin.  
 
-	:::console
 	$ sudo systemctl restart spamassassin dovecot postfix
 
 Try sending a mail to the mail account. The output of `tail /var/log/mail.log` will be like:  
@@ -1175,7 +1080,6 @@ The spam filter is now working. A spam will go directly into the Junk Folder.
 
 SpamAssassin will perform many DNS lookups for NetworkTests to significantly improve scoring of messages primarily by DNSBlocklists like Spamhaus, SORBS, etc. This information needs to be cached locally to improve performance and limit the number of external DNS queries since some DNSBlockLists have limits on free usage. A local DNS caching server should not forward to other DNS servers to ensure your queries are not combined with others. Forwarding to other DNS servers often results in URIBL_BLOCKED or similar rule hits meaning you have gone over their free usage limit.[^16]  
 
-	:::console
 	$ sudo apt-get update
 	$ sudo apt-get install unbound
 
@@ -1189,7 +1093,6 @@ Test it out. With these output it's now working.
 
 Spamhaus Zen:  
 
-	:::console
 	$ dig +short 2.0.0.127.zen.spamhaus.org @127.0.0.1
 	127.0.0.10
 	127.0.0.4
@@ -1197,13 +1100,11 @@ Spamhaus Zen:
 
 SORBS DUL:
 
-	:::console
 	$ dig 2.0.0.127.dul.dnsbl.sorbs.net +short @127.0.0.1
 	127.0.0.10
 
 URIBL:
 
-	:::console
 	$ dig test.uribl.com.multi.uribl.com txt +short @127.0.0.1
 	"permanent testpoint"
 

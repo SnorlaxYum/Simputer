@@ -20,7 +20,6 @@ This post is a part of __My Isso Style__ Series.
 
 ## Server Configuration
 
-	:::ini
 	[general]
 	dbpath = /var/lib/isso/comments.db
 	host = https://snorl.ax

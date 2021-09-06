@@ -23,18 +23,15 @@ Remember the time when the admin interface was not a feature in isso, I submitte
 Now looking back, I think that more and more questions alike could be there without a knowledge for the very database file we r using. Thus it's really important to get into it[^1].  
 Switch to a user with enough permission to the sqlite databse file and get into the directory where there's database file:  
 
-	:::Bash shell scripts
 	$ su isso
 	$ cd ~
 
 It's recommended to backup the database before editing:  
 
-	:::Bash shell scripts
 	$ cp comments.db comments.db.bak
 
 Now launch the sqlite3 utility.  
 
-	:::Bash shell scripts
 	$ sqlite3
 
 Turn the headers on and attach the database to the variable for editing.  

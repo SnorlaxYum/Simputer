@@ -39,59 +39,48 @@ I install isso using git below to make sure it's up to date so everything in the
 
 1. Switch to the non-root user if u aren't logged in as it now. For example, I'm logged in as root and want to switch to sim:  
 
-		:::console
 		$ su sim
 
 2. Get into the home directory:  
 
-		:::console
 		$ cd ~
 
 3. Install the relevant packages:  
 
-		:::console
 		$ sudo apt-get install python-setuptools python-virtualenv python-dev python-pip sqlite3 git build-essential
 
 4. Install Nvm[^3].  
 
-		:::console
 		$ git clone https://github.com/creationix/nvm.git .nvm
 
 5. Open `~/.bashrc`, ensure the following lines r included in it and save it[^3]:  
 
-		:::bash
 		export NVM_DIR="$HOME/.nvm"
 		[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 		[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 	Source it.
 
-		:::console
 		$ source ~/.bashrc
 
 6. Install nodejs[^3].  
 
-		:::console
 		$ nvm install node
 
 7. Install bower.  
 
-		:::console
 		$ npm install -g bower
 
 8. Set virtualenv in a place.  
 
-		:::console
 		$ virtualenv work
 
 9. Get into the environment:  
 
-		:::console
 		$ source work/bin/activate
 
 10. Fetch isso from source and install it.  
 
-		:::console
 		$ git clone https://github.com/posativ/isso.git
 		$ cd isso
 		$ python setup.py develop # or `install`
@@ -101,30 +90,25 @@ I install isso using git below to make sure it's up to date so everything in the
 
 11. Add a user to run isso exclusively:
 
-		:::console
 		$ sudo useradd isso -d /var/lib/isso
 
 12. Make a directory for isso and assign it to the user:  
 
-		:::console
 		$ sudo mkdir /var/lib/isso
 		$ sudo chown -R isso:isso /var/lib/isso
 
 13. Now switch to the user:  
 
-		:::console
 		$ sudo su isso
 
 14. Get into the directory:  
 
-		:::console
 		$ cd ~
 
 ## Configuration
 
 Create `isso.conf`, the host should be ur URL (I only run the blog in SSL version, so in my case, it's https://snorl.ax):  
 
-	:::ini
 	[general]
 	dbpath = /var/lib/isso/comments.db
 	host = https://snorl.ax/
@@ -136,19 +120,16 @@ For other things like SMTP, reply notification and gravatar, u can refer to [my 
 
 Exit to come back as the previous user (In my case, `sim`):  
 
-	:::console
 	$ exit
 
 Create a symlink to a location in my `PATH`:  
 
-	:::console
 	$ sudo ln -s /home/sim/work/bin/isso /usr/local/bin/isso
 
 About Init Script, I'm using Debian which is using systemd, which is most Linux distributions' choice for service management. Take it for example:  
 
 Create a service `/etc/systemd/system/isso.service` with the following lines:
 
-	:::systemd
 	[Unit]
 	Description=lightweight Disqus alternative
 
@@ -161,12 +142,10 @@ Create a service `/etc/systemd/system/isso.service` with the following lines:
 
 Run the thing and check the status
 
-	:::console
 	$ sudo systemctl daemon-reload && sudo systemctl start isso && sudo systemctl status isso
 
 When it's active and running, enable it so it will start and run every time u reboot into the system:
 
-	:::console
 	$ sudo systemctl enable isso
 
 ## Integrate into the web server
@@ -177,7 +156,7 @@ Two ways to do this with nginx, I've actually used both:
 2. Running it in a subdomain like `isso.snorl.ax`, the relevant server block in `/etc/nginx/conf.d/default.conf` is shown in Subdomain tab. 
 
 === "SUB-URI"
-	```{.nginx hl_lines="7-13" linenums="1"}
+	```{.nginx hl_lines="7-13"}
 	server {
 		#...
 		server_name snorl.ax;
@@ -228,7 +207,7 @@ This is the way this blog implemented. See [Official doc about API](https://posa
 The `https://isso.snorl.ax/js/embed.min.js` should be available.
 Time to insert the code to comment area (If u get a 404 error it's due to something like the cache settings of ur js files, delete certain lines of it will help):
 
-	:::html
+
 	<script data-isso="https://isso.snorl.ax/" src="https://isso.snorl.ax/js/embed.min.js"></script>
 
 	<section id=“isso-thread”></section>
@@ -241,7 +220,6 @@ Isso ships with a built-in web server, which is useful for the initial setup and
 
 Before deployment, edit the relevant part[^4] in `~/isso/isso/wsgi.py`:  
 
-	:::python
 	# ...
 	from werkzeug.wrappers import Response
 	# ...
@@ -254,7 +232,6 @@ Before deployment, edit the relevant part[^4] in `~/isso/isso/wsgi.py`:
 
 Get into the environment:  
 
-	:::console
 	$ source ~/work/bin/activate
 
 ### Way 1: gevent
@@ -263,29 +240,24 @@ It's the easiest deployment method. [^1]
 
 Install it.
 
-	:::console
 	$ pip install gevent
 
 Run and debug:  
 
-	:::console
 	$ /usr/local/bin/isso -c /var/lib/isso/isso.conf run
 
 If it succeeds, restart the service:  
 
-	:::console
 	$ sudo systemctl restart isso
 
 ### Way 2: uWSGI
 
 Isso has special support for uWSGI, namely fast IPC caching, job spooling and delayed jobs. It's isso's author's choice as well as my choice, install it:  
 
-	:::console
 	$ pip install uwsgi
 
 Create `/var/lib/isso/uwsgi.ini`:  
 
-	:::ini
 	[uwsgi]
 	socket = /tmp/isso/%n.sock
 	master = true
@@ -305,14 +277,12 @@ Create `/var/lib/isso/uwsgi.ini`:
 
 Delete or comment out the listen in the server block in `isso.conf` as it won't work:  
 
-	:::ini
 	[server]
 	; The listen is now useless
 	; listen = http://localhost:8001/
 
 Create the directory:
 
-	:::console
 	$ mkdir /tmp/isso
 	$ chown -R isso:isso /tmp/isso
 
@@ -365,19 +335,16 @@ Change the lines in nginx configuration:
 
 Restart my nginx:  
 
-	:::console
 	$ sudo systemctl restart nginx
 
 Switch to `isso` user and execute the ini file:  
 
-	:::console
 	$ /home/sim/work/bin/uwsgi /var/lib/isso/uwsgi.ini --enable-threads
 
 Test and if it works perfectly.  
 
 If everything's okay, then edit `/etc/systemd/system/isso.service` and change the line of `ExecStart`:
 
-	:::systemd
 	[Unit]
 	Description=lightweight Disqus alternative
 
@@ -390,7 +357,6 @@ If everything's okay, then edit `/etc/systemd/system/isso.service` and change th
 
 Run the thing and check the status
 
-	:::console
 	$ sudo systemctl daemon-reload && sudo systemctl start isso && sudo systemctl status isso
 
 ## [Optional] CDN Integration

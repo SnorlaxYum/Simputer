@@ -307,21 +307,24 @@ nav
   float: right
 
 // pygment
-.codehilitetable, .highlighttable
-  border: 0.05em solid
-  .linenos 
-    width: 1.2em
-    vertical-align: baseline
+[data-linenos]:before
+  background: #f8f8f8
+  content: attr(data-linenos)
+  margin-left: .4em
+.highlight
   pre
     margin: 0
     overflow: auto
-.codehilitetable, .codehilitetable .linenos, .codehilitetable .code, .highlighttable, .highlighttable .linenos, .highlighttable .code
-  background: #f8f8f8
-.codehilite , .highlight
-	background: #f8f8f8 
+    border: 0.05em solid
+    code
+      background: transparent
+
+
+
+.highlight
+	background: #f8f8f8
 	.hll
 		background: #cccccc
-  display: block
 	.c 
 		color: #408080 
 		font-style: italic 
@@ -477,8 +480,8 @@ nav
 		color: #19177C 
 	.vm 
 		color: #19177C 
-	.il 
-		color: #666666 
+	.il
+		color: #666666
 
 // Superfences Tab
 .tabbed-set

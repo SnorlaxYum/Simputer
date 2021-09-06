@@ -17,38 +17,31 @@ However doing without a git account is also possible.
 
 Generate my own SSH public key on my local computer:
 
-    :::bash
     $ ssh-keygen
 
 Upload my ~/.ssh/id_rsa.pub to somewhere on the server:  
 
-    :::bash
     sim@localhost:~$ scp -P port ~/.ssh/id_rsa.pub sim@server:/home/sim/id_rsa.sim.pub
 
 On the server in the home, make dir for ssh if `.ssh` hasn't been created:  
 
-    :::bash
     sim@server:~$ mkdir .ssh
 
 append the key to `authorized_keys`:  
 
-    :::bash
     sim@server:~$ cat id_rsa.sim.pub >> .ssh/authorized_keys
 
 Initialize a new dir for new git project:  
 
-    :::bash
     sim@server:~$ git init --bare new_dir.git
 
 On my local computer:  
 
-    :::bash
     sim@localhost:~$ cd project
     sim@localhost:~/project$ git init && git add . && git commit -m "initial commit" && git remote add origin ssh://sim@server:port/home/sim/new_dir.git && git push origin master
 
 Then on the server, I can do this:  
 
-    :::bash
     sim@server:~$ git clone ~/new_dir.git ~/new_dir
 
 `new_dir` is a new dir with all files checked out from the git project `new_dir.git` and the git settings.  
@@ -64,7 +57,6 @@ The `unset` is needed 'cause git uses the variable `GIT_DIR` instead of `PWD`, `
 
 Make it executable:  
 
-    :::bash
     sim@server:~$ chmod +x ~/new_dir.git/hooks/post-receive
 
 Everytime I need update files on the server, I could do it via a bash:  
@@ -85,41 +77,34 @@ Sometimes I need to work with serveral remotes, for example, I need to upload to
 
 Upload my ~/.ssh/id_rsa.pub to somewhere on another server:  
 
-    :::bash
     sim@localhost:~$ scp -P port ~/.ssh/id_rsa.pub sim@server2:/home/sim/id_rsa.sim.pub
 
 On the server in the home, make dir for ssh if `.ssh` hasn't been created:  
 
-    :::bash
     sim@server2:~$ mkdir .ssh
 
 Append the key to `authorized_keys`:  
 
-    :::bash
     sim@server2:~$ cat id_rsa.sim.pub >> .ssh/authorized_keys
 
 Initialize a new dir for new git project:  
 
-    :::bash
     sim@server2:~$ git init --bare new_dir.git
 
 On my local computer:  
 
-    :::bash
     sim@localhost:~$ cd project
     sim@localhost:~/project$ git remote add origin2 ssh://sim@server2:port/home/sim/new_dir.git
     sim@localhost:~/project$ git push origin2 master
 
 Then on the server, I can do this:  
 
-    :::bash
     sim@server2:~$ git clone ~/new_dir.git ~/new_dir
 
 `new_dir` is a new dir with all files checked out from the git project `new_dir.git` and the git settings.  
 
 I could create `~/new_dir.git/hooks/post-receive`:  
 
-    :::sh
     #!/bin/sh
     cd /home/sim/new_dir || exit
     unset GIT_DIR
@@ -128,12 +113,10 @@ I could create `~/new_dir.git/hooks/post-receive`:
 
 Make it executable:  
 
-    :::bash
     sim@server2:~$ chmod +x ~/new_dir.git/hooks/post-receive
 
 Everytime I need update files on both servers, I could do it via a bash:  
 
-    :::bash
     #!/bin/bash
     cd /home/sim/project
     echo -n "Enter the commit message: "

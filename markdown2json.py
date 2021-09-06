@@ -90,7 +90,8 @@ def posts_meta(directory):
                                                'meta',
                                                'footnotes',
                                                'toc',
-                                               'codehilite',
+                                            #    'codehilite',
+                                               'pymdownx.highlight',
                                                'attr_list',
                                                'pymdownx.emoji',
                                                'pymdownx.extra',
@@ -98,8 +99,14 @@ def posts_meta(directory):
                                                'pymdownx.smartsymbols',
                                                'tables',
                                                'nl2br'],
-                                   extension_configs={'codehilite':
-                                                      {'linenums': True},
+                                   extension_configs={
+                                    #    'codehilite':
+                                    #                   {'linenums': True},
+                                                      'pymdownx.highlight': {
+                                                          'linenums': True,
+                                                          'linenums_style': 'pymdownx-inline',
+                                                          'guess_lang': True
+                                                      },
                                                       'pymdownx.superfences':
                                                       {'disable_indented_code_blocks': True}})
             content = open(os.path.join(cat_path, post),
