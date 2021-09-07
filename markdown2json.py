@@ -168,6 +168,8 @@ def posts_meta(directory):
                 tags[tag[1]]['posts'].append(content_meta)
             posts_inside.append(content_inside)
 
+
+def write_to_generate_list():
     dump(generate_list, open('gen_list.json', 'w'))
     print('Wrote to gen_list.json')
 
@@ -316,5 +318,6 @@ def posts_files(posts_all, posts_inside):
 all_feed = AtomGen('Recent posts in %s' %
                    SITENAME, 'Recent posts in %s' % SITENAME, SITEURL, 'en')
 posts_meta('contents')
+write_to_generate_list()
 tags_files(tags)
 posts_files(posts_all, posts_inside)
