@@ -19,14 +19,10 @@ import GetIssoCount from "~/features/GetIssoCount"
 import PostNav from "~/components/PostNav"
 import FeedLink from "~/components/FeedLink"
 
-export default ({
+export default {
   async asyncData({ params, error }) {
     let data = await import(`~/posts/${params.cat}.json`).then(mod => mod.default)
-    if (data) {
-      return data
-    } else {
-      return error({ message: "Section not found", statusCode: 404 })
-    }
+    return data || error({ message: "Section not found", statusCode: 404 })
   },
   mixins: [GetIssoCount],
   components: {
@@ -39,5 +35,5 @@ export default ({
       link: [{ rel: 'alternate', href: this.atom, type: 'application/atom+xml' }]
     }
   }
-})
+}
 </script>
