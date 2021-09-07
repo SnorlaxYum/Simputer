@@ -3,7 +3,7 @@ div
   article.cat
     h1 {{ name }}
       feed-link(:link="atom")
-  post-nav(v-for='post, title of posts'
+  post-nav(v-for='post of posts'
             :key='post.slug'
             :category='post.category'
             :title='post.title'
