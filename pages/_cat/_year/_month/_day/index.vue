@@ -24,8 +24,8 @@ import FeedLink from "~/components/FeedLink"
 
 export default Vue.extend({
   async asyncData({ params, error }) {
-    let data = await import(`~/posts/${params.cat}/${params.slug}.json`).then(mod => mod.default)
-    const {year, month, day} = params
+    const {year, month, day, cat} = params
+    let data = await import(`~/posts/${cat}.json`).then(mod => mod.default)
     if (data) {
       data.posts = data.posts.filter(post => {
         const date = new Date(post.date)

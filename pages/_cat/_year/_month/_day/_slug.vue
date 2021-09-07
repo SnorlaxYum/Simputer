@@ -26,8 +26,7 @@ export default ({
   async asyncData({ params, error, route }) {
     const target = await import(`~/posts/${params.cat}/${params.slug}.json`).then(mod => mod.default)
     if (
-      target &&
-      target.slug === route.path
+      target
     ) {
       target['modified'] = target['modified'] ? target['modified'] : false
       return target
