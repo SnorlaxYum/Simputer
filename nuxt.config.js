@@ -2,6 +2,7 @@ import gen from './gen_list.json'
 
 export default {
   mode: 'universal',
+  target: 'static',
   /*
   ** Headers of the page
   */
