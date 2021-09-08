@@ -25,7 +25,7 @@ jobs:
       with:
         node-version: '10.x'
 
-    - run: pip install -r pip-requirement
+    - run: pip install -r markdown2vue/pip-requirement
 
     - run: python markdown2vue/run.py
 
