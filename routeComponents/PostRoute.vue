@@ -2,7 +2,7 @@
 <div>
   <div class="post-flex">
     <transition name="fade">
-      <post-side-nav />
+      <post-side-nav :links="links" />
     </transition>
     <post :title="title" :date="date" :modified="modified" :tags="tags">
       <slot></slot>
@@ -19,7 +19,7 @@ const Post = () => import("~/components/Post")
 const Isso = () => import('~/components/Isso')
 const PostSideNav = () => import("~/components/PostSideNav")
 export default {
-  props: ['title', 'date', 'modified', 'slug', 'tags', 'summary', 'ogimage', 'category'],
+  props: ['title', 'date', 'modified', 'slug', 'tags', 'summary', 'ogimage', 'category', 'links'],
   head() {
     const siteTitle = this.$store.state.siteTitle,
     description = this.summary ? this.summary.replace('<br>', ' ') : '',

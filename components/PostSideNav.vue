@@ -2,7 +2,7 @@
     <article class="post-side-nav" style="display:none">
         <h1>Table of Contents</h1>
         <ul>
-          <nuxt-link v-for="link in links" :to="link.link" :key="link.link" :class="active && active.link == link.link ? 'nuxt-nav-active' : ''">
+          <nuxt-link v-for="link in links" :level="link.level" :to="link.link" :key="link.link" :class="active && active.link == link.link ? 'nuxt-nav-active' : ''">
             <li>{{link.title}}</li>
           </nuxt-link>
         </ul>
@@ -11,10 +11,10 @@
 
 <script>
 export default {
+    props: ["links"],
     data() {
         return {
             nav: false,
-            links: [],
             active: null
         }
     },
@@ -30,11 +30,7 @@ export default {
       this.processTitles()
     },
     processTitles() {
-      const titles = this.$el.parentElement.getElementsByTagName("h2")
-      if (titles.length > 0) {
-        for (const title of titles) {
-          this.links.push({link: `#${title.id}`, title: `${title.innerHTML}`})
-        }
+      if (this.links.length > 0) {
         this.nav = true
         // add a listenner to this.$router.push on the position when it's there
         document.addEventListener('scroll', this.addActive)
@@ -53,13 +49,6 @@ export default {
           this.active = link
         }
       }
-      // const body = document.body,
-      // bottom_title = this.links[this.links.length-1],
-      // bottom_title_current = this.$route.fullPath.search(bottom_title.link),
-      // isso_current = this.$route.fullPath.search('#isso-thread')
-      // if (window.pageYOffset + window.innerHeight >= body.offsetHeight && !(bottom_title_current+1) && !(isso_current)) {
-      //   this.$router.push(bottom_title.link)
-      // } 
     },
     destroyListeners() {
       if (this.links.length) {
