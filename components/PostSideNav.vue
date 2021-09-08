@@ -1,5 +1,5 @@
 <template>
-    <article class="post-side-nav" style="display:none">
+    <article class="post-side-nav" v-show="nav">
         <h1>Table of Contents</h1>
         <ul>
           <nuxt-link v-for="link in links" :level="link.level" :to="link.link" :key="link.link" :class="active && active.link == link.link ? 'nuxt-nav-active' : ''">
@@ -19,8 +19,7 @@ export default {
         }
     },
   watch: {
-    'html': 'contentUpdated',
-    'nav': 'navUpdated'
+    'html': 'contentUpdated'
   },
     mounted() {
         this.$nextTick(this.addListeners)
@@ -62,21 +61,6 @@ export default {
       this.$nextTick(() => {
         this.addListeners()
       })
-    },
-    navUpdated(newVal) {
-        if(newVal) {
-            console.log(newVal)
-            this.$el.style.display = 'block'
-            if(getComputedStyle(this.$el).position === 'sticky') {
-                const navHeight = parseInt(getComputedStyle(this.$el.parentElement.parentElement.parentElement.previousElementSibling).height)
-                this.$el.style.maxHeight = `${window.innerHeight-navHeight}px`
-                this.$el.style.top = `${navHeight}px`
-            } else {
-                this.$el.style.top = '0'
-            }
-        } else {
-            this.$el.style.display = 'none'
-        }
     }
     },
   beforeDestroy() {

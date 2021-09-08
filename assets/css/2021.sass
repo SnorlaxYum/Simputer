@@ -252,14 +252,17 @@ nav
     overflow: auto
     margin-top: 0
     margin-left: 0
+    top: 5vw
+    max-height: calc( 100vh - 5vw )
+    @media screen and ( max-width: $middle-wide )
+      top: 95px
+      max-height: calc( 100vh - 95px )
     @media screen and ( max-width: $middle-smaller-wide )
-      margin: 4%
       width: inherit
       position: relative
       top: 0
     @media screen and ( max-width: $middle-smallest-wide )
       padding: 0 7%
-      margin: 6%
     h1
       padding-left: 6%
       font-size: 1.2em
