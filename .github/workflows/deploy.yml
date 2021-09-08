@@ -9,7 +9,10 @@ jobs:
   build-deploy:
     runs-on: ubuntu-18.04
     steps:
-    - uses: actions/checkout@master
+    - name: Checkout repository and submodules
+      uses: actions/checkout@v2
+      with:
+        submodules: recursive
 
     - name: Setup Python
       uses: actions/setup-python@v1
@@ -24,7 +27,7 @@ jobs:
 
     - run: pip install -r pip-requirement
 
-    - run: python markdown2json.py
+    - run: python markdown2vue/run.py
 
     - run: npm install
 
