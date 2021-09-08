@@ -1,10 +1,10 @@
 ---
 title: Site Migration History
 date: 2016-12-08 01:40
-modified: 2020-12-01 18:22
+modified: 2021-09-08 18:22
 author: Sim
 tags: KeyCDN, Gitlab, Github, Netlify, speed, CloudFlare, Firebase, CDN
-summary: KeyCDN → Gitlab → Github + CloudFlare → Gitlab + Netlify → Github + Cloudflare → Firebase → Cloudflare+Firebase → Cloudflare+Gitlab → Github + Cloudflare → Firebase → My VPS + CloudFlare → My VPS → Github Pages → Github + Cloudflare
+summary: KeyCDN → Gitlab → Github + CloudFlare → Gitlab + Netlify → Github + Cloudflare → Firebase → Cloudflare+Firebase → Cloudflare+Gitlab → Github + Cloudflare → Firebase → My VPS + CloudFlare → My VPS → Github Pages → Github + Cloudflare → Cloudflare Pages
 ---
 
 ## Summary
@@ -196,7 +196,7 @@ Back to CDN again. When it comes to Nuxt, nothing can beat CDN.
 Meanwhile I could do backend things on my own server.  
 Cheers.
 
-## 2020-12-01 ~ Now: Github Pages + Cloudflare
+## 2020-12-01 ~ 2021-09-06: Github Pages + Cloudflare
 
 This very site has some 503 problems today: 
 
@@ -218,3 +218,10 @@ x-fastly-request-id: d7f03a90d4373ae8673c327d92a2d197eb53b6c0
 ```
 
 I switched my DNS hosting to Cloudflare recently so I put Cloudflare CDN in front of this site. Cache everything and always online will help a lot to avoid this case...... Not worried about a little decrease in the speed since Fastly makes it fast.
+
+## 2021-09-06 ~ Now: Cloudflare Pages
+
+Well, it's certainly not as fast as Github Pages. I just love its unlimited claims in its Pricing tab.  
+Anyway after using for some days, I think it's okay.  
+Another draw so far is that it seems Cloudflare Pages only support Github Integration......  
+It would be nice if it supports Gitlab and self-hosted Git services......
