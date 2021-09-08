@@ -147,8 +147,7 @@ export default {
             } else {
               this.$set(this.comment, this.comment.length, res.data)
             }
-            this.$router.push("");
-            this.$router.push(`#isso-${res.data.id}`);
+
             let headers = res.headers["x-set-cookie"].split("; "),
               cookie = headers[0].split("=");
             this.$cookies.set(cookie[0], cookie[1], {
