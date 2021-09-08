@@ -1,0 +1,753 @@
+@import './svg';
+
+
+$font-color: #515151
+$nav-box-dark: #515151
+$nav-box-light: #fff
+$nav-box-light-tran: rgba(0, 0, 0, 0.4)
+// $nav-box-dark-tran: rgba(255, 255, 255, 0.4)
+
+/* responsive break
+$middle-wide: 1800px
+$middle-small-wide: 1300px
+$middle-smaller-wide: 1000px
+$middle-smallest-wide: 750px
+
+$content-bg: rgba(250, 250, 250, 0.5)
+$content-footer-bg: rgba(50, 50, 50, 0.6)
+
+$content-outgrow: 0 0 0.4em $font-color
+$content-ingrow: inset 0 0 0.4em $font-color
+
+body
+  font-family: Arial, Helvetica, sans-serif
+  color: $font-color
+  background: url('/images/bg.png') repeat
+  font-size: 18px
+  margin: 0
+  @media screen and ( max-width: $middle-smaller-wide )
+    font-size: 16px
+  @media screen and ( min-width: $middle-wide )
+    font-size: 1vw
+
+input
+  background-color: transparent
+
+a:hover
+  text-decoration: underline
+      
+nav
+  position: sticky
+  top: 0
+  margin: 0 auto
+  height: 95px
+  line-height: 95px
+  background: $content-bg
+  display: flex
+  align-items: center
+  box-shadow: $content-ingrow
+  z-index: 2
+  @media screen and ( min-width: $middle-wide )
+    height: 5vw
+    line-height: 5vw
+  @media screen and ( max-width: $middle-smallest-wide )
+    position: inherit
+    flex-direction: column
+    height: 100%
+    padding: 1em
+  .logo
+    background: url($svg-pre+$logo) no-repeat
+    height: 65px
+    width: 275px
+    background-size: auto 100%
+    margin: 0 0.5em
+    @media screen and ( min-width: $middle-wide )
+      height: 3.5vw
+      width: 15vw
+      margin: 0 1vw
+
+// workaround for navbar overlap with anchors
+// h1[id]:before, h2[id]:before, h3[id]:before, h4[id]:before, h5[id]:before, h6[id]:before, *[id*=isso]:before
+//   display: block 
+//   content: " "
+//   margin-top: -95px 
+//   height: 95px
+//   visibility: hidden
+//   @media screen and ( min-width: $middle-wide )
+//     height: 6vw
+//     margin-top: -6vw
+//   @media screen and ( max-width: $middle-smallest-wide )
+//     height: 0
+//     margin-top: 0
+
+.site-container
+  margin: 0 auto
+  z-index: 1
+
+.content-container
+  display: flex
+  flex-direction: column
+  .post-flex
+    display: flex
+    align-items: flex-start
+    flex-direction: row-reverse
+    @media screen and ( max-width: $middle-smaller-wide )
+      flex-direction: column
+      align-items: stretch
+  article
+    overflow: auto
+    background: $content-bg
+    box-shadow: $content-ingrow
+    padding-top: 3%
+    line-height: 1.8
+    font-size: 0.95em
+    @media screen and ( max-width: $middle-small-wide )
+      padding-top: 5%
+    @media screen and ( max-width: $middle-smallest-wide )
+      padding-top: 7%
+    .emojione
+      width: 0.95em
+    img
+      max-width: 100%
+    .graph img
+      min-width: 60%
+    sup
+      font-size: 0.6em
+    code
+      background: #f8f8f8
+      padding: 0.1em
+    table
+      table-layout: fixed
+      width: 100%
+      word-wrap: break-word
+    td, th
+      padding: 0.5em
+    tr:nth-child(odd)
+      background-color: rgba(0, 0, 0, 0.1)
+    a
+      color: $font-color
+      text-decoration: none
+    a:hover
+      border-bottom: 1px dotted
+    header
+      color: $nav-box-dark
+      padding: 0 3% 1%
+      font-size: 2em
+      font-weight: bold
+      .atom img
+        height: 1.4em
+        margin-top: 0.15em
+      @media screen and ( max-width: $middle-small-wide )
+        padding: 0 5% 3%
+      @media screen and ( max-width: $middle-smallest-wide )
+        padding: 0 7% 5%
+    h1
+      font-size: 2em
+    h2
+      font-size: 1.8em
+      border-bottom: 1px solid
+    h3
+      font-size: 1.6em
+    h4
+      font-size: 1.4em
+    h5
+      font-size: 1.3em
+    h6
+      font-size: 1.2em
+    footer
+      padding: 1.5% 3%
+      background: $content-footer-bg
+      color: $nav-box-light
+      font-size: 0.85em
+      @media screen and ( max-width: $middle-small-wide )
+        padding: 3% 5%
+      @media screen and ( max-width: $middle-smallest-wide )
+        padding: 5% 7%
+      a
+        color: $nav-box-light
+      span
+        margin-right: 1em
+      span.tag
+        margin: 0
+      span.seq-tag:before
+        content: ", "
+      span.tag-list:before
+        content: "Tags: "
+        font-weight: bold
+      time.published:before
+        content: "Published: "
+        font-weight: bold
+      time.modified:before
+        content: "Modified: "
+        font-weight: bold
+    content 
+      padding: 0 3% 2% 
+      display: block
+      @media screen and ( max-width: $middle-small-wide )
+        padding: 0 5% 4%
+      @media screen and ( max-width: $middle-smallest-wide )
+        padding: 0 7% 6%
+      a
+        border-bottom: 1px solid
+      a:hover
+        color: rgb(230,230,230)
+        background-color: $font-color
+      sup a
+        border: 0
+      ol, ul
+        padding-left: 0
+      .youtube
+        width: 60%
+        height: 30vw
+        border-radius: 0.5em
+        @media screen and ( max-width: $middle-small-wide )
+          width: 70%
+        @media screen and ( max-width: $middle-smaller-wide )
+          width: 100%
+          height: 40vw
+      .footnote ol:before
+        content: "References:"
+        font-weight: bold
+        display: block
+        margin-bottom: 0.2em
+      .footnote p 
+        line-height: 1
+      .footnote ol
+        list-style: none
+        counter-reset: li
+        li
+          position: relative
+          counter-increment: li
+        li:before
+          position: absolute
+          left: -2.05em
+          text-align: right
+          width: 1.9em
+          content: "[" counter(li) "]  "
+        li p
+          display: inline
+      .footnote hr
+        margin: 2em 0
+        border: 0.05em solid
+        border-bottom: 0
+        border-left: 0
+        border-right: 0
+        margin-bottom: 0.5em
+      #series
+        border: 1px dotted
+        padding: 1% 2%
+        @media screen and ( max-width: $middle-small-wide )
+          padding: 2% 4%
+        @media screen and ( max-width: $middle-smallest-wide )
+          padding: 3% 6%
+  article.main
+    transition: opacity 1s
+    flex-basis: 100%
+  article.post-side-nav
+    flex-basis: 30%
+    float: right
+    padding: 1%
+    font-size: 1em
+    position: sticky
+    overflow: auto
+    margin-top: 0
+    margin-left: 0
+    @media screen and ( max-width: $middle-smaller-wide )
+      margin: 4%
+      width: inherit
+      position: relative
+      top: 0
+    @media screen and ( max-width: $middle-smallest-wide )
+      padding: 0 7%
+      margin: 6%
+    h1
+      padding-left: 6%
+      font-size: 1.2em
+      @media screen and ( max-width: $middle-smaller-wide )
+        padding-left: 3%
+    ul
+      list-style-type: circle
+      padding-left: 6%
+      @media screen and ( max-width: $middle-smaller-wide )
+        padding-left: 3%
+      .nuxt-nav-active
+        font-weight: bold
+        li
+          list-style-type: disc
+  article.cat
+    padding: 1% 3%
+    line-height: 1
+    font-size: 0.95em
+    .atom img
+      height: 0.95em
+    @media screen and ( max-width: $middle-small-wide )
+      padding: 3% 5% 
+    @media screen and ( max-width: $middle-smallest-wide )
+      padding: 5% 7%
+  article.page
+    padding-bottom: 2%
+    @media screen and ( max-width: $middle-small-wide )
+      padding-bottom: 4%
+    @media screen and ( max-width: $middle-smallest-wide )
+      padding-bottom: 6%
+  article.tags
+    padding-bottom: 1.5%
+    @media screen and ( max-width: $middle-small-wide )
+      padding-bottom: 3.5%
+    @media screen and ( max-width: $middle-smallest-wide )
+      padding-bottom: 5.5%
+
+.atom
+  float: right
+
+// pygment
+[data-linenos]:before
+  background: #f8f8f8
+  content: attr(data-linenos)
+  margin-left: .4em
+.highlight
+  pre
+    margin: 0
+    overflow: auto
+    border: 0.05em solid
+    code
+      background: transparent
+
+
+
+.highlight
+	background: #f8f8f8
+	.hll
+		background: #cccccc
+	.c 
+		color: #408080 
+		font-style: italic 
+	.err 
+		border: 1px solid #FF0000 
+	.k 
+		color: #008000 
+		font-weight: bold 
+	.o 
+		color: #666666 
+	.ch 
+		color: #408080 
+		font-style: italic 
+	.cm 
+		color: #408080 
+		font-style: italic 
+	.cp 
+		color: #BC7A00 
+	.cpf 
+		color: #408080 
+		font-style: italic 
+	.c1 
+		color: #408080 
+		font-style: italic 
+	.cs 
+		color: #408080 
+		font-style: italic 
+	.gd 
+		color: #A00000 
+	.ge 
+		font-style: italic 
+	.gr 
+		color: #FF0000 
+	.gh 
+		color: #000080 
+		font-weight: bold 
+	.gi 
+		color: #00A000 
+	.go 
+		color: #888888 
+	.gp 
+		color: #000080 
+		font-weight: bold 
+	.gs 
+		font-weight: bold 
+	.gu 
+		color: #800080 
+		font-weight: bold 
+	.gt 
+		color: #0044DD 
+	.kc 
+		color: #008000 
+		font-weight: bold 
+	.kd 
+		color: #008000 
+		font-weight: bold 
+	.kn 
+		color: #008000 
+		font-weight: bold 
+	.kp 
+		color: #008000 
+	.kr 
+		color: #008000 
+		font-weight: bold 
+	.kt 
+		color: #B00040 
+	.m 
+		color: #666666 
+	.s 
+		color: #BA2121 
+	.na 
+		color: #7D9029 
+	.nb 
+		color: #008000 
+	.nc 
+		color: #0000FF 
+		font-weight: bold 
+	.no 
+		color: #880000 
+	.nd 
+		color: #AA22FF 
+	.ni 
+		color: #999999 
+		font-weight: bold 
+	.ne 
+		color: #D2413A 
+		font-weight: bold 
+	.nf 
+		color: #0000FF 
+	.nl 
+		color: #A0A000 
+	.nn 
+		color: #0000FF 
+		font-weight: bold 
+	.nt 
+		color: #008000 
+		font-weight: bold 
+	.nv 
+		color: #19177C 
+	.ow 
+		color: #AA22FF 
+		font-weight: bold 
+	.w 
+		color: #bbbbbb 
+	.mb 
+		color: #666666 
+	.mf 
+		color: #666666 
+	.mh 
+		color: #666666 
+	.mi 
+		color: #666666 
+	.mo 
+		color: #666666 
+	.sa 
+		color: #BA2121 
+	.sb 
+		color: #BA2121 
+	.sc 
+		color: #BA2121 
+	.dl 
+		color: #BA2121 
+	.sd 
+		color: #BA2121 
+		font-style: italic 
+	.s2 
+		color: #BA2121 
+	.se 
+		color: #BB6622 
+		font-weight: bold 
+	.sh 
+		color: #BA2121 
+	.si 
+		color: #BB6688 
+		font-weight: bold 
+	.sx 
+		color: #008000 
+	.sr 
+		color: #BB6688 
+	.s1 
+		color: #BA2121 
+	.ss 
+		color: #19177C 
+	.bp 
+		color: #008000 
+	.fm 
+		color: #0000FF 
+	.vc 
+		color: #19177C 
+	.vg 
+		color: #19177C 
+	.vi 
+		color: #19177C 
+	.vm 
+		color: #19177C 
+	.il
+		color: #666666
+
+// Superfences Tab
+.tabbed-set
+  display: flex
+  flex-wrap: wrap
+  label
+    cursor: pointer
+    padding: 0.5em
+    margin-right: 0.2em
+    background: #f8f8f8
+    border-radius: 0.5em 0.5em 0 0
+    border: 0.05em solid
+    border-bottom: 0
+  .tabbed-content, input
+    display: none
+  .tabbed-content
+    order: 10
+  input:checked + label
+    font-weight: bold
+    text-decoration: underline
+  input:checked + label + .tabbed-content
+    display: block
+
+.footer
+  text-align: center
+  line-height: 2em
+  height: 2em
+  clear: both
+  padding: 1%
+  height: 100%
+  box-shadow: $content-ingrow
+  background: $content-bg
+
+.site-navigation
+  margin-left: auto
+  margin-right: 0.2em
+  color: $font-color
+  list-style-type: none
+  @media screen and ( max-width: $middle-smallest-wide )
+    margin-right: auto
+    margin-bottom: 0.2em
+    width: 50%
+    padding-left: 1em
+    text-align: center
+  @media screen and ( min-width: $middle-wide )
+    margin-right: 1vw
+  li
+    float: left
+    font-size: 1.2em
+    margin: 0 15px 0 0
+    @media screen and ( max-width: $middle-smallest-wide )
+      float: none
+      font-size: 16px
+      line-height: 33px
+      border-top: 1px dotted
+      border-bottom: 1px dotted
+    @media screen and ( min-width: $middle-wide )
+      margin: 0 1vw 0 0
+    a
+      color: $font-color
+      text-decoration: none
+    a:hover
+      text-decoration: underline
+    a.nuxt-link-active
+      font-weight: bold
+      text-decoration: none
+    a.nuxt-link-exact-active
+      text-decoration: underline
+  li + li
+    @media screen and ( max-width: $middle-smallest-wide )
+      border-bottom: 1px dotted
+      border-top: 0
+
+.nav-box-list
+  margin-bottom: 2%
+  display: block
+  overflow: auto
+  @media screen and ( max-width: $middle-small-wide )
+    margin-bottom: 4%
+  @media screen and ( max-width: $middle-smallest-wide )
+    margin-bottom: 6%
+
+.nav-box
+  width: 31.3%
+  box-shadow: 0.2em 0.2em 0.4em $font-color
+  position: relative
+  float: left
+  margin: 1%
+  background-size: 100% auto !important
+  border-radius: 5px
+  @media screen and ( max-width: $middle-smaller-wide )
+    width: 47.9%
+  div
+    // padding: 40% 0
+    position: absolute
+    top: 0
+    display: table
+    width: 100%
+    height: 100%
+    margin: auto
+    font-size: 2em
+    text-align: center
+    @media screen and ( max-width: $middle-smaller-wide )
+      font-size: 1.2em
+      line-height: 1.2
+    span
+      height: 100%
+      display: table-cell
+      vertical-align: middle
+
+.nav-box:after
+  display: block
+  content: ""
+  padding-bottom: 100%
+
+$nav-text-outgrow: 0.1em 0.1em 0.2em
+// $nav-box-dark-nor: rgba(255, 255, 255, 0.2)
+$nav-box-light-nor: rgba(0, 0, 0, 0.2)
+
+.dark
+  color: $nav-box-light
+  text-shadow: $nav-box-dark $nav-text-outgrow
+  background: $nav-box-light-nor
+.dark:hover
+  background: $nav-box-light-tran
+// .light
+//   color: $nav-box-dark
+//   text-shadow: $nav-box-light $nav-text-outgrow
+//   background: $nav-box-dark-nor
+// .light:hover
+//   background: $nav-box-dark-tran
+
+.terminal
+  background: url($terminal-svg)
+
+.browser
+  background: url($browser-svg)
+
+.about
+  background: url($about-svg)
+
+.email
+  background: url($mail-svg)
+
+.panic
+  background: url($panic-svg)
+
+.tags
+  background: url($tags-svg)
+
+.pokemon
+  background: url($pokemon-svg)
+
+.center-item
+  margin-left: auto
+  margin-right: auto
+
+.t-right
+  text-align: right
+
+
+.clickable
+  cursor: pointer
+
+// article page
+
+.fade-enter-active, .fade-leave-active
+  transition: opacity .3s
+.fade-enter, .fade-leave-to
+  opacity: 0
+
+.comment-root
+  display: flex
+  flex-direction: column
+  .comment
+    border-top: 0.05em solid
+    display: flex
+    word-break: break-all
+    @media screen and ( max-width: $middle-smallest-wide )
+      flex-direction: row
+  .avatar
+    width: 7em
+    float: left
+    display: block
+    margin: 1em 1em 1em 0
+    @media screen and ( max-width: $middle-smallest-wide )
+      width: 4em
+      margin: .5em
+      float: none
+    img, svg.anonymous, svg.author
+      width: 70%
+      float: left
+    svg
+      fill: $font-color
+    div.num
+      width: 20%
+      float: right
+      text-align: center
+      @media screen and ( max-width: $middle-smallest-wide )
+        line-height: 1.3
+        margin-top: -0.4em
+      svg
+        width: 100%
+        height: 30%
+      svg.up
+        margin-bottom: -0.1em
+      svg.down
+        margin-top: 0.1em
+      svg:hover
+        fill: #fff
+        background-color: $font-color
+        cursor: pointer
+  .content
+    flex: 1
+    .text pre code
+      display: block
+      padding: 0.5em
+      overflow: auto
+    .information
+      margin: 0.6em 0
+      word-wrap: break-word
+      span:after
+        content: "•"
+        margin: 0 0.3em
+      span:last-child:after
+        content: ""
+      .author
+        font-weight: bold
+
+
+
+article#isso-thread
+  padding: 3%
+  *
+    -webkit-box-sizing: border-box
+    -moz-box-sizing: border-box
+    box-sizing: border-box
+  @media screen and ( max-width: $middle-small-wide )
+    padding: 5%
+  @media screen and ( max-width: $middle-smallest-wide )
+    padding: 7%
+
+  >
+    h4
+      color: #555
+      font-weight: bold
+      margin-top: 0
+      margin-bottom: 1%
+  .com-section, .reply-section, .edit-section
+    display: flex
+    flex-direction: column
+  .reply-section, .edit-section
+    border-top: 0.05em solid
+  textarea.comment-content, input.commenter-name, input.commenter-email, input.commenter-website
+    width: 100%
+    background: transparent
+    border: 0.05em solid
+    margin-bottom: 1em
+    font-size: 0.95em
+    font-family: inherit
+    padding: 0.4em
+  div.submit-field
+    margin-bottom: 1em
+  button[type='submit']
+    background: transparent
+    border: 0.05em solid
+    font-size: 0.95em
+    font-family: inherit
+    padding: 0.4em
+    float: right
+  .error
+    color: red
+
+.text-center
+  text-align: center

@@ -2,14 +2,7 @@
 <div>
   <div class="post-flex">
     <transition name="fade">
-      <article class="post-nav" v-if="nav">
-        <h1>Table of Contents</h1>
-        <ul>
-          <nuxt-link v-for="link in links" :to="link.link" :key="link.link" :class="active && active.link == link.link ? 'nuxt-nav-active' : ''">
-            <li v-html="link.title"></li>
-          </nuxt-link>
-        </ul>
-      </article>
+      <post-side-nav />
     </transition>
     <post :title="title" :date="date" :modified="modified" :tags="tags">
       <slot></slot>
@@ -24,15 +17,9 @@
 <script>
 const Post = () => import("~/components/Post")
 const Isso = () => import('~/components/Isso')
+const PostSideNav = () => import("~/components/PostSideNav")
 export default {
   props: ['title', 'date', 'modified', 'slug', 'tags', 'summary', 'ogimage', 'category'],
-  data() {
-    return {
-      nav: false,
-      links: [],
-      active: null
-    }
-  },
   head() {
     const siteTitle = this.$store.state.siteTitle,
     description = this.summary ? this.summary.replace('<br>', ' ') : '',
@@ -52,74 +39,17 @@ export default {
       ]
     }
   },
-  watch: {
-    'html': 'contentUpdated'
-  },
   components: {
     Post,
-    Isso
-  },
-  methods: {
-    addListeners() {
-      this.processTitles()
-    },
-    processTitles() {
-      // console.log(this.$el)
-      const titles = this.$el.getElementsByTagName("h2")
-      if (titles.length > 0) {
-        for (const title of titles) {
-          this.links.push({link: `#${title.id}`, title: `${title.innerHTML}`})
-        }
-        this.nav = true
-        // add a listenner to this.$router.push on the position when it's there
-        document.addEventListener('scroll', this.addActive)
-      }
-    },
-    addActive(event) {
-      for (const link of this.links) {
-        const dis = document.getElementById(link.link.replace('#','')).getBoundingClientRect().top
-        let height = 50
-        if (getComputedStyle(document.getElementsByTagName('nav')[0]).position === "sticky") {
-          let navHeight = document.getElementsByTagName('nav')[0].clientHeight
-          if (Math.abs(dis - navHeight) <= height) {
-            this.active = link
-          }
-        } else if (Math.abs(dis) <= height) {
-          this.active = link
-        }
-      }
-      // const body = document.body,
-      // bottom_title = this.links[this.links.length-1],
-      // bottom_title_current = this.$route.fullPath.search(bottom_title.link),
-      // isso_current = this.$route.fullPath.search('#isso-thread')
-      // if (window.pageYOffset + window.innerHeight >= body.offsetHeight && !(bottom_title_current+1) && !(isso_current)) {
-      //   this.$router.push(bottom_title.link)
-      // } 
-    },
-    destroyListeners() {
-      if (this.links.length) {
-        this.nav = false
-        // destroy the listener
-        document.removeEventListener('scroll', this.addActive)
-      }  
-    },
-    contentUpdated() {
-      this.destroyListeners()
-      this.$nextTick(() => {
-        this.addListeners()
-      })
-    }
+    Isso,
+    PostSideNav
   },
   mounted() {
-    this.$nextTick(this.addListeners)
     if (this.$route.hash.search('#isso-')+1) {
       setTimeout(() => {
         scrollTo({top: document.getElementById(this.$route.hash.replace('#', '')).offsetTop, behavior: 'smooth'})
       }, 1)
     }
-  },
-  beforeDestroy() {
-    this.destroyListeners()
   }
 }
 </script>
