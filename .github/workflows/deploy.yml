@@ -39,7 +39,7 @@ jobs:
 
     - name: deploy
       uses: peaceiris/actions-gh-pages@v3
-      env:
+      with:
         deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
         external_repository: SnorlaxYum/SimputerSiteOnline
         publish_branch: main
