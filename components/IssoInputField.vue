@@ -12,7 +12,7 @@
             button(type="submit" @click="submit(content, name, email, website, parent, notification)") Submit
 </template>
 <script>
-const TurndownService = () => import('turndown')
+import TurndownService from 'turndown'
 export default {
   data() {
     let oldcon = this.oldcontent
