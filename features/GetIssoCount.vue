@@ -1,6 +1,5 @@
-<script lang="ts">
-import Vue from 'vue'
-export default Vue.extend({
+<script>
+export default {
   methods: {
     async query_comment_numbers() {
       let slugs = []
@@ -25,5 +24,5 @@ export default Vue.extend({
   mounted() {
     this.$nextTick(this.query_comment_numbers)
   }
-})
+}
 </script>

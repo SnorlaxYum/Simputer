@@ -11,10 +11,9 @@
                 span Receive Email Notifications
             button(type="submit" @click="submit(content, name, email, website, parent, notification)") Submit
 </template>
-<script lang="ts">
-import Vue from 'vue'
-import TurndownService from 'turndown'
-export default Vue.extend({
+<script>
+const TurndownService = () => import('turndown')
+export default {
   data() {
     let oldcon = this.oldcontent
     if (oldcon) {
@@ -58,5 +57,5 @@ export default Vue.extend({
   beforeDestroy() {
     this.destroyListener()
   }
-})
+}
 </script>

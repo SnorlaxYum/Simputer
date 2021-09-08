@@ -6,14 +6,13 @@
     foot
 </template>
 
-<script lang="ts">
-import Vue from 'vue'
+<script>
 import TopNavError from '~/components/TopNavError'
-import SiteContainer from '~/components/SiteContainer'
-import Contents from '~/components/Contents'
-import Foot from '~/components/Foot'
-import SiteInfo from '~/data/SiteInfo'
-export default Vue.extend({
+const SiteContainer = () => import('~/components/SiteContainer')
+const Contents = () => import('~/components/Contents')
+const Foot = () => import('~/components/Foot')
+
+export default {
   components: {
     TopNavError,
     SiteContainer,
@@ -22,9 +21,20 @@ export default Vue.extend({
   },
   data() {
     return {
+      siteTitle: this.$store.state.siteTitle,
       topnav: true
     }
   },
-  mixins: [SiteInfo]
-})
+  head() {
+    return {
+        titleTemplate: '%s - ' + this.$store.state.siteTitle,
+        link: [
+            {
+                rel: 'preconnect',
+                href: 'https://isso.snorl.ax'
+            }
+        ]
+    }
+  }
+}
 </script>

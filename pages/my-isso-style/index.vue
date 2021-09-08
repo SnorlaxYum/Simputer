@@ -20,9 +20,8 @@ article.page
         | Hope the way I tango with Isso helps u!
 </template>
 
-<script lang="ts">
-import Vue from 'vue'
-export default Vue.extend({
+<script>
+export default ({
     data() {
         return {title: "My isso Style"}
     },

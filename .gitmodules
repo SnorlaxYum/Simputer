@@ -1,3 +1,6 @@
 [submodule "media"]
 	path = media
 	url = github.com:SnorlaxYum/snorlaxyum.github.io.git
+[submodule "markdown2vue"]
+	path = markdown2vue
+	url = git@github.com:SnorlaxYum/md2vueBlog.git

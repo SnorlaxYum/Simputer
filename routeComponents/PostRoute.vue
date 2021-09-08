@@ -1,45 +1,36 @@
-<template lang="pug">
-  div
-    div.post-flex
-      transition(name="fade")
-        article.post-nav(v-if="nav")
-          h1 Table of Contents
-          ul
-            nuxt-link(v-for="link in links" :to="link.link" :key="link.link" :class="active && active.link == link.link ? 'nuxt-nav-active' : ''")
-              li(v-html="link.title")
-      post(
-        :title="title"
-        :date="date"
-        :modified="modified"
-        :tags="tags"
-        :content="html"
-      )
-    client-only
-      isso(:title="title" :slug="slug")
+<template>
+<div>
+  <div class="post-flex">
+    <transition name="fade">
+      <article class="post-nav" v-if="nav">
+        <h1>Table of Contents</h1>
+        <ul>
+          <nuxt-link v-for="link in links" :to="link.link" :key="link.link" :class="active && active.link == link.link ? 'nuxt-nav-active' : ''">
+            <li v-html="link.title"></li>
+          </nuxt-link>
+        </ul>
+      </article>
+    </transition>
+    <post :title="title" :date="date" :modified="modified" :tags="tags">
+      <slot></slot>
+    </post>
+  </div>
+  <client-only>
+    <isso :title="title" :slug="slug"></isso>
+  </client-only>
+</div>
 </template>
 
 <script>
-import Vue from 'vue'
-import Post from "~/components/Post"
-import Isso from '~/components/Isso'
-export default ({
-  async asyncData({ params, error, route }) {
-    const target = await import(`~/posts/${params.cat}/${params.slug}.json`).then(mod => mod.default)
-    if (
-      target
-    ) {
-      target['modified'] = target['modified'] ? target['modified'] : false
-      return target
-    } else {
-      return error({ message: "Page not found", statusCode: 404 })
-    }
-  },
+const Post = () => import("~/components/Post")
+const Isso = () => import('~/components/Isso')
+export default {
+  props: ['title', 'date', 'modified', 'slug', 'tags', 'summary', 'ogimage', 'category'],
   data() {
     return {
       nav: false,
       links: [],
-      active: null,
-      slug: this.$route.fullPath
+      active: null
     }
   },
   head() {
@@ -47,7 +38,7 @@ export default ({
     description = this.summary ? this.summary.replace('<br>', ' ') : '',
     siteUrl = this.$store.state.siteUrl,
     thisUrl = siteUrl + this.$route.fullPath
-    let image_path = this.ogimage ? this.ogimage : '/images/og/default.webp'
+    let image_path = this.ogimage
     image_path = siteUrl + image_path
     return {
       title: `${this.title} - ${this.category}`,
@@ -130,5 +121,5 @@ export default ({
   beforeDestroy() {
     this.destroyListeners()
   }
-})
+}
 </script>

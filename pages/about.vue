@@ -23,13 +23,12 @@ article.page
             | Recently I&apos;m learning the interesting framework, Nuxt.js, which is basically the SSR version of Vue.js. Well, it&apos;s made for web development.
 </template>
 
-<script lang="ts">
-import Vue from 'vue'
-export default Vue.extend({
+<script>
+export default {
   head() {
     return {
       title: "About Me"
     }
   }
-})
+}
 </script>

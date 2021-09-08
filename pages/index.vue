@@ -8,18 +8,19 @@ div
     nav-boxes(:in-site="false" :nav-list="OutNavList")
 </template>
 
-<script lang="ts">
-import Vue from 'vue'
-import NavBoxes from '~/components/NavBoxes'
-import NavList from '~/data/NavList'
-export default Vue.extend({
+<script>
+const NavBoxes = () => import('~/components/NavBoxes')
+import {InNavList, OutNavList} from '~/data/NavList'
+export default {
+  data() {
+    return {InNavList, OutNavList}
+  },
   head() {
     return {title: 'Homepage',
       link: [{ rel: 'alternate', href: `${this.$store.state.siteUrl}/atom.xml`, type: 'application/atom+xml' }]}
   },
   components: {
     NavBoxes
-  },
-  mixins: [NavList]
-})
+  }
+}
 </script>

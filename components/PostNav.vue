@@ -16,9 +16,8 @@
         nuxt-link(:to="slug+'#isso-thread'") {{comment_count(isso)}}
 </template>
 
-<script lang="ts">
-import Vue from 'vue'
-export default Vue.extend({
+<script>
+export default {
   props: [
     "title",
     "date",
@@ -66,5 +65,5 @@ export default Vue.extend({
   beforeDestroy() {
     this.removeEventListener()
   }
-})
+}
 </script>

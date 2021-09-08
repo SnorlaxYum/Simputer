@@ -35,8 +35,8 @@ article#isso-thread
   p(v-else) Be the first one to comment?
 </template>
 <script>
-import IssoComment from "~/components/IssoComment";
-import IssoInputField from "~/components/IssoInputField";
+const IssoComment = () => import("~/components/IssoComment")
+const IssoInputField = () => import("~/components/IssoInputField")
 export default {
   data() {
     return { comment: [], submit_error: null };

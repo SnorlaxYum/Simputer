@@ -7,12 +7,13 @@ nav
       nuxt-link(:to="'/' + nav.slug") {{nav.title}}
 </template>
 
-<script lang="ts">
-import Vue from 'vue'
-import NavList from "~/data/NavList";
+<script>
+import {InNavList} from "~/data/NavList"
 
-export default Vue.extend({
-  props: ["nav"],
-  mixins: [NavList]
-})
+export default {
+  data() {
+    return {InNavList}
+  },
+  props: ["nav"]
+}
 </script>

@@ -28,10 +28,9 @@ div.comment(:id="'isso-'+id")
       isso-input-field(:parent='null' :error="editError" @submit="edit" :oldcontent="text")
     slot
 </template>
-<script lang="ts">
-import Vue from 'vue'
-import IssoInputField from '~/components/IssoInputField'
-export default Vue.extend({
+<script>
+const IssoInputField = () => import('~/components/IssoInputField')
+export default {
   props: {
     id: {
       type: Number
@@ -254,5 +253,5 @@ export default Vue.extend({
   components: {
     IssoInputField
   }
-})
+}
 </script>
