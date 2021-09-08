@@ -43,13 +43,6 @@ export default {
     Post,
     Isso,
     PostSideNav
-  },
-  mounted() {
-    if (this.$route.hash.search('#isso-')+1) {
-      setTimeout(() => {
-        scrollTo({top: document.getElementById(this.$route.hash.replace('#', '')).offsetTop, behavior: 'smooth'})
-      }, 1)
-    }
   }
 }
 </script>
