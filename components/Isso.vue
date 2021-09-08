@@ -147,7 +147,7 @@ export default {
             } else {
               this.$set(this.comment, this.comment.length, res.data)
             }
-
+            scrollTo(0, document.getElementById(`isso-${res.data.id}`).offsetTop)
             let headers = res.headers["x-set-cookie"].split("; "),
               cookie = headers[0].split("=");
             this.$cookies.set(cookie[0], cookie[1], {
