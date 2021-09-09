@@ -1,7 +1,7 @@
 ---
 title: Site Migration History
 date: 2016-12-08 01:40
-modified: 2021-09-08 18:22
+modified: 2021-09-09 15:19
 author: Sim
 tags: KeyCDN, Gitlab, Github, Netlify, speed, CloudFlare, Firebase, CDN
 summary: KeyCDN → Gitlab → Github + CloudFlare → Gitlab + Netlify → Github + Cloudflare → Firebase → Cloudflare+Firebase → Cloudflare+Gitlab → Github + Cloudflare → Firebase → My VPS + CloudFlare → My VPS → Github Pages → Github + Cloudflare → Cloudflare Pages
@@ -221,7 +221,7 @@ I switched my DNS hosting to Cloudflare recently so I put Cloudflare CDN in fron
 
 ## 2021-09-06 ~ Now: Cloudflare Pages
 
-Well, it's certainly not as fast as Github Pages. I just love its unlimited claims in its Pricing tab.  
+~~Well, it's certainly not as fast as Github Pages.~~ I tested again, actually Cloudflare Pages is fast with Cloudflare enabled by default...... Also, I love its unlimited claims in its Pricing tab.  
 Anyway after using for some days, I think it's okay.  
-Another draw so far is that it seems Cloudflare Pages only support Github Integration......  
+A draw so far is that it seems Cloudflare Pages only support Github Integration......  
 It would be nice if it supports Gitlab and self-hosted Git services......
