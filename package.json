@@ -5,14 +5,11 @@
   "author": "Sim",
   "private": true,
   "scripts": {
-    "json": "python markdown2json.py",
     "dev": "nuxt",
     "build": "nuxt build",
     "clean": "rm -rf dist/*",
     "start": "nuxt start",
-    "generate": "nuxt generate",
-    "test": "jest",
-    "serve": "python -m http.server --directory dist"
+    "generate": "nuxt generate"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
@@ -29,6 +26,7 @@
     "@vue/test-utils": "^1.0.0-beta.27",
     "babel-jest": "^24.1.0",
     "jest": "^24.1.0",
+    "nuxt-vite": "^0.2.4",
     "vue-jest": "^4.0.0-0"
   }
 }
