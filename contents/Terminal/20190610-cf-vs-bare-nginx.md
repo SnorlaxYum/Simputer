@@ -40,7 +40,7 @@ I ran the tests of the old version of the last post on KeyCDN[^1], the test resu
 | Isso data 2     | 37.3 ms        | 143.823 ms | 47.2 ms | 486.3 ms |
 | Total Time     | 6.6 s        | 942.8 ms | 9.6 s | 4.3 s |
 | Total Time Without woff2     | 0.7 s | 879.7 ms | 0.6 s | 1.75 s |
-| Original result | [The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/cf-dev-amsterdam.webp) |[The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/cf-cache-amsterdam.webp) | [The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/bare-dev-amsterdam.webp) | [The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/bare-cache-amsterdam.webp) |
+| Original result | [The image](https://snorl.ax/posts/20190610-cf-vs-bare/cf-dev-amsterdam.webp) |[The image](https://snorl.ax/posts/20190610-cf-vs-bare/cf-cache-amsterdam.webp) | [The image](https://snorl.ax/posts/20190610-cf-vs-bare/bare-dev-amsterdam.webp) | [The image](https://snorl.ax/posts/20190610-cf-vs-bare/bare-cache-amsterdam.webp) |
 
 This region......Hmm...... Some occasional things happened in it multiple times. Long loading time for google fonts, slow response from Nginx cache.  
 Regardless, in this region CloudFlare won 1 score.  
@@ -62,7 +62,7 @@ Score Table:
 | Isso data 2     | 560.974 ms        | 1.1 s | 565.7 ms | 551.7 ms |
 | Total Time     | 4.4 s        | 2.8 s | 2.8 s | 2.5 s |
 | Total Time Without woff2 | 4.4 s | 2.7 s | 2.8 s | 2.5 s |
-| Original result | [The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/cf-dev-bangalore.webp) |[The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/cf-cache-bangalore.webp) | [The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/bare-dev-bangalore.webp) | [The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/bare-cache-bangalore.webp) |
+| Original result | [The image](https://snorl.ax/posts/20190610-cf-vs-bare/cf-dev-bangalore.webp) |[The image](https://snorl.ax/posts/20190610-cf-vs-bare/cf-cache-bangalore.webp) | [The image](https://snorl.ax/posts/20190610-cf-vs-bare/bare-dev-bangalore.webp) | [The image](https://snorl.ax/posts/20190610-cf-vs-bare/bare-cache-bangalore.webp) |
 
 Clearly in this region Nginx won 1 score.  
 
@@ -84,7 +84,7 @@ Score Table:
 | Isso data 2     | 602.2 ms        | 429.0 ms | 417.4 ms | 417.5 ms |
 | Total Time     | 2.9 s        | 1.7 s | 2 s | 1.4 s |
 | Total Time Without woff2 | 2.9 s | 1.67 s | 2 s | 1.4 s |
-| Original result | [The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/cf-dev-dallas.webp) |[The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/cf-cache-dallas.webp) | [The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/bare-dev-dallas.webp) | [The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/bare-cache-dallas.webp) |
+| Original result | [The image](https://snorl.ax/posts/20190610-cf-vs-bare/cf-dev-dallas.webp) |[The image](https://snorl.ax/posts/20190610-cf-vs-bare/cf-cache-dallas.webp) | [The image](https://snorl.ax/posts/20190610-cf-vs-bare/bare-dev-dallas.webp) | [The image](https://snorl.ax/posts/20190610-cf-vs-bare/bare-cache-dallas.webp) |
 
 In this region Nginx won 1 score.  
 
@@ -105,7 +105,7 @@ Score Table:
 | Isso data 2     | 101.1 ms        | 31.5 ms | 36.0 ms | 34.3 ms |
 | Total Time     | 709.1ms | 623.0 ms | 684.0 ms | 704.3 ms |
 | Total Time Without Woff2 | 644 ms | 579.7 ms | 628 ms | 557 ms |
-| Original result | [The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/cf-dev-frankfurt.webp) |[The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/cf-cache-frankfurt.webp) | [The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/bare-dev-frankfurt.webp) | [The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/bare-cache-frankfurt.webp) |
+| Original result | [The image](https://snorl.ax/posts/20190610-cf-vs-bare/cf-dev-frankfurt.webp) |[The image](https://snorl.ax/posts/20190610-cf-vs-bare/cf-cache-frankfurt.webp) | [The image](https://snorl.ax/posts/20190610-cf-vs-bare/bare-dev-frankfurt.webp) | [The image](https://snorl.ax/posts/20190610-cf-vs-bare/bare-cache-frankfurt.webp) |
 
 Nginx won 1 score.  
 
@@ -126,7 +126,7 @@ Score Table:
 | Isso data 2     | 145.9 ms | 156.5 ms | 49.5 ms | 47.0 ms |
 | Total Time     | 1 s | 879.5 ms | 749.5 ms | 641.0 ms |
 | Total Time Without Woff2 | 960 ms | 829.5 ms | 723.5 ms | 594.0 ms |
-| Original result | [The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/cf-dev-london.webp) |[The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/cf-cache-london.webp) | [The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/bare-dev-london.webp) | [The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/bare-cache-london.webp) |
+| Original result | [The image](https://snorl.ax/posts/20190610-cf-vs-bare/cf-dev-london.webp) |[The image](https://snorl.ax/posts/20190610-cf-vs-bare/cf-cache-london.webp) | [The image](https://snorl.ax/posts/20190610-cf-vs-bare/bare-dev-london.webp) | [The image](https://snorl.ax/posts/20190610-cf-vs-bare/bare-cache-london.webp) |
 
 Nginx won 1 score.  
 
@@ -147,7 +147,7 @@ Score Table:
 | Isso data 2     | 415.8 ms | 614.4 ms | 458.0 ms | 413.2 ms |
 | Total Time     | 2.7 s | 1.8 s | 1.9 s | 1.4 s |
 | Total Time Without Woff2 | 2.7 s | 1.8 s | 1.9 s | 1.4 s |
-| Original result | [The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/cf-dev-miami.webp) |[The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/cf-cache-miami.webp) | [The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/bare-dev-miami.webp) | [The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/bare-cache-miami.webp) |
+| Original result | [The image](https://snorl.ax/posts/20190610-cf-vs-bare/cf-dev-miami.webp) |[The image](https://snorl.ax/posts/20190610-cf-vs-bare/cf-cache-miami.webp) | [The image](https://snorl.ax/posts/20190610-cf-vs-bare/bare-dev-miami.webp) | [The image](https://snorl.ax/posts/20190610-cf-vs-bare/bare-cache-miami.webp) |
 
 That awfully long waiting time to receive the page can't be saved by the fast speed of static cache...... Clearly Nginx won 1 score.  
 
@@ -168,7 +168,7 @@ Score Table:
 | Isso data 2     | 421.9 ms | 613.1 ms | 395.2 ms | 411.9 ms |
 | Total Time     | 2.4 s | 1.8 s | 1.7 s | 1 s |
 | Total Time Without Woff2 | 2.4 s | 1.8 s | 1.7 s | 1 s |
-| Original result | [The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/cf-dev-newyork.webp) |[The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/cf-cache-newyork.webp) | [The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/bare-dev-newyork.webp) | [The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/bare-cache-newyork.webp) |
+| Original result | [The image](https://snorl.ax/posts/20190610-cf-vs-bare/cf-dev-newyork.webp) |[The image](https://snorl.ax/posts/20190610-cf-vs-bare/cf-cache-newyork.webp) | [The image](https://snorl.ax/posts/20190610-cf-vs-bare/bare-dev-newyork.webp) | [The image](https://snorl.ax/posts/20190610-cf-vs-bare/bare-cache-newyork.webp) |
 
 CloudFlare behaved like a shit on the initial waiting time again which the impressive caching speed can't save...... Nginx won 1 score.  
 
@@ -190,7 +190,7 @@ Score Table:
 | Isso data 2     | 185.11 ms | 189.7 ms | 44.3 ms | 490.5 ms |
 | Total Time     | 1.1 s | 810.66 ms | 635.29 ms | 1.7 s |
 | Total Time Without Woff2 | 1.1 s | 755.46 ms | 569.5 ms | 1.7 s |
-| Original result | [The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/cf-dev-paris.webp) |[The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/cf-cache-paris.webp) | [The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/bare-dev-paris.webp) | [The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/bare-cache-paris.webp) |
+| Original result | [The image](https://snorl.ax/posts/20190610-cf-vs-bare/cf-dev-paris.webp) |[The image](https://snorl.ax/posts/20190610-cf-vs-bare/cf-cache-paris.webp) | [The image](https://snorl.ax/posts/20190610-cf-vs-bare/bare-dev-paris.webp) | [The image](https://snorl.ax/posts/20190610-cf-vs-bare/bare-cache-paris.webp) |
 
 Considering something occasional happened to the Nginx Cache, CloudFlare won this round.
 
@@ -211,7 +211,7 @@ Score Table:
 | Isso data 2     | 370.1 ms | 386.9 ms | 355.6 ms | 345.1 ms |
 | Total Time     | 2.4 s | 2.2 s | 1.8 s | 1.1 s |
 | Total Time Without Woff2 | 2.4 s | 2.2 s | 1.8 s | 1.093 s |
-| Original result | [The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/cf-dev-san-francisco.webp) |[The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/cf-cache-san-francisco.webp) | [The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/bare-dev-san-francisco.webp) | [The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/bare-cache-san-francisco.webp) |
+| Original result | [The image](https://snorl.ax/posts/20190610-cf-vs-bare/cf-dev-san-francisco.webp) |[The image](https://snorl.ax/posts/20190610-cf-vs-bare/cf-cache-san-francisco.webp) | [The image](https://snorl.ax/posts/20190610-cf-vs-bare/bare-dev-san-francisco.webp) | [The image](https://snorl.ax/posts/20190610-cf-vs-bare/bare-cache-san-francisco.webp) |
 
 This round something occasional happened to CloudFlare. Nginx hit Cloudflare so hard and won 1 score.  
 
@@ -233,7 +233,7 @@ Score Table:
 | Isso data 2     | 398.3 ms | 395.5 ms | 355.6 ms | 384.4 ms |
 | Total Time     | 2.4 s | 1.6 s | 1.8 s | 1.2 s |
 | Total Time Without Woff2 | 2.4 s | 1.6 s | 1.8 s | 1.18 s |
-| Original result | [The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/cf-dev-seattle.webp) |[The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/cf-cache-seattle.webp) | [The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/bare-dev-seattle.webp) | [The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/bare-cache-seattle.webp) |
+| Original result | [The image](https://snorl.ax/posts/20190610-cf-vs-bare/cf-dev-seattle.webp) |[The image](https://snorl.ax/posts/20190610-cf-vs-bare/cf-cache-seattle.webp) | [The image](https://snorl.ax/posts/20190610-cf-vs-bare/bare-dev-seattle.webp) | [The image](https://snorl.ax/posts/20190610-cf-vs-bare/bare-cache-seattle.webp) |
 
 Nginx won 1 score in a similar way as usual.  
 
@@ -254,7 +254,7 @@ Score Table:
 | Isso data 2     | 1 s | 532.8 ms | 511.5 ms | 525.3 ms |
 | Total Time     | 4.4 s | 3 s | 2.8 s | 2.5 s |
 | Total Time Without Woff2 | 4.4 s | 2.97 s | 2.8 s | 2.5 s |
-| Original result | [The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/cf-dev-singapore.webp) |[The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/cf-cache-singapore.webp) | [The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/bare-dev-singapore.webp) | [The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/bare-cache-singapore.webp) |
+| Original result | [The image](https://snorl.ax/posts/20190610-cf-vs-bare/cf-dev-singapore.webp) |[The image](https://snorl.ax/posts/20190610-cf-vs-bare/cf-cache-singapore.webp) | [The image](https://snorl.ax/posts/20190610-cf-vs-bare/bare-dev-singapore.webp) | [The image](https://snorl.ax/posts/20190610-cf-vs-bare/bare-cache-singapore.webp) |
 
 When it comes to the global speed, CloudFlare slows down it even more...... Nginx won 1 score.  
 
@@ -276,7 +276,7 @@ Score Table:
 | Isso data 2     | 491.7 ms | 1 s | 517.4 ms | 507.7 ms |
 | Total Time     | 3.5 s | 4.1 s | 2.6 s | 2.3 s |
 | Total Time Without Woff2 | 3.5 s | 4.0 s | 2.6 s | 2.3 s |
-| Original result | [The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/cf-dev-sydney.webp) |[The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/cf-cache-sydney.webp) | [The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/bare-dev-sydney.webp) | [The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/bare-cache-sydney.webp) |
+| Original result | [The image](https://snorl.ax/posts/20190610-cf-vs-bare/cf-dev-sydney.webp) |[The image](https://snorl.ax/posts/20190610-cf-vs-bare/cf-cache-sydney.webp) | [The image](https://snorl.ax/posts/20190610-cf-vs-bare/bare-dev-sydney.webp) | [The image](https://snorl.ax/posts/20190610-cf-vs-bare/bare-cache-sydney.webp) |
 
 Something occasional happened to Cloudflare again. Nginx won 1 score.  
 
@@ -297,7 +297,7 @@ Score Table:
 | Isso data 2     | 781.7 ms | 794.8 ms | 473.7 ms | 451.9 ms |
 | Total Time     | 3.2 s | 3.2 s | 2.4 s | 1.8 s |
 | Total Time Without Woff2 | 3.2 s | 3.2 s | 2.4 s | 1.8 s |
-| Original result | [The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/cf-dev-tokyo.webp) |[The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/cf-cache-tokyo.webp) | [The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/bare-dev-tokyo.webp) | [The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/bare-cache-tokyo.webp) |
+| Original result | [The image](https://snorl.ax/posts/20190610-cf-vs-bare/cf-dev-tokyo.webp) |[The image](https://snorl.ax/posts/20190610-cf-vs-bare/cf-cache-tokyo.webp) | [The image](https://snorl.ax/posts/20190610-cf-vs-bare/bare-dev-tokyo.webp) | [The image](https://snorl.ax/posts/20190610-cf-vs-bare/bare-cache-tokyo.webp) |
 
 CloudFlare cache seems not working in Tokyo? Nginx won 1 score.  
 
@@ -319,7 +319,7 @@ Score Table:
 | Isso data 2     | 398.3 ms | 629.4 ms | 395.4 ms | 404.9 ms |
 | Total Time     | 2.4 s | 1.9 s | 1.8 s | 1.2 s |
 | Total Time Without Woff2 | 2.4 s | 1.83 s | 1.8 s | 1.2 s |
-| Original result | [The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/cf-dev-toronto.webp) |[The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/cf-cache-toronto.webp) | [The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/bare-dev-toronto.webp) | [The image](https://static.snorl.ax/posts/20190610-cf-vs-bare/bare-cache-toronto.webp) |
+| Original result | [The image](https://snorl.ax/posts/20190610-cf-vs-bare/cf-dev-toronto.webp) |[The image](https://snorl.ax/posts/20190610-cf-vs-bare/cf-cache-toronto.webp) | [The image](https://snorl.ax/posts/20190610-cf-vs-bare/bare-dev-toronto.webp) | [The image](https://snorl.ax/posts/20190610-cf-vs-bare/bare-cache-toronto.webp) |
 
 Nginx won 1 score again in a usual way.  
 

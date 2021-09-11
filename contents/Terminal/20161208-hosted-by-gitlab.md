@@ -27,12 +27,12 @@ My current choice is excluded from the list, 'cause VPS itself does much more th
 
 Well the site had been hosted on KeyCDN for about weeks before I couldn't bear the waiting time for even a minor file.   
 See the result below:  
-<a href="https://static.snorl.ax/posts/keycdn1.png" title="Wait that long?"><img src="https://static.snorl.ax/posts/keycdn1-150x150.png" height="150" width="150"></a><a href="https://static.snorl.ax/posts/keycdn2.png" title="Wait that long?"><img src="https://static.snorl.ax/posts/keycdn2-150x150.png" height="150" width="150"></a><a href="https://static.snorl.ax/posts/keycdn3.png" title="Wait that long?"><img src="https://static.snorl.ax/posts/keycdn3-150x150.png" height="150" width="150"></a>  
+<a href="https://snorl.ax/posts/keycdn1.png" title="Wait that long?"><img src="https://snorl.ax/posts/keycdn1-150x150.png" height="150" width="150"></a><a href="https://snorl.ax/posts/keycdn2.png" title="Wait that long?"><img src="https://snorl.ax/posts/keycdn2-150x150.png" height="150" width="150"></a><a href="https://snorl.ax/posts/keycdn3.png" title="Wait that long?"><img src="https://snorl.ax/posts/keycdn3-150x150.png" height="150" width="150"></a>  
 
 That lagging time is not worth the money, I decided to try on Gitlab cause there's no need to spend much on other CDNs, whose SSL support is SNI and SAN support is rather expensive.  
 
 After a while of cloning and pushing and assign SSL, I ran the tests below:  
-<a href="https://static.snorl.ax/posts/gitlab1.png" title="Much better now!"><img src="https://static.snorl.ax/posts/gitlab1-150x150.png" height="150" width="150"></a><a href="https://static.snorl.ax/posts/gitlab2.png" title="Much better now!"><img src="https://static.snorl.ax/posts/gitlab2-150x150.png" height="150" width="150"></a><a href="https://static.snorl.ax/posts/gitlab3.png" title="Despite the lagging Chinese spot, it's only 0.1 sec lower on avg time. And it defeats KeyCDN almost every spot, meaning KeyCDN sucks."><img src="https://static.snorl.ax/posts/gitlab3-150x150.png" height="150" width="150"></a>  
+<a href="https://snorl.ax/posts/gitlab1.png" title="Much better now!"><img src="https://snorl.ax/posts/gitlab1-150x150.png" height="150" width="150"></a><a href="https://snorl.ax/posts/gitlab2.png" title="Much better now!"><img src="https://snorl.ax/posts/gitlab2-150x150.png" height="150" width="150"></a><a href="https://snorl.ax/posts/gitlab3.png" title="Despite the lagging Chinese spot, it's only 0.1 sec lower on avg time. And it defeats KeyCDN almost every spot, meaning KeyCDN sucks."><img src="https://snorl.ax/posts/gitlab3-150x150.png" height="150" width="150"></a>  
 
 It's really a waste of money when it comes to KeyCDN, while Gitlab is an amazing choice, though the SSL things need manually updating on Gitlab.   
 
@@ -42,7 +42,7 @@ I've just been using Gitlab for a while and begin to love it! All I need to do i
 
 To make things better, I just used CloudFlare's CDN for it, the speed has improved dramatically, which is well worth the loss of the old browser users, meaning I am finally back to CloudFlare CDN!  
 
-<a href="https://static.snorl.ax/posts/cloudflare1.png" title="CloudFlare is AMAZING!"><img src="https://static.snorl.ax/posts/cloudflare1-150x150.png" height="150" width="150"></a><a href="https://static.snorl.ax/posts/cloudflare2.png" title="CloudFlare is AMAZING!"><img src="https://static.snorl.ax/posts/cloudflare2-150x150.png" height="150" width="150"></a><a href="https://static.snorl.ax/posts/cloudflare3.png" title="CloudFlare is AMAZING!"><img src="https://static.snorl.ax/posts/cloudflare3-150x150.png" height="150" width="150"></a>  
+<a href="https://snorl.ax/posts/cloudflare1.png" title="CloudFlare is AMAZING!"><img src="https://snorl.ax/posts/cloudflare1-150x150.png" height="150" width="150"></a><a href="https://snorl.ax/posts/cloudflare2.png" title="CloudFlare is AMAZING!"><img src="https://snorl.ax/posts/cloudflare2-150x150.png" height="150" width="150"></a><a href="https://snorl.ax/posts/cloudflare3.png" title="CloudFlare is AMAZING!"><img src="https://snorl.ax/posts/cloudflare3-150x150.png" height="150" width="150"></a>  
 
 ## 2016-12-30: Moved To Github
 

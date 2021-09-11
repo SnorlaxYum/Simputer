@@ -13,7 +13,7 @@ Uh, it's half a year or so since I last updated the Browser. I've done many thin
 
 1. Watched "The Meg", "Mission: Impossible – Fallout", "Spider-Man: Into the Spider-Verse". All of them are fierce. The third is the warmest among them. The most scary one is the first, where the meg is definitely a nightmire. About the second, I have got to say, Tom Cruise is so capable of jumping.......   
 2. Uploaded some recordings about games Pokemon Red Rescue Team[^1] and Pokemon Magikarp Jump[^2] to Youtube. I just uploaded three and they can be seen from my Twitter. I have to do some uploads 'cause my home partition is low on space.  
-  ![My home partition is low on space.](https://static.snorl.ax/posts/home_low.png)
+  ![My home partition is low on space.](https://snorl.ax/posts/home_low.png)
 3. Made a pull request to isso. The pull request[^3] is about customize the mail it sends to users and the admin address. With the branch, the language of the default template and the `"Anonymous"` can be set. Also, the mail format can be changed to `multipart`, with both `plain` and `html` part. The reviser has somewhat not replied for a while. You are welcome to try it and provide the templates (html and plain) of the language that has not been provided. Any fixes or feedbacks are also welcome.  
 4. Migrated the site from Github pages to Firebase[^4]. They are both using Fstly while the latter allows many other things like 301 redirect, cache settings. Meanwhile I have also learned more about how to use markdown. Most of the time they just get the job easily done. Maybe I'll make use of the Firebase Function once I've learned YDKJS once?
 5. Revived my suspended Twitter account. And now I take notes more frequently on it.
