@@ -1,7 +1,7 @@
 ---
 title: Site Migration History
 date: 2016-12-08 01:40
-modified: 2021-09-09 15:19
+modified: 2021-09-11 23:09
 author: Sim
 tags: KeyCDN, Gitlab, Github, Netlify, speed, CloudFlare, Firebase, CDN
 summary: KeyCDN → Gitlab → Github + CloudFlare → Gitlab + Netlify → Github + Cloudflare → Firebase → Cloudflare+Firebase → Cloudflare+Gitlab → Github + Cloudflare → Firebase → My VPS + CloudFlare → My VPS → Github Pages → Github + Cloudflare → Cloudflare Pages
@@ -225,3 +225,10 @@ I switched my DNS hosting to Cloudflare recently so I put Cloudflare CDN in fron
 Anyway after using for some days, I think it's okay.  
 A draw so far is that it seems Cloudflare Pages only support Github Integration......  
 It would be nice if it supports Gitlab and self-hosted Git services......
+
+**2021-09-11:** Found a [speedy trick](https://hostloc.com/forum.php?mod=viewthread&tid=888939&highlight=cf) on Cloudflare CDN. In short:
+
+1. enable http on the site on original server and remove https
+2. switch SSL/TLS encryption mode on Cloudflare to `Flexible`
+
+I tried downloading my pdf file, speed was capped at about 200kB/s when the mode was Full; then it jumped to about 1MB/s at the start after these changes......
