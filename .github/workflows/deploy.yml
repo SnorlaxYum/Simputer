@@ -29,19 +29,19 @@ jobs:
 
     - run: python markdown2vue/run.py
 
-    - run: npm install
+    # - run: npm install
 
-    - run: npm ci
+    # - run: npm ci
 
-    - run: npm run generate
+    # - run: npm run generate
 
-    - run: python htmlminify.py
+    # - run: python htmlminify.py
 
     - name: deploy
       uses: peaceiris/actions-gh-pages@v3
       with:
         deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
         external_repository: SnorlaxYum/SimputerSiteOnline
-        publish_branch: main
-        publish_dir: ./dist
+        publish_branch: dev
+        publish_dir: ./
         commit_message: ${{ github.event.head_commit.message }}
