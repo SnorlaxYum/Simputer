@@ -1,6 +1,6 @@
 <template lang="pug">
-a(:href="link" class="icon" target="_blank")
-  img(src="/images/feed.svg")
+nuxt-link(:to="link" class="icon")
+  img(src="/images/tags.svg")
 </template>
 <script>
 export default {

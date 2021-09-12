@@ -2,7 +2,9 @@
 div
   article.cat
     h1 {{isTag ? `Tag: ${name}` : name}}
-      feed-link(:link="atom" v-if="!isTag")
+      div.f-right
+        tags-link(link="/posts/tags")
+        feed-link(:link="atom" v-if="!isTag")
   post-nav(v-for='post of posts'
             :key='post.slug'
             :category='post.category'
@@ -17,12 +19,14 @@ div
 <script>
 const PostNav = () => import("~/components/PostNav");
 const FeedLink = () => import("~/components/FeedLink");
+const TagsLink = () => import("~/components/TagsLink")
 
 export default {
   props: ["name", "atom", "posts", "isTag"],
   components: {
     PostNav,
-    FeedLink
+    FeedLink,
+    TagsLink
   },
   head() {
     if(this.isTag) {

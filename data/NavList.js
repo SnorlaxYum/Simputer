@@ -4,8 +4,6 @@ export const OutNavList = [
     { title: "Gaming At The Simputer", description: "My u2b channel about Gaming.", id: 'pokemon', textcontainer: 'dark', link: 'https://www.youtube.com/channel/UCnqOLMtPJaqa7e_6FhZ8-rw'},
 ]
 export const InNavList = [
-    {title: 'Terminal', description: 'Where I talk something about servers or codes.', slug: 'terminal', textcontainer: 'dark' },
-    {title: "Browser", description: 'Where there are something about my life.', slug: 'browser', textcontainer: 'dark' },
-    {title: "Tags", description: "The Tags", slug: 'tags', textcontainer: 'dark'},
+    {title: 'Posts', description: 'Where I post things.', slug: 'posts', textcontainer: 'dark' },
     {title: "About", description: "About me.", slug: 'about', textcontainer: 'dark'}
 ]

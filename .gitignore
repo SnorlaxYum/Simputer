@@ -105,9 +105,6 @@ static/*/atom.xml
 static/*/.rss
 *.pyc
 
-# submodules
-media
-
 # posts
 posts
 pages/browser
