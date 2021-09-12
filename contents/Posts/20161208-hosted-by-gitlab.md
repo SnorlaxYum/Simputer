@@ -1,7 +1,7 @@
 ---
 title: Site Migration History
 date: 2016-12-08 01:40
-modified: 2021-09-11 23:09
+modified: 2021-09-12 21:09
 author: Sim
 tags: KeyCDN, Gitlab, Github, Netlify, speed, CloudFlare, Firebase, CDN
 summary: KeyCDN → Gitlab → Github + CloudFlare → Gitlab + Netlify → Github + Cloudflare → Firebase → Cloudflare+Firebase → Cloudflare+Gitlab → Github + Cloudflare → Firebase → My VPS + CloudFlare → My VPS → Github Pages → Github + Cloudflare → Cloudflare Pages
@@ -231,4 +231,6 @@ It would be nice if it supports Gitlab and self-hosted Git services......
 1. enable http on the site on original server and remove https
 2. switch SSL/TLS encryption mode on Cloudflare to `Flexible`
 
-I tried downloading my pdf file, speed was capped at about 200kB/s when the mode was Full; then it jumped to about 1MB/s at the start after these changes......
+I tried downloading my pdf file, speed was capped at about 300kB/s when the mode was Full and rose slowly; then it jumped to about 1MB/s at the start after these changes......
+
+**2021-09-12:** switched SSL/TLS encryption mode back to Full (strict) again, [the speedy trick above is insecure](https://community.cloudflare.com/t/why-you-should-choose-full-strict-and-only-full-strict/286652). Tested and found out under Full encryption mode, I can reach a slightly slower speed, which is worth it considering it's more secure. Another thing is that flexible mode doesn't help TTFB...... So I guess I won't try it again, unless I need to.
