@@ -101,14 +101,3 @@ gen_list.json
 static/*.json
 static/*/*.json
 *.pyc
-
-# hmm
-static/images/about.png
-static/images/browser.png
-static/images/feed.svg
-static/images/icon.svg
-static/images/mail.png
-static/images/panic.png
-static/images/pokemon.png
-static/images/tags.png
-static/images/terminal.png
