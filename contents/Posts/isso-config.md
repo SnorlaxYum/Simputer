@@ -12,9 +12,9 @@ summary: I love it!
 
 This post is a part of __My Isso Style__ Series.
 
-1. [Installation](/terminal/2016/07/12/start-to-use-isso/)
+1. [Installation](/posts/2016/07/12/start-to-use-isso/)
 2. __Configuration__
-3. [Inside the Database](/terminal/2019/06/10/inside-the-isso-database/)
+3. [Inside the Database](/posts/2019/06/10/inside-the-isso-database/)
 
 </div>
 
@@ -99,14 +99,14 @@ For other options I haven't set u could check <a href="https://posativ.org/isso/
 
 4. In `[smtp]`:  
 
-	* `host`, `port`, `security`: the SMTP server, port and security used when a notification is sent through email. Since the isso is located in the same server as my email, the configuration works without `password`. If u want to set email service on ur server and haven't got a clue, u could check out [my post](/terminal/2018/12/27/running-email-service-on-my-own-server/).  
+	* `host`, `port`, `security`: the SMTP server, port and security used when a notification is sent through email. Since the isso is located in the same server as my email, the configuration works without `password`. If u want to set email service on ur server and haven't got a clue, u could check out [my post](/posts/2018/12/27/running-email-service-on-my-own-server/).  
 	* `from`: The sender address of the email notification.  
 	* `to`: The receiver address of the email notification for every new comments(with their moderation address if moderation is enabled).  
 	* `timeout`: Specify a timeout in seconds for blocking operations like the connection attempt.  
 
 5. In `[admin]`:
 
-	* `enabled=false` disable the administration page in `https://isso.snorl.ax/admin/`. No need to open an admin page for that while u could [look into the sqlite urself](/terminal/2019/06/10/inside-the-isso-database/).  
+	* `enabled=false` disable the administration page in `https://isso.snorl.ax/admin/`. No need to open an admin page for that while u could [look into the sqlite urself](/posts/2019/06/10/inside-the-isso-database/).  
 
 6. `[server]` block has been deleted 'cause it won't work with uwsgi.
 

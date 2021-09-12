@@ -18,8 +18,8 @@ summary: WOW......
 This post is a part of __My Isso Style__ Series.
 
 1. __Installation__
-2. [Configuration](/terminal/2019/06/10/my-isso-configuration/)
-3. [Inside the Database](/terminal/2019/06/10/inside-the-isso-database/)
+2. [Configuration](/posts/2019/06/10/my-isso-configuration/)
+3. [Inside the Database](/posts/2019/06/10/inside-the-isso-database/)
 
 </div>
 
@@ -116,7 +116,7 @@ Create `isso.conf`, the host should be ur URL (I only run the blog in SSL versio
 	[server]
 	listen = http://localhost:8001/
 
-For other things like SMTP, reply notification and gravatar, u can refer to [my config](/terminal/2019/06/10/my-isso-configuration/)
+For other things like SMTP, reply notification and gravatar, u can refer to [my config](/posts/2019/06/10/my-isso-configuration/)
 
 Exit to come back as the previous user (In my case, `sim`):  
 
@@ -361,7 +361,7 @@ Run the thing and check the status
 
 ## [Optional] CDN Integration
 
-This is not recommended though, at least Cloudflare CDN slows the loading speed globally. I recommend setting loading balancers by myself. Here's [my way to do it](/terminal/2019/06/08/doing-site-mirroring-with-nginx-on-the-same-domain/).  
+This is not recommended though, at least Cloudflare CDN slows the loading speed globally. I recommend setting loading balancers by myself. Here's [my way to do it](/posts/2019/06/08/doing-site-mirroring-with-nginx-on-the-same-domain/).  
 
 I used to use Cloudflare with my isso. Since I ran isso on uwsgi through unix socket without the use of `X-Forwarded-For`, I could get the commenter's IP directly from mail with the default configuration. So no need in doing extra config like the following.  
 

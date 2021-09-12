@@ -11,7 +11,7 @@ Since I have got two differnt servers (one in Finland, one in Los Angeles) I wan
 
 ## Basic settings
 
-I don't recommend proxying static files. Instead, upload the files to both servers and serve them directly from each server. ([My method of doing this](/terminal/2019/06/07/git-an-excellent-file-transferer/) In this way no need in putting up with the latency from fetching files......  
+I don't recommend proxying static files. Instead, upload the files to both servers and serve them directly from each server. ([My method of doing this](/posts/2019/06/07/git-an-excellent-file-transferer/) In this way no need in putting up with the latency from fetching files......  
 
 The way here only applies to a backend needing updating dynamically.  
 

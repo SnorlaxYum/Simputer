@@ -9,7 +9,7 @@ summary: Well, nowadays, more and more people says that CloudFlare sucks and slo
 
 ## Summary
 
-After doing the load balancing in the [last post](/terminal/2019/06/08/doing-site-mirroring-with-nginx-on-the-same-domain/), I pointed the domain to the CNAME record of the balancer and did some Web Speed Tests[^1].  
+After doing the load balancing in the [last post](/posts/2019/06/08/doing-site-mirroring-with-nginx-on-the-same-domain/), I pointed the domain to the CNAME record of the balancer and did some Web Speed Tests[^1].  
 
 Tried comparing the site speed with and without Clouflare CDN using an older version of that post. I have to say, Cloudflare makes the site slower with longer waiting time resulting in a longer TTFB. With the `proxy_cache` in Nginx, the site without Cloudflare CDN is generally faster. So the site is now running without Cloudflare CDN.  
 

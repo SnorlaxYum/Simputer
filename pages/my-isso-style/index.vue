@@ -9,11 +9,11 @@ article.page
                 | &quot; Series.
             ol.parts
                 li
-                    nuxt-link(to='/terminal/2016/07/12/start-to-use-isso/') Installation
+                    nuxt-link(to='/posts/2016/07/12/start-to-use-isso/') Installation
                 li
-                    nuxt-link(to='/terminal/2019/06/10/my-isso-configuration/') Configuration
+                    nuxt-link(to='/posts/2019/06/10/my-isso-configuration/') Configuration
                 li
-                    nuxt-link(to='/terminal/2019/06/10/inside-the-isso-database/') Inside the Database
+                    nuxt-link(to='/posts/2019/06/10/inside-the-isso-database/') Inside the Database
         br
         | Welcome to My Isso Style!
         br

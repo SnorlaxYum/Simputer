@@ -79,7 +79,7 @@ The following settings might be useful due to the following reasons[^2]:
 2. Brotli is made text-based file formats like HTML (included by default), plaintext, JavaScript, JSON, SVG and RSS
 3. Pre-compress the static formats so these can be served immediately for every request
 
-But it is not useful for me when I'm using `proxy_pass` to a backend from a frontend. So `brotli_static` means nothing when I fetch the files from another server. Proxying static files lowers the speed. I'd rather upload files to multiple servers ([My way of doing this via Git](/terminal/2019/06/07/git-an-excellent-file-transferer/).  
+But it is not useful for me when I'm using `proxy_pass` to a backend from a frontend. So `brotli_static` means nothing when I fetch the files from another server. Proxying static files lowers the speed. I'd rather upload files to multiple servers ([My way of doing this via Git](/posts/2019/06/07/git-an-excellent-file-transferer/).  
 
 `/etc/nginx/conf.d/default.conf`:  
 

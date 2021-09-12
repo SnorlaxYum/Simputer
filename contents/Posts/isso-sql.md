@@ -11,8 +11,8 @@ summary: Of course it's a table with threads and comments
 
 This post is a part of __My Isso Style__ Series.
 
-1. [Installation](/terminal/2016/07/12/start-to-use-isso/)
-2. [Configuration](/terminal/2019/06/10/my-isso-configuration/)
+1. [Installation](/posts/2016/07/12/start-to-use-isso/)
+2. [Configuration](/posts/2019/06/10/my-isso-configuration/)
 3. __Inside the Database__
 
 </div>
@@ -98,9 +98,9 @@ Check the contents in `isso.threads`:
 Take a glimpse of a part of them:  
 
 	id|uri|title
-	1|/terminal/2016/07/12/start-to-use-isso/|Tried ISSO and......
-	7|/terminal/2016/05/27/make-full-use-of-cloudflare/|Make full use of CloudFlare
-	9|/browser/2016/06/04/panic-at-the-disco-bohemian-rhapsody/|Panic! At The Disco - Bohemian Rhapsody
+	1|/posts/2016/07/12/start-to-use-isso/|Tried ISSO and......
+	7|/posts/2016/05/27/make-full-use-of-cloudflare/|Make full use of CloudFlare
+	9|/posts/2016/06/04/panic-at-the-disco-bohemian-rhapsody/|Panic! At The Disco - Bohemian Rhapsody
 
 It's a thread table with columns named `id`, `uri` and `title`.  
 
@@ -194,9 +194,9 @@ To check the threads:
 Take a glimpse of a part of them:  
 
 	id|uri|title
-	1|/terminal/2016/07/12/start-to-use-isso/|Tried ISSO and......
-	7|/terminal/2016/05/27/make-full-use-of-cloudflare/|Make full use of CloudFlare
-	9|/browser/2016/06/04/panic-at-the-disco-bohemian-rhapsody/|Panic! At The Disco - Bohemian Rhapsody
+	1|/posts/2016/07/12/start-to-use-isso/|Tried ISSO and......
+	7|/posts/2016/05/27/make-full-use-of-cloudflare/|Make full use of CloudFlare
+	9|/posts/2016/06/04/panic-at-the-disco-bohemian-rhapsody/|Panic! At The Disco - Bohemian Rhapsody
 
 To delete the first thread:  
 
@@ -210,13 +210,13 @@ To move the comments of the first thread to the second one:
 
 	sqlite> UPDATE isso.comments SET tid=7 WHERE tid=1;
 
-To check all the threads whose url start with `/terminal`:  
+To check all the threads whose url start with `/posts`:  
 
-	sqlite> SELECT * FROM isso.threads WHERE uri LIKE '/terminal%';
+	sqlite> SELECT * FROM isso.threads WHERE uri LIKE '/posts%';
 
-To delete all the threads whose url start with `/terminal`:  
+To delete all the threads whose url start with `/posts`:  
 
-	sqlite> DELETE FROM isso.threads WHERE uri LIKE '/terminal%';
+	sqlite> DELETE FROM isso.threads WHERE uri LIKE '/posts%';
 
 To edit the url the third thread is shown on:  
 

@@ -143,7 +143,7 @@ __2018-05-01:__ <a href="https://blog.github.com/2018-05-01-github-pages-custom-
 
 __2019-05-06:__ I switched back to Firebase. There I could have control over caching, redirects, etc. No longer rely on soft link. I'm now directly using Firebase.
 
-Just made a speed test on GTMetrix about the isso loading speed on [the article](/terminal/2018/12/27/running-email-service-on-my-own-server/):  
+Just made a speed test on GTMetrix about the isso loading speed on [the article](/posts/2018/12/27/running-email-service-on-my-own-server/):  
 
 |Area     |With CloudFlare|Bare speed|
 |---------|---------------|----------|
@@ -157,7 +157,7 @@ Just made a speed test on GTMetrix about the isso loading speed on [the article]
 
 Not faster at all. So I'll just stop CF it and make it run barely.  
 
-__2019-05-07:__ I ran a test between Firebase and bare nginx about the static file loading speed on [the article](/terminal/2018/12/27/running-email-service-on-my-own-server/):  
+__2019-05-07:__ I ran a test between Firebase and bare nginx about the static file loading speed on [the article](/posts/2018/12/27/running-email-service-on-my-own-server/):  
 
 |Area     |With Firebase  |Bare speed|With Github|
 |---------|---------------|----------|-----------|
@@ -188,7 +188,7 @@ I use it for security purpose.
 
 This site is now served by two servers without Cloudflare as a frontend.  
 (As I found out that Cloudflare CDN generally slows down the site speed).  
-Here's [the relevant results](/terminal/2019/06/10/performance-test-on-a-page-cloudflare-vs-bare-nginx/).
+Here's [the relevant results](/posts/2019/06/10/performance-test-on-a-page-cloudflare-vs-bare-nginx/).
 
 ## 2019-11-17 ~ 2020-12-01: Github Pages
 
