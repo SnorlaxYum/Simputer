@@ -102,9 +102,6 @@ static/*.json
 static/*/*.json
 *.pyc
 
-# posts
-posts
-
 # hmm
 static/images/about.png
 static/images/browser.png
