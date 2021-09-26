@@ -16,11 +16,12 @@ article.page
             WidthSettingButton(@change-width="changeWidth")
         tr
           td Table of Content Shown: 
-            input(type="checkbox") 
+            toc-toggle
 </template>
 
 <script>
 import WidthSettingButton from '../components/WidthSetting.vue'
+import TocToggle from '../components/ToCToggle.vue'
 
 export default {
   head() {
@@ -29,7 +30,8 @@ export default {
     }
   },
   components: {
-    WidthSettingButton
+    WidthSettingButton,
+    TocToggle
   },
   methods: {
     changeWidth(e) {

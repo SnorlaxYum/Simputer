@@ -1,5 +1,5 @@
 <template>
-    <article class="post-side-nav" v-show="nav">
+    <article class="post-side-nav" v-show="on && nav">
         <h1>Table of Contents</h1>
         <ul>
           <nuxt-link v-for="link in links" :level="link.level" :to="link.link" :key="link.link" :class="active && active.link == link.link ? 'nuxt-nav-active' : ''">
@@ -10,21 +10,31 @@
 </template>
 
 <script>
+const toggleImport = () => import("../features/styleSettings")
+let ToCOnGet
+
 export default {
-    props: ["links"],
-    data() {
-        return {
-            nav: false,
-            active: null
-        }
-    },
+  props: ["links"],
+  async beforeMount() {
+    if(!ToCOnGet) {
+        ToCOnGet = await toggleImport().then(({ToCOnGet}) => ToCOnGet)
+    }
+    this.on = ToCOnGet()
+  },
+  data() {
+      return {
+        on: true,
+        nav: false,
+        active: null
+      }
+  },
   watch: {
     'html': 'contentUpdated'
   },
-    mounted() {
-        this.$nextTick(this.addListeners)
-    },
-    methods: {
+  mounted() {
+      this.$nextTick(this.addListeners)
+  },
+  methods: {
     addListeners() {
       this.processTitles()
     },
@@ -62,7 +72,7 @@ export default {
         this.addListeners()
       })
     }
-    },
+  },
   beforeDestroy() {
     this.destroyListeners()
   }

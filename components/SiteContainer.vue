@@ -4,7 +4,7 @@
 </template>
 
 <script>
-const contentWidthImport = () => import("../features/widthSettingValue")
+const contentWidthImport = () => import("../features/styleSettings")
 let contentWidthGet
 
 export default {
