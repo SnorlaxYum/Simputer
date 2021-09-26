@@ -11,7 +11,6 @@ export default {
         if(!ToCOnGet) {
             ToCOnGet = await toggleImport().then(({ToCOnGet}) => ToCOnGet)
         }
-        console.log(ToCOnGet())
         this.value = ToCOnGet()
     },
 
