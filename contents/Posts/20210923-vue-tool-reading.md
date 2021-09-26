@@ -9,8 +9,8 @@ summary: Well, the code is not long. Nice for my source code reading journey.
 Thank [Ruochuan](https://lxchuan12.gitee.io) for hosting [this](https://yuque.com/ruochuan12).
 I'm never a fan of reading others' source code, now I can read with them.
 
-Project: @github:vuejs/jsx-next
-[Source Code](https://github.com/vuejs/jsx-next/packages/shared/src/index.ts)
+Project: @github:vuejs/vue-next
+[Source Code](https://github.com/vuejs/vue-next/blob/master/packages/shared/src/index.ts)
 
 ## Things in it
 
