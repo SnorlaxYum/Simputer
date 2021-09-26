@@ -1,7 +1,7 @@
 <template lang="pug">
-  site-container
+  site-container(ref="container")
     top-nav(:nav='topnav')
-    contents
+    contents(@change-width="changeWidth")
       transition(name="fade")
         nuxt
     foot
@@ -24,6 +24,12 @@ export default {
     return {
       siteTitle: this.$store.state.siteTitle,
       topnav: false
+    }
+  },
+  methods: {
+    changeWidth(e) {
+      this.$refs.container.changeWidth(e)
+      // this.$refs.container.style.width = `${e}%`
     }
   },
   watch: {

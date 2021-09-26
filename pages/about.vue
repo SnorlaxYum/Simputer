@@ -9,25 +9,31 @@ article.page
           td Sim
         tr
           td Languages
-          td Html, CSS, Javascript, Golang, Python, Shell Script
+          td Html, CSS, Javascript, Golang, Python, Shell Script, etc
         tr
-          td Tools
-          td Visual Studio Code, Gimp, Vim
+          td(rowspan="2") Site Style Setting
+          td Width: 
+            WidthSettingButton(@change-width="changeWidth")
         tr
-          td System
-          td
-            | On my laptop, Arch Linux is my day-to-day system, Windows 10 is there in case that I need it (which is rare). Debian is my server system.
-        tr
-          td Status
-          td
-            | Recently I&apos;m learning the interesting framework, Nuxt.js, which is basically the SSR version of Vue.js. Well, it&apos;s made for web development.
+          td Table of Content Shown: 
+            input(type="checkbox") 
 </template>
 
 <script>
+import WidthSettingButton from '../components/WidthSetting.vue'
+
 export default {
   head() {
     return {
       title: "About Me"
+    }
+  },
+  components: {
+    WidthSettingButton
+  },
+  methods: {
+    changeWidth(e) {
+      this.$parent.$parent.$emit('change-width', e);
     }
   }
 }
