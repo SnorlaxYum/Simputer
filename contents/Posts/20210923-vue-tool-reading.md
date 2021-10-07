@@ -2,7 +2,7 @@
 title: Code Reading - Shared Tool in vue-next
 date: 2021-09-24 18:09
 author: Sim
-tags: Javascript, vue, vue-next
+tags: Javascript, vue, vue-next, node
 summary: Well, the code is not long. Nice for my source code reading journey.
 ---
 
@@ -382,3 +382,4 @@ ex. used in `packages/runtime-core/src/renderer.ts` to add required props and va
 1. sometimes caching necessary for getting the required values, (ex. `_globalThis`, `cacheStringFunction`)
 2. though we have things declared in the default js, it's nice to store them into shortcut variables for our own convenience
 3. `Object.is` is an excellent alternative to `===`, with the additional condition judging if the given 0s have the same sign
+4. I guess this tool can be really utilized when I need something like type assertion, camleization in my application
