@@ -10,7 +10,7 @@ summary: Hmm, it's frequently shown but I didn't really grasp it. So maybe I nee
 
 ### Bubble Sort
 
-![](/posts/2021-09-30-10-48-13.png)
+![](https://snorl.ax/posts/2021-09-30-10-48-13.png)
 
 Worst complexity: n^2^
 Average complexity: n^2^
@@ -20,7 +20,7 @@ Stable: Yes
 
 ### Selection Sort
 
-![](/posts/2021-09-30-10-49-01.png)
+![](https://snorl.ax/posts/2021-09-30-10-49-01.png)
 
 Worst complexity: n^2^
 Average complexity: n^2^
@@ -30,7 +30,7 @@ Stable: No
 
 ### Insertion Sort
 
-![](/posts/2021-09-30-11-17-48.png)
+![](https://snorl.ax/posts/2021-09-30-11-17-48.png)
 
 Worst complexity: n^2^
 Average complexity: n^2^
@@ -39,7 +39,7 @@ Space complexity: 1
 
 ### Quicksort
 
-![](/posts/2021-10-01-14-57-43.png)
+![](https://snorl.ax/posts/2021-10-01-14-57-43.png)
 (Picture from [Techie Delight](https://www.techiedelight.com/quicksort/))
 
 Worst complexity: n^2^
@@ -67,7 +67,7 @@ Insertion Sort is actually faster than Quicksort for a best-case scenario. Howev
 
 ### Overview
 
-![](/posts/2021-10-01-15-13-14.png)
+![](https://snorl.ax/posts/2021-10-01-15-13-14.png)
 
 Hmm, I've only seen 4 methods in the referenced guide[^1]. So maybe I'll check others out later.......
 

@@ -27,14 +27,14 @@ vue create vue3-project
 ++f12++ for the dev tool.
 Switch to `Vue` tab, then open the component in editor.
 
-![](/posts/2021-10-07-19-29-47.png)
+![](https://snorl.ax/posts/2021-10-07-19-29-47.png)
 
 Then a component is opened in my vscode editor.
 
 ## What happened
 
 A GET request was issued to `/__open-in-editor?file=src/components/HelloWorld.vue`, as is shown in the pic:
-![](/posts/2021-10-07-19-31-27.png)
+![](https://snorl.ax/posts/2021-10-07-19-31-27.png)
 
 ### GET API logic
 
