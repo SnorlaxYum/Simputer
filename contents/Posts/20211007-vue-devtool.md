@@ -131,7 +131,7 @@ The `launch` is imported from the package `launch-editor`.
 
 #### `node_modules/launch-editor/index.js`
 
-```{js hl_lines="20-37 50-60 65 80 82"}
+```{js hl_lines="20-37 50-60 65 78 80"}
 /**
  * Copyright (c) 2015-present, Facebook, Inc.
  *
